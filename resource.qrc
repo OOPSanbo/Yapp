@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file>res/sprites.png</file>
+        <file>res/1.png</file>
+        <file>res/map.png</file>
+        <file>res/img/pacman/0.png</file>
+        <file>res/img/pacman/1.png</file>
+        <file>res/img/pacman/2.png</file>
+        <file>res/img/item/dot.png</file>
+        <file>res/img/item/pellet.png</file>
     </qresource>
 </RCC>
