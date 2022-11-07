@@ -16,7 +16,7 @@ GraphicEngine::GraphicEngine(QWidget *parent)
 
   scene = new QGraphicsScene(0, 0, sceneWidth - 2, sceneHeight - 2);
   scene->setBackgroundBrush(
-      QPixmap(":/res/map.png").scaledToWidth(sceneWidth - 2));
+      QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth - 2));
   ui->graphicsView->setScene(scene);
 
   DrawDebugGrid();
