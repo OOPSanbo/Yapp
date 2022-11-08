@@ -1,6 +1,8 @@
 #ifndef MAZE_H
 #define MAZE_H
 
+#include "direction.h"
+
 #include <QGraphicsPixmapItem>
 #include <QObject>
 
@@ -10,14 +12,15 @@
 class Maze : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
 private:
-  const unsigned int width = 28;
-  const unsigned int height = 31;
+  const int width = 28;
+  const int height = 31;
   QList<QList<int>> map;
-  QList<QPixmap> sprites[4];
+  bool CheckBound(QPoint pos);
+  bool CheckWall(QPoint pos);
 
 public:
   Maze();
-  bool CanMove();
+  bool CanMove(QPoint pos, QPoint dir);
   QList<QPoint> WhereAreDots();
   QList<QPoint> WhereArePellets();
 };

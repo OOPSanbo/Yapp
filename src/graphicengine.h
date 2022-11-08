@@ -27,6 +27,7 @@ public:
   void LoadCharacterUI(Character *character);
   void LoadItemUI(Item *item);
   void DrawDebugGrid();
+  int GetGridSize();
 
 private:
   Ui::MainWindow *ui;
@@ -34,6 +35,7 @@ private:
   const int sceneWidth = 560;
   const int sceneHeight = 705;
   const int sceneStartX = 0; // maybe never used
+public:
   const int sceneStartY = 42;
   const int gridSize = 20;
 };

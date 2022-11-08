@@ -7,6 +7,7 @@
 #include <QWidget>
 
 #include "character.h"
+#include "maze.h"
 
 class Pacman : public Character {
   Q_OBJECT
@@ -17,10 +18,11 @@ private:
 
 public:
   QList<QPixmap> pic;
-  Pacman();
+  Pacman(QPoint pos, QPoint direction);
   ~Pacman();
 
 public slots:
-  void SwitchAnimate();
+  void Animate();
+  void Move(Maze *maze);
 };
 #endif // PACMAN_H

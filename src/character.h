@@ -6,21 +6,21 @@
 #include <QObject>
 #include <QString>
 
-enum eDirection { Up, Down, Left, Right };
+#include "maze.h"
 
 class Character : public QObject, public QGraphicsPixmapItem {
 protected:
   const QString name;
-  QPointF pos;
-  eDirection direction;
+  QPoint pos;
+  QPoint direction;
 
 public:
   Character();
-  QPointF getPos();
-  // virtual void SetDirection() = 0;
+  Character(QPoint pos, QPoint direction);
+  QPoint GetPos();
 public slots:
-  virtual void SwitchAnimate() = 0;
-  // virtual void NextSprite() = 0;
+  virtual void Animate() = 0;
+  virtual void Move(Maze *maze) = 0;
 };
 
 #endif // CHARACTER_H
