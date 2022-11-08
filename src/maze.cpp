@@ -67,8 +67,8 @@ Maze::Maze() {
 
 QList<QPoint> Maze::WhereAreDots() {
   QList<QPoint> dots;
-  for (unsigned int y = 0; y < height; y++) {
-    for (unsigned int x = 0; x < width; x++) {
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
       if (map[y][x] == 1) {
         dots.append(QPoint(x, y));
       }
@@ -79,12 +79,36 @@ QList<QPoint> Maze::WhereAreDots() {
 
 QList<QPoint> Maze::WhereArePellets() {
   QList<QPoint> pellets;
-  for (unsigned int y = 0; y < height; y++) {
-    for (unsigned int x = 0; x < width; x++) {
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
       if (map[y][x] == 2) {
         pellets.append(QPoint(x, y));
       }
     }
   }
   return pellets;
+}
+
+bool Maze::CheckBound(QPoint pos) {
+  bool xBound = pos.x() >= 20 && pos.x() < (width - 2) * 20;
+  bool yBound = pos.y() >= 20 + 42 && pos.y() < (height - 2) * 20;
+
+  return xBound && yBound;
+}
+
+bool Maze::CheckWall(QPoint pos) {
+  bool checkLeftUpWall =
+      map[floor((pos.y() - 42) / (double)20)][floor(pos.x() / (double)20)] != 0;
+  bool checkRightDownWall =
+      map[ceil((pos.y() - 42) / (double)20)][ceil(pos.x() / (double)20)] != 0;
+
+  return checkLeftUpWall && checkRightDownWall;
+}
+
+bool Maze::CanMove(QPoint pos, QPoint direction) {
+  QPoint nextPos = pos + direction * 2;
+  if (!CheckBound(nextPos))
+    return false;
+
+  return CheckWall(nextPos);
 }

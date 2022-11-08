@@ -11,12 +11,23 @@ GraphicEngine::GraphicEngine(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  // int sceneWidth = ui->graphicsView->width() - 2;
-  // int sceneHeight = ui->graphicsView->height() - 2;
+  scene = new QGraphicsScene(0, 0, sceneWidth, sceneHeight);
+  //  QTransform old_transform = ui->graphicsView->transform();
 
-  scene = new QGraphicsScene(0, 0, sceneWidth - 2, sceneHeight - 2);
+  //  ui->graphicsView->setTransformationAnchor(QGraphicsView::NoAnchor);
+  //  old_transform.translate(0, sceneStartY);
+  //  ui->graphicsView->translate(0, sceneStartY);
+  //  ui->graphicsView->setTransform(old_transform);
+
+  //  QRectF scene_rect = scene->sceneRect();
+  //  QRectF new_scene_rect(scene_rect.x() - 0, scene_rect.y() - 42,
+  //                        scene_rect.width(), scene_rect.height());
+  //  scene->setSceneRect(new_scene_rect);
+
+  //  ui->graphicsView->setTransform(old_transform);
+
   scene->setBackgroundBrush(
-      QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth - 2));
+      QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
   ui->graphicsView->setScene(scene);
 
   DrawDebugGrid();
@@ -24,15 +35,9 @@ GraphicEngine::GraphicEngine(QWidget *parent)
 
 void GraphicEngine::LoadCharacterUI(Character *character) {
   scene->addItem(character);
-  QPointF pos = character->getPos();
-  character->setPos(pos.x() * gridSize, sceneStartY + pos.y() * gridSize);
 }
 
-void GraphicEngine::LoadItemUI(Item *item) {
-  scene->addItem(item);
-  QPoint pos = item->getPos();
-  item->setPos(pos.x() * gridSize + 6, sceneStartY + pos.y() * gridSize + 6);
-}
+void GraphicEngine::LoadItemUI(Item *item) { scene->addItem(item); }
 
 void GraphicEngine::DrawDebugGrid() {
   // vertical lines
@@ -43,5 +48,7 @@ void GraphicEngine::DrawDebugGrid() {
   for (int y = sceneStartY; y <= sceneHeight - sceneStartY; y += gridSize)
     scene->addLine(sceneStartX, y, sceneWidth - sceneStartX, y, QPen(Qt::red));
 }
+
+int GraphicEngine::GetGridSize() { return gridSize; }
 
 GraphicEngine::~GraphicEngine() { delete ui; }

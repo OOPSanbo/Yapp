@@ -24,16 +24,22 @@ public:
   void EndGame();
   ~GameEngine();
 
+private slots:
+  void PacManHandler();
+
 private:
   const int width = 600;
   const int height = 800;
 
   Maze *maze;
   Character *pacman;
-  QTimer *pacmanTimer;
+  QTimer *pacmanMoveTimer;
   QList<Item *> items;
-  DotModel dotModel;
+  // DotModel dotModel;
+  // PelletModel pelletModel;
   void InitMaze();
+  void InitItem();
+  void InitCharacter();
 };
 
 #endif // GAMEENGINE_H

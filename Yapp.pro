@@ -23,6 +23,7 @@ SOURCES += \
 
 HEADERS += \
     src/character.h \
+    src/direction.h \
     src/dot.h \
     src/dotmodel.h \
     src/gameengine.h \
