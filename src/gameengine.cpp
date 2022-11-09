@@ -34,22 +34,22 @@ void GameEngine::InitItem() {
   QPoint point;
   Item *pItem;
   foreach (point, dotPoints) {
-    pItem = new Dot(point * graphicEngine->GetGridSize() + QPoint(6, 48));
+    pItem = new Dot(point * graphicEngine->GetGridSize() + QPoint(6, 6));
     graphicEngine->LoadItemUI(pItem);
     items.append(pItem);
   }
 
   foreach (point, pelletPoints) {
-    pItem = new Pellet(point * graphicEngine->GetGridSize() + QPoint(6, 48));
+    pItem = new Pellet(point * graphicEngine->GetGridSize() + QPoint(6, 6));
     graphicEngine->LoadItemUI(pItem);
     items.append(pItem);
   }
 }
 
 void GameEngine::InitCharacter() {
-  QPoint pacmanPoint =
-      QPoint(13 * graphicEngine->GetGridSize(),
-             23 * graphicEngine->GetGridSize() + graphicEngine->sceneStartY);
+  srand(time(0));
+  QPoint pacmanPoint = QPoint(13 * graphicEngine->GetGridSize(),
+                              23 * graphicEngine->GetGridSize());
   pacman = new Pacman(pacmanPoint, Direction::Right);
 
   graphicEngine->LoadCharacterUI(pacman);

@@ -90,25 +90,22 @@ QList<QPoint> Maze::WhereArePellets() {
 }
 
 bool Maze::CheckBound(QPoint pos) {
-  bool xBound = pos.x() >= 20 && pos.x() < (width - 2) * 20;
-  bool yBound = pos.y() >= 20 + 42 && pos.y() < (height - 2) * 20;
+  bool xBound = pos.x() >= 20 && pos.x() < (width - 1) * 20;
+  bool yBound = pos.y() >= 20 && pos.y() < (height - 1) * 20;
 
   return xBound && yBound;
 }
 
 bool Maze::CheckWall(QPoint pos) {
   bool checkLeftUpWall =
-      map[floor((pos.y() - 42) / (double)20)][floor(pos.x() / (double)20)] != 0;
+      map[floor((pos.y()) / (double)20)][floor(pos.x() / (double)20)] != 0;
   bool checkRightDownWall =
-      map[ceil((pos.y() - 42) / (double)20)][ceil(pos.x() / (double)20)] != 0;
+      map[ceil((pos.y()) / (double)20)][ceil(pos.x() / (double)20)] != 0;
 
   return checkLeftUpWall && checkRightDownWall;
 }
 
 bool Maze::CanMove(QPoint pos, QPoint direction) {
-  QPoint nextPos = pos + direction * 2;
-  if (!CheckBound(nextPos))
-    return false;
-
-  return CheckWall(nextPos);
+  QPoint nextPos = pos + direction;
+  return CheckBound(nextPos) && CheckWall(nextPos);
 }

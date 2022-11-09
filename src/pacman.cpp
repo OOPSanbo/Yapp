@@ -38,9 +38,8 @@ void Pacman::Move(Maze *maze) {
   if (!(maze->CanMove(pos, direction))) {
     QList<QPoint> directions = {QPoint(1, 0), QPoint(0, 1), QPoint(-1, 0),
                                 QPoint(0, -1)}; // Right, Down, Left, Up
-    srand(time(0));
 
-    if (int(pos.y() - 42) % 20 == 0 && pos.x() % 20 == 0) {
+    if (int(pos.y()) % 20 == 0 && pos.x() % 20 == 0) {
       int randomDirection = rand() % 4;
       direction = directions[randomDirection];
       switch (randomDirection) {
@@ -64,7 +63,7 @@ void Pacman::Move(Maze *maze) {
     return;
   }
 
-  pos += direction * 2;
+  pos += direction;
   setPos(pos);
 }
 
