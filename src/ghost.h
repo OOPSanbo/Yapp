@@ -1,17 +1,15 @@
-#ifndef PACMAN_H
-#define PACMAN_H
+#ifndef GHOST_H
+#define GHOST_H
 
 #include <QList>
 #include <QObject>
 #include <QPixmap>
 #include <QWidget>
-#include <QKeyEvent>
-#include <QObject>
 
 #include "character.h"
 #include "maze.h"
 
-class Pacman : public Character {
+class Ghost : public Character {
   Q_OBJECT
 private:
   int index;
@@ -20,12 +18,12 @@ private:
 
 public:
   QList<QPixmap> pic;
-  Pacman(QPoint pos, QPoint direction);
-  ~Pacman();
+  Ghost(QPoint pos, QPoint direction, QString ghostname);
+  ~Ghost();
 
 public slots:
-  void keyPressEvent(QKeyEvent*) ;
   void Animate();
   void Move(Maze *maze);
 };
-#endif // PACMAN_H
+
+#endif // GHOST_H

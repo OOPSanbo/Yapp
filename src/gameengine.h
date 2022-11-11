@@ -13,6 +13,7 @@
 #include "item.h"
 #include "maze.h"
 #include "pacman.h"
+#include "ghost.h"
 
 class GameEngine : QObject {
   Q_OBJECT
@@ -26,6 +27,10 @@ public:
 
 private slots:
   void PacManHandler();
+  void BlinkyHandler();
+  void ClydeHandler();
+  void InkyHandler();
+  void PinkyHandler();
 
 private:
   const int width = 600;
@@ -33,7 +38,12 @@ private:
 
   Maze *maze;
   Character *pacman;
+  Character *blinky;
+  Character *clyde;
+  Character *inky;
+  Character *pinky;
   QTimer *pacmanMoveTimer;
+  QTimer *ghostMoveTimer;
   QList<Item *> items;
   // DotModel dotModel;
   // PelletModel pelletModel;

@@ -4,6 +4,7 @@
 #include "character.h"
 #include "item.h"
 #include "pacman.h"
+#include "ghost.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsView>

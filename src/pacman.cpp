@@ -27,6 +27,27 @@ Pacman::Pacman(QPoint pos, QPoint direction)
   timer->start();
 }
 
+void Pacman::keyPressEvent(QKeyEvent *e) {
+    switch (e->key()) {
+    case Qt::Key_W:
+        direction = (Direction::Up);
+        setRotation(270);
+        break;
+    case Qt::Key_A:
+        direction = (Direction::Left);
+        setRotation(180);
+        break;
+    case Qt::Key_S:
+        direction = (Direction::Down);
+        setRotation(90);
+        break;
+    case Qt::Key_D:
+        direction = (Direction::Right);
+        setRotation(0);
+        break;
+    }
+}
+
 void Pacman::Animate() {
   setPixmap(pic[index]);
   index += add;
@@ -35,36 +56,21 @@ void Pacman::Animate() {
 }
 
 void Pacman::Move(Maze *maze) {
-  if (!(maze->CanMove(pos, direction))) {
-    QList<QPoint> directions = {QPoint(1, 0), QPoint(0, 1), QPoint(-1, 0),
-                                QPoint(0, -1)}; // Right, Down, Left, Up
-
-    if (int(pos.y()) % 20 == 0 && pos.x() % 20 == 0) {
-      int randomDirection = rand() % 4;
-      direction = directions[randomDirection];
-      switch (randomDirection) {
-      case 0:
-        setRotation(0);
-        break;
-      case 1:
-        setRotation(90);
-        break;
-      case 2:
-        setRotation(180);
-        break;
-      case 3:
-        setRotation(270);
-        break;
-      default:
-        break;
-      }
-    }
-
-    return;
+    if (!(maze->CanMove(pos, direction))) {
+        direction = QPoint(0,0);
   }
 
   pos += direction;
   setPos(pos);
+  if (pos.x() == 27*20-2 && pos.y() == 14*20){
+      pos = QPoint(20,14*20);
+      setPos(pos);
+  }
+  else if (pos.x() == 20 && pos.y() == 14 * 20){
+      pos = QPoint(26*20,14*20);
+      setPos(pos);
+  }
+
 }
 
 Pacman::~Pacman() { delete timer; }
