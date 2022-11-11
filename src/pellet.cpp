@@ -4,8 +4,7 @@
 
 Pellet::Pellet(QPoint pos) : Item::Item(pos) {
   shape = QPixmap(":/res/img/item/pellet.png");
-  shape.scaledToHeight(40);
-  setPixmap(shape);
+  setPixmap(shape.scaledToWidth(shape.size().width() * 2.5));
 }
 
 void Pellet::Eaten() {

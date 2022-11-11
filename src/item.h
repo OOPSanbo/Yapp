@@ -8,7 +8,7 @@
 class Item : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
 protected:
-
+  QPixmap shape;
   QPoint pos;
 
 public:

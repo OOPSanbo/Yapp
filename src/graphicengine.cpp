@@ -1,6 +1,6 @@
 #include "graphicengine.h"
-#include "pacman.h"
 #include "ghost.h"
+#include "pacman.h"
 #include "ui_mainwindow.h"
 #include <QGraphicsGridLayout>
 #include <QGraphicsScene>
@@ -18,7 +18,7 @@ GraphicEngine::GraphicEngine(QWidget *parent)
   scene->addPixmap(QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
   ui->graphicsView->setScene(scene);
 
-  DrawDebugGrid();
+  // DrawDebugGrid();
 }
 
 void GraphicEngine::LoadCharacterUI(Character *character) {
