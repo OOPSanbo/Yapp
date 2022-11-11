@@ -4,8 +4,7 @@
 
 Dot::Dot(QPoint pos) : Item::Item(pos) {
   shape = QPixmap(":/res/img/item/dot.png");
-  shape.scaledToHeight(40);
-  setPixmap(shape);
+  setPixmap(shape.scaledToWidth(shape.size().width() * 2.5));
 }
 
 void Dot::Eaten() {
