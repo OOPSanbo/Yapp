@@ -13,11 +13,11 @@ Ghost::Ghost(QPoint pos, QPoint direction, QString ghostname)
 
   setPos(this->pos);
 
-  this->setTransformOriginPoint(10, 10);
+  this->setTransformOriginPoint(20, 20);
 
   for (int i = 0; i < 8; i++) {
     pic.append(QPixmap(":/res/img/ghost/" + ghostname + "/" + QString::number(i) + ".png"));
-    pic[i] = pic[i].scaledToHeight(20);
+    pic[i] = pic[i].scaledToHeight(40);
   }
   setPixmap(pic[0]);
 
@@ -53,11 +53,11 @@ void Ghost::Animate() {
 }
 
 void Ghost::Move(Maze *maze) {
-  if (!(maze->CanMove(pos, direction))) {
+  if (!(maze->CanMove(pos+QPoint(10,10), direction))) {
     QList<QPoint> directions = {QPoint(1, 0), QPoint(0, 1), QPoint(-1, 0),
                                 QPoint(0, -1)}; // Right, Down, Left, Up
 
-    if (int(pos.y()) % 20 == 0 && pos.x() % 20 == 0) {
+    if (int(pos.y()) % 10 == 0 && pos.x() % 10 == 0) {
       int randomDirection = rand() % 4;
       direction = directions[randomDirection];
     }

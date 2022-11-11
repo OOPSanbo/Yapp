@@ -1,10 +1,11 @@
 #include "pellet.h"
 #include "item.h"
+#include <QPixmap>
 
 Pellet::Pellet(QPoint pos) : Item::Item(pos) {
-  shape = new QPixmap(":/res/img/item/pellet.png");
-  shape->scaledToWidth(20);
-  setPixmap(*shape);
+  shape = QPixmap(":/res/img/item/pellet.png");
+  shape.scaledToHeight(40);
+  setPixmap(shape);
 }
 
 void Pellet::Eaten() {
