@@ -1,5 +1,6 @@
 #include "graphicengine.h"
 #include "pacman.h"
+#include "ghost.h"
 #include "ui_mainwindow.h"
 #include <QGraphicsGridLayout>
 #include <QGraphicsScene>

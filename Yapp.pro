@@ -13,6 +13,7 @@ SOURCES += \
     src/dot.cpp \
     src/dotmodel.cpp \
     src/gameengine.cpp \
+    src/ghost.cpp \
     src/graphicengine.cpp \
     src/item.cpp \
     src/main.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     src/dot.h \
     src/dotmodel.h \
     src/gameengine.h \
+    src/ghost.h \
     src/graphicengine.h \
     src/item.h \
     src/mainwindow.h \

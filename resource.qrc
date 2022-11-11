@@ -5,22 +5,6 @@
         <file>res/img/pacman/2.png</file>
         <file>res/img/item/dot.png</file>
         <file>res/img/item/pellet.png</file>
-        <file>res/img/ghost/blinky/d1.png</file>
-        <file>res/img/ghost/blinky/d2.png</file>
-        <file>res/img/ghost/blinky/l1.png</file>
-        <file>res/img/ghost/blinky/l2.png</file>
-        <file>res/img/ghost/blinky/r1.png</file>
-        <file>res/img/ghost/blinky/r2.png</file>
-        <file>res/img/ghost/blinky/u1.png</file>
-        <file>res/img/ghost/blinky/u2.png</file>
-        <file>res/img/ghost/clyde/d1.png</file>
-        <file>res/img/ghost/clyde/d2.png</file>
-        <file>res/img/ghost/clyde/l1.png</file>
-        <file>res/img/ghost/clyde/l2.png</file>
-        <file>res/img/ghost/clyde/r1.png</file>
-        <file>res/img/ghost/clyde/r2.png</file>
-        <file>res/img/ghost/clyde/u1.png</file>
-        <file>res/img/ghost/clyde/u2.png</file>
         <file>res/img/ghost/eaten/d.png</file>
         <file>res/img/ghost/eaten/l.png</file>
         <file>res/img/ghost/eaten/r.png</file>
@@ -36,22 +20,6 @@
         <file>res/img/pacman/dead/8.png</file>
         <file>res/img/pacman/dead/9.png</file>
         <file>res/img/pacman/dead/10.png</file>
-        <file>res/img/ghost/inky/d1.png</file>
-        <file>res/img/ghost/inky/d2.png</file>
-        <file>res/img/ghost/inky/l1.png</file>
-        <file>res/img/ghost/inky/l2.png</file>
-        <file>res/img/ghost/inky/r1.png</file>
-        <file>res/img/ghost/inky/r2.png</file>
-        <file>res/img/ghost/inky/u1.png</file>
-        <file>res/img/ghost/inky/u2.png</file>
-        <file>res/img/ghost/pinky/d1.png</file>
-        <file>res/img/ghost/pinky/d2.png</file>
-        <file>res/img/ghost/pinky/l1.png</file>
-        <file>res/img/ghost/pinky/l2.png</file>
-        <file>res/img/ghost/pinky/r1.png</file>
-        <file>res/img/ghost/pinky/r2.png</file>
-        <file>res/img/ghost/pinky/u1.png</file>
-        <file>res/img/ghost/pinky/u2.png</file>
         <file>res/img/item/score/0.png</file>
         <file>res/img/item/score/1.png</file>
         <file>res/img/item/score/2.png</file>
@@ -73,5 +41,37 @@
         <file>res/sound/pacman_extrapac.wav</file>
         <file>res/sound/pacman_intermission.wav</file>
         <file>res/font/emulogic.ttf</file>
+        <file>res/img/ghost/blinky/0.png</file>
+        <file>res/img/ghost/blinky/1.png</file>
+        <file>res/img/ghost/blinky/2.png</file>
+        <file>res/img/ghost/blinky/3.png</file>
+        <file>res/img/ghost/blinky/4.png</file>
+        <file>res/img/ghost/blinky/5.png</file>
+        <file>res/img/ghost/blinky/6.png</file>
+        <file>res/img/ghost/blinky/7.png</file>
+        <file>res/img/ghost/pinky/0.png</file>
+        <file>res/img/ghost/pinky/1.png</file>
+        <file>res/img/ghost/pinky/2.png</file>
+        <file>res/img/ghost/pinky/3.png</file>
+        <file>res/img/ghost/pinky/4.png</file>
+        <file>res/img/ghost/pinky/5.png</file>
+        <file>res/img/ghost/pinky/6.png</file>
+        <file>res/img/ghost/pinky/7.png</file>
+        <file>res/img/ghost/clyde/0.png</file>
+        <file>res/img/ghost/clyde/1.png</file>
+        <file>res/img/ghost/clyde/2.png</file>
+        <file>res/img/ghost/clyde/3.png</file>
+        <file>res/img/ghost/clyde/4.png</file>
+        <file>res/img/ghost/clyde/5.png</file>
+        <file>res/img/ghost/clyde/6.png</file>
+        <file>res/img/ghost/clyde/7.png</file>
+        <file>res/img/ghost/inky/0.png</file>
+        <file>res/img/ghost/inky/1.png</file>
+        <file>res/img/ghost/inky/2.png</file>
+        <file>res/img/ghost/inky/3.png</file>
+        <file>res/img/ghost/inky/4.png</file>
+        <file>res/img/ghost/inky/5.png</file>
+        <file>res/img/ghost/inky/6.png</file>
+        <file>res/img/ghost/inky/7.png</file>
     </qresource>
 </RCC>
