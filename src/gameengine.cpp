@@ -49,8 +49,9 @@ void GameEngine::InitItem() {
 
 void GameEngine::InitCharacter() {
   srand(time(0));
-  QPoint pacmanPoint = QPoint(20 * graphicEngine->GetGridSize(),
-                              14 * graphicEngine->GetGridSize());
+
+  QPoint pacmanPoint = QPoint(20 * graphicEngine->GetGridSize()-10,
+                              14 * graphicEngine->GetGridSize()-10);
   pacman = new Pacman(pacmanPoint, Direction::Right);
   graphicEngine->LoadCharacterUI(pacman);
   pacmanMoveTimer = new QTimer(this);
@@ -58,26 +59,26 @@ void GameEngine::InitCharacter() {
   pacmanMoveTimer->start(10);
 
   ghostMoveTimer = new QTimer(this);
-  QPoint blinkyPoint = QPoint(14 * graphicEngine->GetGridSize(),
-                              11 * graphicEngine->GetGridSize());
+  QPoint blinkyPoint = QPoint(14 * graphicEngine->GetGridSize()-10,
+                              11 * graphicEngine->GetGridSize()-10);
   blinky = new Ghost(blinkyPoint, Direction::Left, "blinky");
   graphicEngine->LoadCharacterUI(blinky);
   connect(ghostMoveTimer, SIGNAL(timeout()), this, SLOT(BlinkyHandler()));
 
-  QPoint clydePoint = QPoint(14 * graphicEngine->GetGridSize(),
-                              14 * graphicEngine->GetGridSize());
+  QPoint clydePoint = QPoint(12 * graphicEngine->GetGridSize()-10,
+                              14 * graphicEngine->GetGridSize()-10);
   clyde = new Ghost(clydePoint, Direction::Up, "clyde");
   graphicEngine->LoadCharacterUI(clyde);
   connect(ghostMoveTimer, SIGNAL(timeout()), this, SLOT(ClydeHandler()));
 
-  QPoint inkyPoint = QPoint(15 * graphicEngine->GetGridSize(),
-                              14 * graphicEngine->GetGridSize());
+  QPoint inkyPoint = QPoint(14 * graphicEngine->GetGridSize()-10,
+                              14 * graphicEngine->GetGridSize()-10);
   inky = new Ghost(inkyPoint, Direction::Down, "inky");
   graphicEngine->LoadCharacterUI(inky);
   connect(ghostMoveTimer, SIGNAL(timeout()), this, SLOT(InkyHandler()));
 
-  QPoint pinkyPoint = QPoint(16 * graphicEngine->GetGridSize(),
-                              14 * graphicEngine->GetGridSize());
+  QPoint pinkyPoint = QPoint(16 * graphicEngine->GetGridSize()-10,
+                              14 * graphicEngine->GetGridSize()-10);
   pinky = new Ghost(pinkyPoint, Direction::Up, "pinky");
   graphicEngine->LoadCharacterUI(pinky);
   connect(ghostMoveTimer, SIGNAL(timeout()), this, SLOT(PinkyHandler()));

@@ -6,7 +6,6 @@
 #include <QPixmap>
 #include <QWidget>
 #include <QKeyEvent>
-#include <QObject>
 
 #include "character.h"
 #include "maze.h"
@@ -21,10 +20,11 @@ private:
 public:
   QList<QPixmap> pic;
   Pacman(QPoint pos, QPoint direction);
+  void keyPressEvent(QKeyEvent*);
   ~Pacman();
 
 public slots:
-  void keyPressEvent(QKeyEvent*) ;
+
   void Animate();
   void Move(Maze *maze);
 };

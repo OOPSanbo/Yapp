@@ -13,11 +13,11 @@ Pacman::Pacman(QPoint pos, QPoint direction)
 
   setPos(this->pos);
 
-  this->setTransformOriginPoint(10, 10);
+  this->setTransformOriginPoint(20, 20);
 
   for (int i = 0; i < 3; i++) {
     pic.append(QPixmap(":/res/img/pacman/" + QString::number(i) + ".png"));
-    pic[i] = pic[i].scaledToHeight(20);
+    pic[i] = pic[i].scaledToHeight(40);
   }
   setPixmap(pic[0]);
 
@@ -27,7 +27,35 @@ Pacman::Pacman(QPoint pos, QPoint direction)
   timer->start();
 }
 
+
+
+void Pacman::Animate() {
+  setPixmap(pic[index]);
+  index += add;
+  if (index >= 2 || index <= 0)
+    add = -add;
+}
+
+void Pacman::Move(Maze *maze) {
+    grabKeyboard();
+    if (!(maze->CanMove(pos+QPoint(10,10), direction))) {
+        direction = QPoint(0,0);
+  }
+  pos += direction;
+  setPos(pos);
+  if (pos.x() == 26*20 && pos.y() == 14 * 20-10){
+      pos = QPoint(20,14*20-10);
+      setPos(pos);
+  }
+  else if (pos.x() == 10 && pos.y() == 14 * 20-10){
+      pos = QPoint(26*20,14*20-10);
+      setPos(pos);
+  }
+
+}
+
 void Pacman::keyPressEvent(QKeyEvent *e) {
+
     switch (e->key()) {
     case Qt::Key_W:
         direction = (Direction::Up);
@@ -46,31 +74,6 @@ void Pacman::keyPressEvent(QKeyEvent *e) {
         setRotation(0);
         break;
     }
-}
-
-void Pacman::Animate() {
-  setPixmap(pic[index]);
-  index += add;
-  if (index >= 2 || index <= 0)
-    add = -add;
-}
-
-void Pacman::Move(Maze *maze) {
-    if (!(maze->CanMove(pos, direction))) {
-        direction = QPoint(0,0);
-  }
-
-  pos += direction;
-  setPos(pos);
-  if (pos.x() == 27*20-2 && pos.y() == 14*20){
-      pos = QPoint(20,14*20);
-      setPos(pos);
-  }
-  else if (pos.x() == 20 && pos.y() == 14 * 20){
-      pos = QPoint(26*20,14*20);
-      setPos(pos);
-  }
-
 }
 
 Pacman::~Pacman() { delete timer; }
