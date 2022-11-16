@@ -1,14 +1,14 @@
 #ifndef GRAPHICENGINE_H
 #define GRAPHICENGINE_H
 
-#include "character.h"
-#include "item.h"
-#include "pacman.h"
-#include "ghost.h"
-
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMainWindow>
+
+#include "character.h"
+#include "ghost.h"
+#include "item.h"
+#include "pacman.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,7 +21,7 @@ class GraphicEngine : public QMainWindow
 {
   Q_OBJECT
 
-public:
+ public:
   GraphicEngine(QWidget *parent = nullptr);
   Character *pacman;
   ~GraphicEngine();
@@ -30,15 +30,15 @@ public:
   void DrawDebugGrid();
   int GetGridSize();
 
-private:
+ private:
   Ui::MainWindow *ui;
   QGraphicsScene *scene;
   const int sceneWidth = 560;
-  const int sceneHeight = 705;
-  const int sceneStartX = 0; // maybe never used
-public:
-  const int sceneStartY = 42;
+  const int sceneHeight = 720;
+  const int sceneStartX = 0;  // maybe never used
+ public:
+  const int sceneStartY = 60;
   const int gridSize = 20;
 };
 
-#endif // GRAPHICENGINE_H
+#endif  // GRAPHICENGINE_H
