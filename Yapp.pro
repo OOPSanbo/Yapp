@@ -10,30 +10,42 @@ CONFIG += c++17
 
 SOURCES += \
     src/character.cpp \
+    src/demoinputcomponent.cpp \
     src/dot.cpp \
     src/dotmodel.cpp \
+    src/game.cpp \
     src/gameengine.cpp \
+    src/gameobject.cpp \
     src/ghost.cpp \
     src/graphicengine.cpp \
     src/item.cpp \
+    src/keyinputcomponent.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
     src/maze.cpp \
     src/pacman.cpp \
+    src/pacmangraphicscomponent.cpp \
+    src/pacmanphysicscomponent.cpp \
     src/pellet.cpp
 
 HEADERS += \
     src/character.h \
+    src/demoinputcomponent.h \
     src/direction.h \
     src/dot.h \
     src/dotmodel.h \
+    src/game.h \
     src/gameengine.h \
+    src/gameobject.h \
     src/ghost.h \
     src/graphicengine.h \
     src/item.h \
+    src/keyinputcomponent.h \
     src/mainwindow.h \
     src/maze.h \
     src/pacman.h \
+    src/pacmangraphicscomponent.h \
+    src/pacmanphysicscomponent.h \
     src/pellet.h
 
 FORMS += \

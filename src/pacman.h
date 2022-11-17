@@ -1,31 +1,19 @@
 #ifndef PACMAN_H
 #define PACMAN_H
 
+#include <QKeyEvent>
 #include <QList>
 #include <QObject>
 #include <QPixmap>
 #include <QWidget>
-#include <QKeyEvent>
 
-#include "character.h"
-#include "maze.h"
+#include "gameobject.h"
 
-class Pacman : public Character {
+class Pacman : public GameObject {
   Q_OBJECT
-private:
-  int index;
-  int add;
-  QTimer *timer;
 
-public:
-  QList<QPixmap> pic;
-  Pacman(QPoint pos, QPoint direction);
-  void keyPressEvent(QKeyEvent*);
-  ~Pacman();
-
-public slots:
-
-  void Animate();
-  void Move(Maze *maze);
+ public:
+  Pacman(InputComponent* input, PhysicsComponent* physics,
+         GraphicsComponent* graphics);
 };
-#endif // PACMAN_H
+#endif  // PACMAN_H
