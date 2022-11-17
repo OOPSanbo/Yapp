@@ -23,7 +23,6 @@ class GraphicEngine : public QMainWindow
 
  public:
   GraphicEngine(QWidget *parent = nullptr);
-  Character *pacman;
   ~GraphicEngine();
   void LoadCharacterUI(Character *character);
   void LoadItemUI(Item *item);

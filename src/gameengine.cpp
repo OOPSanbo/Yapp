@@ -7,6 +7,7 @@
 #include "dot.h"
 #include "ghost.h"
 #include "pacman.h"
+#include "pacmangraphicscomponent.h"
 #include "pellet.h"
 
 GameEngine::GameEngine() {
@@ -19,7 +20,10 @@ void GameEngine::StartGame() {
   InitMaze();
   InitItem();
   InitCharacter();
+  // GameLoop();
 }
+
+void GameLoop() {}
 
 void GameEngine::EndGame() {
   delete pacman;
@@ -57,11 +61,16 @@ void GameEngine::InitCharacter() {
 
   QPoint pacmanPoint = QPoint(20 * graphicEngine->GetGridSize() - 10,
                               14 * graphicEngine->GetGridSize() - 10);
-  pacman = new Pacman(pacmanPoint, Direction::Right);
-  graphicEngine->LoadCharacterUI(pacman);
-  pacmanMoveTimer = new QTimer(this);
-  connect(pacmanMoveTimer, SIGNAL(timeout()), this, SLOT(PacManHandler()));
-  pacmanMoveTimer->start(10);
+
+  QGraphicsScene *scene = new QGraphicsScene;
+
+  // GameObject *pacman = new Pacman(new PacmanGraphicsComponent(*scene));
+
+  // pacman = new Pacman(pacmanPoint, Direction::Right);
+  // graphicEngine->LoadCharacterUI(pacman);
+  // pacmanMoveTimer = new QTimer(this);
+  // connect(pacmanMoveTimer, SIGNAL(timeout()), this,
+  // SLOT(PacManHandler())); pacmanMoveTimer->start(10);
 
   ghostMoveTimer = new QTimer(this);
   QPoint blinkyPoint = QPoint(14 * graphicEngine->GetGridSize() - 10,
