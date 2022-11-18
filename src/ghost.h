@@ -6,24 +6,12 @@
 #include <QPixmap>
 #include <QWidget>
 
-#include "character.h"
-#include "maze.h"
+#include "gameobject.h"
 
-class Ghost : public Character {
+class Ghost : public GameObject {
   Q_OBJECT
-private:
-  int index;
-  int add;
-  QTimer *timer;
-
 public:
-  QList<QPixmap> pic;
-  Ghost(QPoint pos, QPoint direction, QString ghostname);
-  ~Ghost();
-
-public slots:
-  void Animate();
-  void Move(Maze *maze);
+  Ghost(InputComponent* input, PhysicsComponent* physics,
+        GraphicsComponent* graphics, QString ghostname);
 };
-
 #endif // GHOST_H

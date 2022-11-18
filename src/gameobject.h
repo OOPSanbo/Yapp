@@ -20,6 +20,7 @@ class GameObject : public QObject {
  public:
   int x;
   int y;
+  QString name;
   eDirection dir;
   eDirection nextDir;
   InputComponent* input;

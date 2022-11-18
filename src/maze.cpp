@@ -96,9 +96,17 @@ bool Maze::CheckBound(QPoint pos) {
   return xBound && yBound;
 }
 
-bool Maze::CheckWall(QPoint pos) { return map[pos.y()][pos.x()] != 0; }
+bool Maze::CheckWall(QPoint pos) {
+    bool checkLeftUpWall =
+          map[ceil((pos.y()-10) / 20)][ceil(pos.x()-10 / 20)] == 0;
+      bool checkRightDownWall =
+          map[floor((pos.y()+10) /20)][floor(pos.x()+10 / 20)] == 0;
+
+      return checkLeftUpWall && checkRightDownWall;
+    //return map[pos.y()][pos.x()] != 0;
+}
 
 bool Maze::CanMove(QPoint pos, QPoint direction) {
-  QPoint nextPos = pos + direction;
-  return CheckBound(nextPos) && CheckWall(nextPos);
+  QPoint nextPos = pos ;
+  return  CheckWall(nextPos);
 }
