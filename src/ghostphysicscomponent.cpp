@@ -1,8 +1,8 @@
-#include "pacmanphysicscomponent.h"
+#include "ghostphysicscomponent.h"
 
 #include "direction.h"
 
-QPoint PacmanPhysicsComponent::DirToPoint(eDirection direction) {
+QPoint GhostPhysicsComponent::DirToPoint(eDirection direction) {
   QPoint point;
   switch (direction) {
     case UP:
@@ -23,13 +23,13 @@ QPoint PacmanPhysicsComponent::DirToPoint(eDirection direction) {
   return point;
 }
 
-QPoint PacmanPhysicsComponent::PosToCord(QPoint point) {
-  QPoint cord = QPoint(((point.x() ) ),
-                       ((point.y() 3) ));
+QPoint GhostPhysicsComponent::PosToCord(QPoint point) {
+  QPoint cord = QPoint(floor((point.x() + 10) / (double)20),
+                       floor((point.y() + 10) / (double)20));
   return cord;
 }
 
-void PacmanPhysicsComponent::Update(GameObject& obj, Maze& maze) {
+void GhostPhysicsComponent::Update(GameObject& obj, Maze& maze) {
   QPoint pos = QPoint(obj.x, obj.y);
   QPoint nextDir = DirToPoint(obj.nextDir);
   QPoint dir = DirToPoint(obj.dir);
@@ -42,7 +42,7 @@ void PacmanPhysicsComponent::Update(GameObject& obj, Maze& maze) {
   }
 
   if (maze.CanMove(cord, dir)) {
-    obj.x += dir.x() * 10;
-    obj.y += dir.y() * 10;
+    obj.x += dir.x() * 2;
+    obj.y += dir.y() * 2;
   }
 }

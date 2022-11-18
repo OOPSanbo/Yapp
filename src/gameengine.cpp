@@ -73,7 +73,7 @@ void GameEngine::InitCharacter() {
   // SLOT(PacManHandler())); pacmanMoveTimer->start(10);
 
   ghostMoveTimer = new QTimer(this);
-  QPoint blinkyPoint = QPoint(14 * graphicEngine->GetGridSize() - 10,
+  /*QPoint blinkyPoint = QPoint(14 * graphicEngine->GetGridSize() - 10,
                               11 * graphicEngine->GetGridSize() - 10);
   blinky = new Ghost(blinkyPoint, Direction::Left, "blinky");
   graphicEngine->LoadCharacterUI(blinky);
@@ -97,7 +97,7 @@ void GameEngine::InitCharacter() {
   graphicEngine->LoadCharacterUI(pinky);
   connect(ghostMoveTimer, SIGNAL(timeout()), this, SLOT(PinkyHandler()));
 
-  ghostMoveTimer->start(10);
+  ghostMoveTimer->start(10);*/
 }
 
 void GameEngine::PacManHandler() { pacman->Move(maze); }

@@ -1,7 +1,6 @@
 #ifndef PACMAN_H
 #define PACMAN_H
 
-#include <QKeyEvent>
 #include <QList>
 #include <QObject>
 #include <QPixmap>

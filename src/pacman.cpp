@@ -7,8 +7,8 @@
 Pacman::Pacman(InputComponent* input, PhysicsComponent* physics,
                GraphicsComponent* graphics)
     : GameObject(input, physics, graphics) {
-  x = 20 * 13;
-  y = 20 * 22.5;
+  x = 10;
+  y = 10;
   dir = eDirection::RIGHT;
   nextDir = eDirection::DOWN;
 }
