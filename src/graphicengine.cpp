@@ -20,7 +20,7 @@ GraphicEngine::GraphicEngine(QWidget *parent)
   scene->addPixmap(QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
   ui->graphicsView->setScene(scene);
 
-  DrawDebugGrid();
+  //DrawDebugGrid();
 }
 
 void GraphicEngine::LoadCharacterUI(Character *character) {
