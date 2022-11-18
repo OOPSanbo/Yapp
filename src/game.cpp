@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "demoinputcomponent.h"
+#include "keyinputcomponent.h"
 #include "pacman.h"
 #include "pacmangraphicscomponent.h"
 #include "pacmanphysicscomponent.h"
@@ -9,8 +10,9 @@ Game::Game(QGraphicsScene* scene) : scene(scene) {}
 
 void Game::Init() {
   maze = new Maze();
-  pacman = new Pacman(new DemoInputComponent(), new PacmanPhysicsComponent(),
+  pacman = new Pacman(new KeyInputComponent(), new PacmanPhysicsComponent(),
                       new PacmanGraphicsComponent(*scene));
+  scene->installEventFilter(pacman->input);
 }
 
 void Game::GameLoop() {

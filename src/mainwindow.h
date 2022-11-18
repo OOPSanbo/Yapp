@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QMainWindow>
+#include <QKeyEvent>
 
 #include "game.h"
 
@@ -21,7 +22,6 @@ class MainWindow : public QMainWindow {
   void Title();
   void StartGame();
   void Score();
-
   ~MainWindow();
 
  private slots:

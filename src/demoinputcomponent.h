@@ -6,7 +6,7 @@
 
 class DemoInputComponent : public InputComponent {
  private:
-  eDirection dir;
+  eDirection dir = eDirection::LEFT;
 
  public:
   DemoInputComponent();
