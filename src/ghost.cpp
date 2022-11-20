@@ -1,13 +1,20 @@
-#include "maze.h"
 #include "ghost.h"
 
 #include <QList>
 #include <QPixmap>
 #include <QTimer>
 
-Ghost::Ghost(QPoint pos, QPoint direction, QString ghostname)
-    : Character(pos, direction) { // TODO add size on param
-  index = 0;
+Ghost::Ghost(InputComponent* input, PhysicsComponent* physics,
+             GraphicsComponent* graphics, QString ghostname)
+    : GameObject(input, physics, graphics) {
+  x = 20 * 13.5;
+  y = 20 * 13.5;
+  dir = eDirection::DOWN;
+  nextDir = eDirection::UP;
+  name = ghostname;
+}
+
+/*index = 0;
   add = 1;
   this->pos = pos;
 
@@ -16,8 +23,8 @@ Ghost::Ghost(QPoint pos, QPoint direction, QString ghostname)
   this->setTransformOriginPoint(20, 20);
 
   for (int i = 0; i < 8; i++) {
-    pic.append(QPixmap(":/res/img/ghost/" + ghostname + "/" + QString::number(i) + ".png"));
-    pic[i] = pic[i].scaledToHeight(40);
+    pic.append(QPixmap(":/res/img/ghost/" + ghostname + "/" + QString::number(i)
++ ".png")); pic[i] = pic[i].scaledToHeight(40);
   }
   setPixmap(pic[0]);
 
@@ -69,4 +76,4 @@ void Ghost::Move(Maze *maze) {
   setPos(pos);
 }
 
-Ghost::~Ghost() { delete timer; }
+Ghost::~Ghost() { delete timer; }*/

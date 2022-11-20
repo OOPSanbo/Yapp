@@ -7,15 +7,15 @@
 Pacman::Pacman(InputComponent* input, PhysicsComponent* physics,
                GraphicsComponent* graphics)
     : GameObject(input, physics, graphics) {
-  x = 20 * 13;
-  y = 20 * 22.5;
+  x = 14 * 20 - 10;
+  y = 23 * 20 - 10;
   dir = eDirection::RIGHT;
   nextDir = eDirection::DOWN;
 }
 /*
 
                                     void Pacman::Animate() {
-                                  setPixmap(pic[index]);
+                      a            setPixmap(pic[index]);
                                   index += add;
                                   if (index >= 2 || index <= 0) add =
    -add;

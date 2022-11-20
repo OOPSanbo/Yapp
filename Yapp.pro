@@ -17,6 +17,9 @@ SOURCES += \
     src/gameengine.cpp \
     src/gameobject.cpp \
     src/ghost.cpp \
+    src/ghostgraphicscomponent.cpp \
+    src/ghostinputcomponent.cpp \
+    src/ghostphysicscomponent.cpp \
     src/graphicengine.cpp \
     src/item.cpp \
     src/keyinputcomponent.cpp \
@@ -38,6 +41,9 @@ HEADERS += \
     src/gameengine.h \
     src/gameobject.h \
     src/ghost.h \
+    src/ghostgraphicscomponent.h \
+    src/ghostinputcomponent.h \
+    src/ghostphysicscomponent.h \
     src/graphicengine.h \
     src/item.h \
     src/keyinputcomponent.h \
