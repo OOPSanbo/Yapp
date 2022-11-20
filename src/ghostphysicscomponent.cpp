@@ -35,14 +35,16 @@ void GhostPhysicsComponent::Update(GameObject& obj, Maze& maze) {
   QPoint dir = DirToPoint(obj.dir);
 
   QPoint cord = PosToCord(pos);
-  if (obj.nextDir != eDirection::STOP && maze.CanMove(cord, nextDir) &&
+
+  if (obj.nextDir != eDirection::STOP && maze.CanMove(pos, dir, nextDir) &&
       obj.x % 10 == 0 && obj.y % 10 == 0) {
     obj.dir = obj.nextDir;
+    dir = DirToPoint(obj.dir);
     obj.nextDir = eDirection::STOP;
   }
 
-  if (maze.CanMove(cord, dir)) {
-    obj.x += dir.x() * 2;
-    obj.y += dir.y() * 2;
+  if (maze.CheckWall(pos, dir)) {
+    obj.x += dir.x() * 5;
+    obj.y += dir.y() * 5;
   }
 }

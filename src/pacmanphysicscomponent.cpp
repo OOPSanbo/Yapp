@@ -24,8 +24,8 @@ QPoint PacmanPhysicsComponent::DirToPoint(eDirection direction) {
 }
 
 QPoint PacmanPhysicsComponent::PosToCord(QPoint point) {
-  QPoint cord = QPoint(((point.x() ) ),
-                       ((point.y() 3) ));
+  QPoint cord = QPoint(floor((point.x() + 10) / (double)20),
+                       floor((point.y() + 10) / (double)20));
   return cord;
 }
 
@@ -35,14 +35,19 @@ void PacmanPhysicsComponent::Update(GameObject& obj, Maze& maze) {
   QPoint dir = DirToPoint(obj.dir);
 
   QPoint cord = PosToCord(pos);
-  if (obj.nextDir != eDirection::STOP && maze.CanMove(cord, nextDir) &&
-      obj.x % 10 == 0 && obj.y % 10 == 0) {
+
+  if (obj.nextDir != eDirection::STOP &&
+      maze.CanMove(pos, dir,
+                   nextDir) &&  // check if pacman can change direction
+      obj.x % 10 == 0 &&
+      obj.y % 10 == 0) {
     obj.dir = obj.nextDir;
+    dir = DirToPoint(obj.dir);
     obj.nextDir = eDirection::STOP;
   }
 
-  if (maze.CanMove(cord, dir)) {
-    obj.x += dir.x() * 10;
-    obj.y += dir.y() * 10;
+  if (maze.CheckWall(pos, dir)) {  // check if pacman can move
+    obj.x += dir.x() * 5;
+    obj.y += dir.y() * 5;
   }
 }
