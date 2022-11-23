@@ -15,6 +15,9 @@ class Game : public QObject {
   Maze *maze;
   GameObject *pacman;
   GameObject *blinky;
+  GameObject *clyde;
+  GameObject *inky;
+  GameObject *pinky;
   QList<GameObject *> ghosts;
   QList<GameObject *> items;
 

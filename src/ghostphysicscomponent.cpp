@@ -47,4 +47,13 @@ void GhostPhysicsComponent::Update(GameObject& obj, Maze& maze) {
     obj.x += dir.x() * 5;
     obj.y += dir.y() * 5;
   }
+
+  if (obj.name == "blinky")
+    maze.blinkypos = QPoint(obj.x, obj.y);
+  else if (obj.name == "clyde")
+    maze.clydepos = QPoint(obj.x, obj.y);
+  else if (obj.name == "inky")
+    maze.inkypos = QPoint(obj.x, obj.y);
+  else if (obj.name == "pinky")
+    maze.pinkypos = QPoint(obj.x, obj.y);
 }

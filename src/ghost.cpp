@@ -8,7 +8,7 @@ Ghost::Ghost(InputComponent* input, PhysicsComponent* physics,
              GraphicsComponent* graphics, QString ghostname)
     : GameObject(input, physics, graphics) {
   x = 20 * 13.5;
-  y = 20 * 13.5;
+  y = 20 * 11.5;
   dir = eDirection::DOWN;
   nextDir = eDirection::UP;
   name = ghostname;

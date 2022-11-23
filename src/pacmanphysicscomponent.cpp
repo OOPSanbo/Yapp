@@ -33,7 +33,6 @@ void PacmanPhysicsComponent::Update(GameObject& obj, Maze& maze) {
   QPoint pos = QPoint(obj.x, obj.y);
   QPoint nextDir = DirToPoint(obj.nextDir);
   QPoint dir = DirToPoint(obj.dir);
-
   QPoint cord = PosToCord(pos);
 
   if (obj.nextDir != eDirection::STOP &&
@@ -49,5 +48,10 @@ void PacmanPhysicsComponent::Update(GameObject& obj, Maze& maze) {
   if (maze.CheckWall(pos, dir)) {  // check if pacman can move
     obj.x += dir.x() * 5;
     obj.y += dir.y() * 5;
+  }
+  maze.pacmanpos = QPoint(obj.x, obj.y);
+  if (maze.CheckCollision()) {
+    obj.x = 0;
+    obj.y = 0;
   }
 }

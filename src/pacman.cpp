@@ -28,6 +28,7 @@ Pacman::Pacman(InputComponent* input, PhysicsComponent* physics,
                                   }
                                   pos += direction;
                                   setPos(pos);
+
                                   if (pos.x() == 26 * 20 && pos.y() == 14
    * 20 - 10) { pos = QPoint(20, 14 * 20 - 10); setPos(pos); } else if
    (pos.x() == 10 && pos.y() == 14 * 20
