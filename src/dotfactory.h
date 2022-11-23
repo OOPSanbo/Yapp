@@ -6,11 +6,12 @@
 
 class DotFactory : public ObjectFactory {
  private:
-  PhysicsComponent* physics;
-  GraphicsComponent* graphics;
+  QGraphicsScene* scene;
 
  public:
   DotFactory();
+  DotFactory(QGraphicsScene*);
+
   DotFactory(PhysicsComponent*, GraphicsComponent*);
   virtual GameObject* CreateObject(QString, QPoint);
 };

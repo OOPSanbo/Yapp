@@ -1,8 +1,6 @@
 #include "game.h"
 
 #include "demoinputcomponent.h"
-#include "dotgraphicscomponent.h"
-#include "dotphysicscomponent.h"
 #include "ghost.h"
 #include "ghostgraphicscomponent.h"
 #include "ghostphysicscomponent.h"
@@ -12,22 +10,22 @@
 #include "pacmanphysicscomponent.h"
 
 Game::Game(QGraphicsScene* scene) : scene(scene) {
-  // dotFactory = new DotFactory(new DotPhysicsComponent(),
-  //                             new DotGraphicsComponent("dot", *scene));
+  dotFactory = new DotFactory(scene);
 }
 
 void Game::Init() {
   maze = new Maze();
 
   foreach (QPoint dotPos, maze->WhereAreDots()) {
-    // dotfactory는 qpixmapitem을 받아서 등록해주는 역할을 해야 함
-    // 따라서 shapes는 object에서 들고 있어야 함
-    DotFactory* lDotFactory = new DotFactory(
-        new DotPhysicsComponent(), new DotGraphicsComponent("dot", *scene));
-
-    GameObject* dot = lDotFactory->CreateObject("dot", dotPos);
+    GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     dot->Update(*maze);
     items.append(dot);
+  }
+
+  foreach (QPoint dotPos, maze->WhereArePellets()) {
+    GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
+    pellet->Update(*maze);
+    items.append(pellet);
   }
 
   KeyInputComponent* key = new KeyInputComponent();
