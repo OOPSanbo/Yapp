@@ -64,8 +64,15 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
     object.SetPos(nextPos);
   }
 
+  if (pos == QPoint(26 * 20, 14 * 20 - 10)) {
+    object.SetPos(QPoint(10, 14 * 20 - 10));
+  } else if (pos == QPoint(0, 14 * 20 - 10)) {
+    object.SetPos(QPoint(26 * 20 - 10, 14 * 20 - 10));
+  }
+
   maze.pacmanpos = object.GetPos();
   if (maze.CheckCollision()) {
     object.SetPos(QPoint(0, 0));
+    // pacman is dead
   }
 }

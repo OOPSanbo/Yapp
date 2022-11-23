@@ -26,6 +26,8 @@ void DynamicGameObject::SetNextDirection(eDirection nextDirection) {
   this->nextDirection = nextDirection;
 }
 
+QString DynamicGameObject::GetName() { return name; }
+
 void DynamicGameObject::Update(Maze& maze) {
   input->Update(*this);
   physics->Update(*this, maze);

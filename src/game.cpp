@@ -32,20 +32,18 @@ void Game::Init() {
   KeyInputComponent* key = new KeyInputComponent();
   pacman = new Pacman(QString("Pacman"), key, new PacmanPhysicsComponent(),
                       new PacmanGraphicsComponent(*scene));
-  /*
-    blinky = new Ghost(new GhostInputComponent(), new GhostPhysicsComponent(),
-                       new GhostGraphicsComponent(*scene, "blinky"), "blinky");
-    clyde = new Ghost(new GhostInputComponent(), new GhostPhysicsComponent(),
-                      new GhostGraphicsComponent(*scene, "clyde"), "clyde");
-    inky = new Ghost(new GhostInputComponent(), new GhostPhysicsComponent(),
-                     new GhostGraphicsComponent(*scene, "inky"), "inky");
-    pinky = new Ghost(new GhostInputComponent(), new GhostPhysicsComponent(),
-                      new GhostGraphicsComponent(*scene, "pinky"), "pinky");
-    scene->installEventFilter(pacman->input);
-  */
-  blinky = new Ghost(QString("blinky"), new DemoInputComponent(),
+  blinky = new Ghost(QString("blinky"), new GhostInputComponent(),
                      new GhostPhysicsComponent(),
                      new GhostGraphicsComponent(*scene, "blinky"));
+  clyde = new Ghost(QString("clyde"), new GhostInputComponent(),
+                    new GhostPhysicsComponent(),
+                    new GhostGraphicsComponent(*scene, "clyde"));
+  inky = new Ghost(QString("inky"), new GhostInputComponent(),
+                   new GhostPhysicsComponent(),
+                   new GhostGraphicsComponent(*scene, "inky"));
+  pinky = new Ghost(QString("pinky"), new GhostInputComponent(),
+                    new GhostPhysicsComponent(),
+                    new GhostGraphicsComponent(*scene, "pinky"));
 
   scene->installEventFilter(key);
 }
@@ -60,7 +58,7 @@ void Game::GameLoop() {
 void Game::Update() {
   pacman->Update(*maze);
   blinky->Update(*maze);
-  // clyde->Update(*maze);
-  // inky->Update(*maze);
-  // pinky->Update(*maze);
+  clyde->Update(*maze);
+  inky->Update(*maze);
+  pinky->Update(*maze);
 }

@@ -14,16 +14,6 @@
 class Game : public QObject {
   Q_OBJECT
  public:
-  /*
-    Maze *maze;
-    GameObject *pacman;
-    GameObject *blinky;
-    GameObject *clyde;
-    GameObject *inky;
-    GameObject *pinky;
-    QList<GameObject *> ghosts;
-    QList<GameObject *> items;
-  */
   Game(QGraphicsScene *scene);
   void Init();
   void GameLoop();
@@ -33,6 +23,9 @@ class Game : public QObject {
   Maze *maze;
   GameObject *pacman;
   GameObject *blinky;
+  GameObject *clyde;
+  GameObject *inky;
+  GameObject *pinky;
 
   QList<GameObject *> ghosts;
   QList<GameObject *> items;
