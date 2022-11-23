@@ -19,7 +19,6 @@ SOURCES += \
     src/ghostgraphicscomponent.cpp \
     src/ghostinputcomponent.cpp \
     src/ghostphysicscomponent.cpp \
-    src/graphicengine.cpp \
     src/keyinputcomponent.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
@@ -27,7 +26,8 @@ SOURCES += \
     src/pacman.cpp \
     src/pacmangraphicscomponent.cpp \
     src/pacmanphysicscomponent.cpp \
-    src/pellet.cpp
+    src/pellet.cpp \
+    src/staticgameobject.cpp
 
 HEADERS += \
     src/character.h \
@@ -41,14 +41,14 @@ HEADERS += \
     src/ghostgraphicscomponent.h \
     src/ghostinputcomponent.h \
     src/ghostphysicscomponent.h \
-    src/graphicengine.h \
     src/keyinputcomponent.h \
     src/mainwindow.h \
     src/maze.h \
     src/pacman.h \
     src/pacmangraphicscomponent.h \
     src/pacmanphysicscomponent.h \
-    src/pellet.h
+    src/pellet.h \
+    src/staticgameobject.h
 
 FORMS += \
     MainWindow.ui

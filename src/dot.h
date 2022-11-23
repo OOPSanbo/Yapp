@@ -1,18 +1,18 @@
 #ifndef DOT_H
 #define DOT_H
 
-#include "item.h"
 #include <QPixmap>
 
-class Dot : public Item {
+#include "staticgameobject.h"
 
-signals:
+class Dot : public StaticGameObject {
+ signals:
   // void DotEaten();
 
-public:
+ public:
   QPixmap shape;
-  Dot(QPoint pos);
+  Dot(QString, PhysicsComponent*, GraphicsComponent*);
   virtual void Eaten();
 };
 
-#endif // DOT_H
+#endif  // DOT_H
