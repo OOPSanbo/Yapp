@@ -3,6 +3,7 @@
 
 #include "gameobject.h"
 #include "objectfactory.h"
+#include "src/dot.h"
 
 class DotFactory : public ObjectFactory {
  private:

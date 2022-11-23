@@ -19,13 +19,11 @@ void Game::Init() {
 
   foreach (QPoint dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
-    dot->Update(*maze);
     items.append(dot);
   }
 
   foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
-    pellet->Update(*maze);
     items.append(pellet);
   }
 
@@ -61,4 +59,5 @@ void Game::Update() {
   clyde->Update(*maze);
   inky->Update(*maze);
   pinky->Update(*maze);
+  foreach (GameObject* item, items) { item->Update(*maze); }
 }

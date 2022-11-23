@@ -24,6 +24,7 @@ class GameObject : public QObject {
   QPoint GetPos();
   void SetPos(QPoint);
   virtual void Update(Maze& maze) = 0;
+  QString GetName();
 };
 
 class InputComponent : public QObject {

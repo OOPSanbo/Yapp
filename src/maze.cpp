@@ -107,7 +107,7 @@ bool Maze::CheckWall(QPoint pos, QPoint dir) {
   }
 }
 
-bool Maze::CanMove(QPoint pos, QPoint dir, QPoint nextdir) {
+bool Maze::CanChangeDir(QPoint pos, QPoint dir, QPoint nextdir) {
   if (dir == nextdir) {
     return true;
   } else if (dir + nextdir == QPoint(0, 0)) {
@@ -175,7 +175,15 @@ bool Maze::CheckCollisionPinky() {
   return true;
 }
 
-bool Maze::CheckCollision() {
+bool Maze::CheckCollisionGhost() {
   return (CheckCollisionBlinky() || CheckCollisionClyde() ||
           CheckCollisionInky() || CheckCollisionPinky());
+}
+
+bool Maze::CheckCollisionDot(QPoint dotpoint) {
+  if (pacmanpos.x() > dotpoint.x() + 10) return false;
+  if (pacmanpos.x() + 20 < dotpoint.x()) return false;
+  if (pacmanpos.y() > dotpoint.y() + 10) return false;
+  if (pacmanpos.y() + 20 < dotpoint.y()) return false;
+  return true;
 }

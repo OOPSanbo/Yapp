@@ -48,7 +48,7 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   QPoint nextDirectionPoint = DirToPoint(dynamicObject.GetNextDirection());
 
   if (nextDirection != eDirection::STOP &&
-      maze.CanMove(
+      maze.CanChangeDir(
           pos, directionPoint,
           nextDirectionPoint) &&  // check if pacman can change direction
       pos.x() % 10 == 0 &&
@@ -64,15 +64,16 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
     object.SetPos(nextPos);
   }
 
-  if (pos == QPoint(26 * 20, 14 * 20 - 10)) {
+  if (pos == QPoint(26 * 20, 14 * 20 - 10)) {  // check tunnel
     object.SetPos(QPoint(10, 14 * 20 - 10));
   } else if (pos == QPoint(0, 14 * 20 - 10)) {
     object.SetPos(QPoint(26 * 20 - 10, 14 * 20 - 10));
   }
 
   maze.pacmanpos = object.GetPos();
-  if (maze.CheckCollision()) {
-    object.SetPos(QPoint(0, 0));
+
+  if (maze.CheckCollisionGhost()) {
+    // object.SetPos(QPoint(0, 0));
     // pacman is dead
   }
 }

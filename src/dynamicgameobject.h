@@ -21,7 +21,6 @@ class DynamicGameObject : public GameObject {
 
   eDirection GetDirection();
   eDirection GetNextDirection();
-  QString GetName();
   void SetDirection(eDirection);
   void SetNextDirection(eDirection);
   virtual void Update(Maze &);
