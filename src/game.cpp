@@ -1,23 +1,27 @@
 #include "game.h"
 
 #include "demoinputcomponent.h"
-#include "keyinputcomponent.h"
-#include "pacman.h"
 #include "ghost.h"
-#include "pacmangraphicscomponent.h"
-#include "pacmanphysicscomponent.h"
 #include "ghostgraphicscomponent.h"
 #include "ghostphysicscomponent.h"
+#include "keyinputcomponent.h"
+#include "pacman.h"
+#include "pacmangraphicscomponent.h"
+#include "pacmanphysicscomponent.h"
 
 Game::Game(QGraphicsScene* scene) : scene(scene) {}
 
 void Game::Init() {
   maze = new Maze();
-  pacman = new Pacman(new KeyInputComponent(), new PacmanPhysicsComponent(),
+
+  KeyInputComponent* key = new KeyInputComponent();
+  pacman = new Pacman(QString("Pacman"), key, new PacmanPhysicsComponent(),
                       new PacmanGraphicsComponent(*scene));
-  blinky = new Ghost(new DemoInputComponent(), new GhostPhysicsComponent(),
-                     new GhostGraphicsComponent(*scene, "blinky"),"blinky");
-  scene->installEventFilter(pacman->input);
+  blinky = new Ghost(QString("blinky"), new DemoInputComponent(),
+                     new GhostPhysicsComponent(),
+                     new GhostGraphicsComponent(*scene, "blinky"));
+
+  scene->installEventFilter(key);
 }
 
 void Game::GameLoop() {
@@ -27,6 +31,6 @@ void Game::GameLoop() {
 }
 
 void Game::Update() {
-    pacman->Update(*maze);
-    blinky->Update(*maze);
+  ((DynamicGameObject*)pacman)->Update(*maze);
+  ((DynamicGameObject*)blinky)->Update(*maze);
 }

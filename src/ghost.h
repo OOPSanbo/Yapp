@@ -6,12 +6,12 @@
 #include <QPixmap>
 #include <QWidget>
 
+#include "dynamicgameobject.h"
 #include "gameobject.h"
 
-class Ghost : public GameObject {
+class Ghost : public DynamicGameObject {
   Q_OBJECT
-public:
-  Ghost(InputComponent* input, PhysicsComponent* physics,
-        GraphicsComponent* graphics, QString ghostname);
+ public:
+  Ghost(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
 };
-#endif // GHOST_H
+#endif  // GHOST_H

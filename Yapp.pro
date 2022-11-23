@@ -12,16 +12,14 @@ SOURCES += \
     src/character.cpp \
     src/demoinputcomponent.cpp \
     src/dot.cpp \
-    src/dotmodel.cpp \
+    src/dynamicgameobject.cpp \
     src/game.cpp \
-    src/gameengine.cpp \
     src/gameobject.cpp \
     src/ghost.cpp \
     src/ghostgraphicscomponent.cpp \
     src/ghostinputcomponent.cpp \
     src/ghostphysicscomponent.cpp \
     src/graphicengine.cpp \
-    src/item.cpp \
     src/keyinputcomponent.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
@@ -36,16 +34,14 @@ HEADERS += \
     src/demoinputcomponent.h \
     src/direction.h \
     src/dot.h \
-    src/dotmodel.h \
+    src/dynamicgameobject.h \
     src/game.h \
-    src/gameengine.h \
     src/gameobject.h \
     src/ghost.h \
     src/ghostgraphicscomponent.h \
     src/ghostinputcomponent.h \
     src/ghostphysicscomponent.h \
     src/graphicengine.h \
-    src/item.h \
     src/keyinputcomponent.h \
     src/mainwindow.h \
     src/maze.h \
