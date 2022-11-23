@@ -13,3 +13,12 @@ Pacman::Pacman(QString name, InputComponent* input, PhysicsComponent* physics,
   direction = eDirection::RIGHT;
   nextDirection = eDirection::DOWN;
 }
+
+/*
+
+                                  if (pos.x() == 26 * 20 && pos.y() == 14
+   * 20 - 10) { pos = QPoint(20, 14 * 20 - 10); setPos(pos); } else if
+   (pos.x() == 10 && pos.y() == 14 * 20
+                                - 10) { pos = QPoint(26 * 20, 14 * 20 -
+   10); setPos(pos);
+*/

@@ -57,4 +57,19 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
                             pos.y() + directionPoint.y() * 5);
     object.SetPos(nextPos);
   }
+
+  if (pos == QPoint(26 * 20, 14 * 20 - 10)) {
+    object.SetPos(QPoint(10, 14 * 20 - 10));
+  } else if (pos == QPoint(0, 14 * 20 - 10)) {
+    object.SetPos(QPoint(26 * 20 - 10, 14 * 20 - 10));
+  }
+
+  if (dynamicObject.GetName() == "blinky")
+    maze.blinkypos = pos;
+  else if (dynamicObject.GetName() == "clyde")
+    maze.clydepos = pos;
+  else if (dynamicObject.GetName() == "inky")
+    maze.inkypos = pos;
+  else if (dynamicObject.GetName() == "pinky")
+    maze.pinkypos = pos;
 }

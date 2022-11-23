@@ -23,6 +23,16 @@ class Maze : public QObject, public QGraphicsPixmapItem {
   bool CanMove(QPoint pos, QPoint dir, QPoint nextdir);
   QList<QPoint> WhereAreDots();
   QList<QPoint> WhereArePellets();
+  QPoint pacmanpos;
+  QPoint blinkypos;
+  QPoint clydepos;
+  QPoint inkypos;
+  QPoint pinkypos;
+  bool CheckCollision();
+  bool CheckCollisionBlinky();
+  bool CheckCollisionClyde();
+  bool CheckCollisionInky();
+  bool CheckCollisionPinky();
 };
 
 #endif  // MAZE_H

@@ -29,6 +29,13 @@ QPoint PacmanPhysicsComponent::PosToCord(QPoint point) {
   return cord;
 }
 
+/*
+void PacmanPhysicsComponent::Update(GameObject& obj, Maze& maze) {
+  QPoint pos = QPoint(obj.x, obj.y);
+  QPoint nextDir = DirToPoint(obj.nextDir);
+  QPoint dir = DirToPoint(obj.dir);
+  QPoint cord = PosToCord(pos);
+*/
 void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
@@ -55,5 +62,17 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
     QPoint nextPos = QPoint(pos.x() + directionPoint.x() * 5,
                             pos.y() + directionPoint.y() * 5);
     object.SetPos(nextPos);
+  }
+
+  if (pos == QPoint(26 * 20, 14 * 20 - 10)) {
+    object.SetPos(QPoint(10, 14 * 20 - 10));
+  } else if (pos == QPoint(0, 14 * 20 - 10)) {
+    object.SetPos(QPoint(26 * 20 - 10, 14 * 20 - 10));
+  }
+
+  maze.pacmanpos = object.GetPos();
+  if (maze.CheckCollision()) {
+    object.SetPos(QPoint(0, 0));
+    // pacman is dead
   }
 }

@@ -142,4 +142,40 @@ bool Maze::CanMove(QPoint pos, QPoint dir, QPoint nextdir) {
   } else
     return false;
 }
-// return CheckWall(nextPos, direction);
+
+bool Maze::CheckCollisionBlinky() {
+  if (pacmanpos.x() > blinkypos.x() + 40) return false;
+  if (pacmanpos.x() + 40 < blinkypos.x()) return false;
+  if (pacmanpos.y() > blinkypos.y() + 40) return false;
+  if (pacmanpos.y() + 40 < blinkypos.y()) return false;
+  return true;
+}
+
+bool Maze::CheckCollisionClyde() {
+  if (pacmanpos.x() > clydepos.x() + 40) return false;
+  if (pacmanpos.x() + 40 < clydepos.x()) return false;
+  if (pacmanpos.y() > clydepos.y() + 40) return false;
+  if (pacmanpos.y() + 40 < clydepos.y()) return false;
+  return true;
+}
+
+bool Maze::CheckCollisionInky() {
+  if (pacmanpos.x() > inkypos.x() + 40) return false;
+  if (pacmanpos.x() + 40 < inkypos.x()) return false;
+  if (pacmanpos.y() > inkypos.y() + 40) return false;
+  if (pacmanpos.y() + 40 < inkypos.y()) return false;
+  return true;
+}
+
+bool Maze::CheckCollisionPinky() {
+  if (pacmanpos.x() > pinkypos.x() + 40) return false;
+  if (pacmanpos.x() + 40 < pinkypos.x()) return false;
+  if (pacmanpos.y() > pinkypos.y() + 40) return false;
+  if (pacmanpos.y() + 40 < pinkypos.y()) return false;
+  return true;
+}
+
+bool Maze::CheckCollision() {
+  return (CheckCollisionBlinky() || CheckCollisionClyde() ||
+          CheckCollisionInky() || CheckCollisionPinky());
+}
