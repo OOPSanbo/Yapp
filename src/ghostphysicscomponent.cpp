@@ -42,7 +42,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   QPoint nextDirectionPoint = DirToPoint(dynamicObject.GetNextDirection());
 
   if (nextDirection != eDirection::STOP &&
-      maze.CanMove(
+      maze.CanChangeDir(
           pos, directionPoint,
           nextDirectionPoint) &&  // check if pacman can change direction
       pos.x() % 10 == 0 &&

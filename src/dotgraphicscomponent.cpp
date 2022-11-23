@@ -1,5 +1,7 @@
 #include "dotgraphicscomponent.h"
 
+#include "staticgameobject.h"
+
 DotGraphicsComponent::DotGraphicsComponent() {}
 
 DotGraphicsComponent::DotGraphicsComponent(QString name,
@@ -12,5 +14,9 @@ DotGraphicsComponent::DotGraphicsComponent(QString name,
 }
 
 void DotGraphicsComponent::Update(GameObject& object) {
+  StaticGameObject& staticObject = static_cast<StaticGameObject&>(object);
   shape.setPos(object.GetPos());
+  if (staticObject.status == false) {
+    shape.setVisible(false);
+  }
 }

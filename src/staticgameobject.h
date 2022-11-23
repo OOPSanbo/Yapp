@@ -11,7 +11,7 @@ class StaticGameObject : public GameObject {
  public:
   StaticGameObject();
   StaticGameObject(QString, PhysicsComponent *, GraphicsComponent *);
-
+  bool status = true;
   virtual void Update(Maze &);
 };
 

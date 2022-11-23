@@ -10,3 +10,5 @@ void GameObject::SetPos(QPoint pos) {
   x = pos.x();
   y = pos.y();
 }
+
+QString GameObject::GetName() { return name; }
