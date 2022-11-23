@@ -2,6 +2,7 @@
 #define DIRECTION_H
 
 #include <QPoint>
+
 namespace Direction {
 const QPoint Up = QPoint(0, -1);
 const QPoint Down = QPoint(0, 1);

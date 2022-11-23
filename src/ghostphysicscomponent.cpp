@@ -1,6 +1,7 @@
 #include "ghostphysicscomponent.h"
 
 #include "direction.h"
+#include "dynamicgameobject.h"
 
 QPoint GhostPhysicsComponent::DirToPoint(eDirection direction) {
   QPoint point;
@@ -29,26 +30,36 @@ QPoint GhostPhysicsComponent::PosToCord(QPoint point) {
   return cord;
 }
 
-void GhostPhysicsComponent::Update(GameObject& obj, Maze& maze) {
-  QPoint pos = QPoint(obj.x, obj.y);
-  QPoint nextDir = DirToPoint(obj.nextDir);
-  QPoint dir = DirToPoint(obj.dir);
+void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
+  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
-  QPoint cord = PosToCord(pos);
+  QPoint pos = object.GetPos();
 
-  if (obj.nextDir != eDirection::STOP && maze.CanMove(pos, dir, nextDir) &&
-      obj.x % 10 == 0 && obj.y % 10 == 0) {
-    obj.dir = obj.nextDir;
-    dir = DirToPoint(obj.dir);
-    obj.nextDir = eDirection::STOP;
+  eDirection direction = dynamicObject.GetDirection();
+  eDirection nextDirection = dynamicObject.GetNextDirection();
+
+  QPoint directionPoint = DirToPoint(direction);
+  QPoint nextDirectionPoint = DirToPoint(dynamicObject.GetNextDirection());
+
+  if (nextDirection != eDirection::STOP &&
+      maze.CanMove(
+          pos, directionPoint,
+          nextDirectionPoint) &&  // check if pacman can change direction
+      pos.x() % 10 == 0 &&
+      pos.y() % 10 == 0) {
+    directionPoint = nextDirectionPoint;
+    dynamicObject.SetDirection(nextDirection);
+    dynamicObject.SetNextDirection(eDirection::STOP);
   }
 
-  if (maze.CheckWall(pos, dir)) {
-    obj.x += dir.x() * 5;
-    obj.y += dir.y() * 5;
+  if (maze.CheckWall(pos, directionPoint)) {  // check if pacman can move
+    QPoint nextPos = QPoint(pos.x() + directionPoint.x() * 5,
+                            pos.y() + directionPoint.y() * 5);
+    object.SetPos(nextPos);
   }
 
-  if (obj.name == "blinky")
+  /*
+  if (object. == "blinky")
     maze.blinkypos = QPoint(obj.x, obj.y);
   else if (obj.name == "clyde")
     maze.clydepos = QPoint(obj.x, obj.y);
@@ -56,4 +67,5 @@ void GhostPhysicsComponent::Update(GameObject& obj, Maze& maze) {
     maze.inkypos = QPoint(obj.x, obj.y);
   else if (obj.name == "pinky")
     maze.pinkypos = QPoint(obj.x, obj.y);
+    */
 }

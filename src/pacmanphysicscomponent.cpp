@@ -1,6 +1,6 @@
 #include "pacmanphysicscomponent.h"
 
-#include "direction.h"
+#include "dynamicgameobject.h"
 
 QPoint PacmanPhysicsComponent::DirToPoint(eDirection direction) {
   QPoint point;
@@ -29,29 +29,43 @@ QPoint PacmanPhysicsComponent::PosToCord(QPoint point) {
   return cord;
 }
 
+/*
 void PacmanPhysicsComponent::Update(GameObject& obj, Maze& maze) {
   QPoint pos = QPoint(obj.x, obj.y);
   QPoint nextDir = DirToPoint(obj.nextDir);
   QPoint dir = DirToPoint(obj.dir);
   QPoint cord = PosToCord(pos);
+*/
+void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
+  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
-  if (obj.nextDir != eDirection::STOP &&
-      maze.CanMove(pos, dir,
-                   nextDir) &&  // check if pacman can change direction
-      obj.x % 10 == 0 &&
-      obj.y % 10 == 0) {
-    obj.dir = obj.nextDir;
-    dir = DirToPoint(obj.dir);
-    obj.nextDir = eDirection::STOP;
+  QPoint pos = object.GetPos();
+
+  eDirection direction = dynamicObject.GetDirection();
+  eDirection nextDirection = dynamicObject.GetNextDirection();
+
+  QPoint directionPoint = DirToPoint(direction);
+  QPoint nextDirectionPoint = DirToPoint(dynamicObject.GetNextDirection());
+
+  if (nextDirection != eDirection::STOP &&
+      maze.CanMove(
+          pos, directionPoint,
+          nextDirectionPoint) &&  // check if pacman can change direction
+      pos.x() % 10 == 0 &&
+      pos.y() % 10 == 0) {
+    directionPoint = nextDirectionPoint;
+    dynamicObject.SetDirection(nextDirection);
+    dynamicObject.SetNextDirection(eDirection::STOP);
   }
 
-  if (maze.CheckWall(pos, dir)) {  // check if pacman can move
-    obj.x += dir.x() * 5;
-    obj.y += dir.y() * 5;
+  if (maze.CheckWall(pos, directionPoint)) {  // check if pacman can move
+    QPoint nextPos = QPoint(pos.x() + directionPoint.x() * 5,
+                            pos.y() + directionPoint.y() * 5);
+    object.SetPos(nextPos);
   }
-  maze.pacmanpos = QPoint(obj.x, obj.y);
+
+  maze.pacmanpos = object.GetPos();
   if (maze.CheckCollision()) {
-    obj.x = 0;
-    obj.y = 0;
+    object.SetPos(QPoint(0, 0));
   }
 }

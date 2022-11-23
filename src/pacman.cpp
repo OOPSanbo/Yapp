@@ -4,13 +4,14 @@
 #include <QPixmap>
 #include <QTimer>
 
-Pacman::Pacman(InputComponent* input, PhysicsComponent* physics,
+Pacman::Pacman(QString name, InputComponent* input, PhysicsComponent* physics,
                GraphicsComponent* graphics)
-    : GameObject(input, physics, graphics) {
+    : DynamicGameObject(name, input, physics, graphics) {
+  // TODO: Replace hardcoded positon & direction set
   x = 14 * 20 - 10;
   y = 23 * 20 - 10;
-  dir = eDirection::RIGHT;
-  nextDir = eDirection::DOWN;
+  direction = eDirection::RIGHT;
+  nextDirection = eDirection::DOWN;
 }
 /*
 
@@ -60,4 +61,3 @@ Pacman::Pacman(InputComponent* input, PhysicsComponent* physics,
 
                                 Pacman::~Pacman() { delete timer; }
                                 */
-;

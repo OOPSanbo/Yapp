@@ -14,12 +14,12 @@ class GhostGraphicsComponent : public GraphicsComponent {
   QList<QPixmap> sprite;
   const int scale = 40;
 
-  GhostGraphicsComponent(QGraphicsScene& graphics, QString name);
-  virtual void Update(GameObject& obj);
+  GhostGraphicsComponent(QGraphicsScene&, QString);
+  virtual void Update(GameObject&);
 
  private:
   int index;
   int add;
 };
 
-#endif // GHOSTGRAPHICSCOMPONENT_H
+#endif  // GHOSTGRAPHICSCOMPONENT_H

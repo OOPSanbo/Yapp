@@ -7,27 +7,37 @@
 #include <QTimer>
 #include <QWidget>
 
+#include "dotfactory.h"
+#include "dynamicgameobject.h"
 #include "gameobject.h"
 
 class Game : public QObject {
   Q_OBJECT
  public:
-  Maze *maze;
-  GameObject *pacman;
-  GameObject *blinky;
-  GameObject *clyde;
-  GameObject *inky;
-  GameObject *pinky;
-  QList<GameObject *> ghosts;
-  QList<GameObject *> items;
-
+  /*
+    Maze *maze;
+    GameObject *pacman;
+    GameObject *blinky;
+    GameObject *clyde;
+    GameObject *inky;
+    GameObject *pinky;
+    QList<GameObject *> ghosts;
+    QList<GameObject *> items;
+  */
   Game(QGraphicsScene *scene);
   void Init();
   void GameLoop();
 
  private:
   QGraphicsScene *scene;
+  Maze *maze;
+  GameObject *pacman;
+  GameObject *blinky;
 
+  QList<GameObject *> ghosts;
+  QList<GameObject *> items;
+
+  DotFactory *dotFactory;
  private slots:
   void Update();
 };

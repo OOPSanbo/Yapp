@@ -1,18 +1,18 @@
 #ifndef PELLET_H
 #define PELLET_H
 
-#include "item.h"
 #include <QPixmap>
 
-class Pellet : public Item {
+#include "staticgameobject.h"
 
-signals:
+class Pellet : public StaticGameObject {
+ signals:
   // void PelletEaten();
 
-public:
+ public:
   QPixmap shape;
-  Pellet(QPoint pos);
+  Pellet(QString, PhysicsComponent*, GraphicsComponent*);
   virtual void Eaten();
 };
 
-#endif // PELLET_H
+#endif  // PELLET_H

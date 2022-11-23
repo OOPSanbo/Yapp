@@ -1,11 +1,12 @@
 #include "gameobject.h"
 
-GameObject::GameObject(InputComponent* input, PhysicsComponent* physics,
-                       GraphicsComponent* graphics)
-    : input(input), physics(physics), graphics(graphics) {}
+GameObject::GameObject() {}
 
-void GameObject::Update(Maze& maze) {
-  input->Update(*this);
-  physics->Update(*this, maze);
-  graphics->Update(*this);
+GameObject::GameObject(QString name) : name(name) {}
+
+QPoint GameObject::GetPos() { return QPoint(x, y); }
+
+void GameObject::SetPos(QPoint pos) {
+  x = pos.x();
+  y = pos.y();
 }

@@ -1,8 +1,8 @@
 #ifndef KEYINPUTCOMPONENT_H
 #define KEYINPUTCOMPONENT_H
 
-#include <QObject>
 #include <QKeyEvent>
+#include <QObject>
 
 #include "direction.h"
 #include "gameobject.h"
@@ -14,7 +14,7 @@ class KeyInputComponent : public InputComponent {
 
  public:
   KeyInputComponent();
-  virtual void Update(GameObject& obj);
+  virtual void Update(GameObject &obj);
   bool eventFilter(QObject *obj, QEvent *event);
 };
 

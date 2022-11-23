@@ -3,7 +3,7 @@
 GhostInputComponent::GhostInputComponent() {}
 
 void GhostInputComponent::Update(GameObject& obj) {
-  if (obj.nextDir == eDirection::STOP) {
-    obj.nextDir = static_cast<eDirection>(rand() % 4);
-  }
+  // if (obj. == eDirection::STOP) {
+  // obj.nextDir = static_cast<eDirection>(rand() % 4);
+  //}
 }
