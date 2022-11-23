@@ -1,6 +1,7 @@
 #ifndef DOT_H
 #define DOT_H
 
+#include <QGraphicsPixmapItem>
 #include <QPixmap>
 
 #include "staticgameobject.h"
@@ -10,7 +11,7 @@ class Dot : public StaticGameObject {
   // void DotEaten();
 
  public:
-  QPixmap shape;
+  QGraphicsPixmapItem shape;
   Dot(QString, PhysicsComponent*, GraphicsComponent*);
   virtual void Eaten();
 };

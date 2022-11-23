@@ -12,6 +12,9 @@ SOURCES += \
     src/character.cpp \
     src/demoinputcomponent.cpp \
     src/dot.cpp \
+    src/dotfactory.cpp \
+    src/dotgraphicscomponent.cpp \
+    src/dotphysicscomponent.cpp \
     src/dynamicgameobject.cpp \
     src/game.cpp \
     src/gameobject.cpp \
@@ -23,6 +26,7 @@ SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp \
     src/maze.cpp \
+    src/objectfactory.cpp \
     src/pacman.cpp \
     src/pacmangraphicscomponent.cpp \
     src/pacmanphysicscomponent.cpp \
@@ -34,6 +38,9 @@ HEADERS += \
     src/demoinputcomponent.h \
     src/direction.h \
     src/dot.h \
+    src/dotfactory.h \
+    src/dotgraphicscomponent.h \
+    src/dotphysicscomponent.h \
     src/dynamicgameobject.h \
     src/game.h \
     src/gameobject.h \
@@ -44,6 +51,7 @@ HEADERS += \
     src/keyinputcomponent.h \
     src/mainwindow.h \
     src/maze.h \
+    src/objectfactory.h \
     src/pacman.h \
     src/pacmangraphicscomponent.h \
     src/pacmanphysicscomponent.h \
