@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QWidget>
 
+#include "dynamicgameobject.h"
 #include "gameobject.h"
 
 class Game : public QObject {
@@ -15,6 +16,7 @@ class Game : public QObject {
   Maze *maze;
   GameObject *pacman;
   GameObject *blinky;
+
   QList<GameObject *> ghosts;
   QList<GameObject *> items;
 

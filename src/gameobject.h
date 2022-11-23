@@ -4,11 +4,7 @@
 #include <QGraphicsScene>
 #include <QObject>
 
-#include "direction.h"
-// #include "graphicscomponent.h"
-// #include "inputcomponent.h"
 #include "maze.h"
-// #include "physicscomponent.h"
 
 class InputComponent;
 class PhysicsComponent;
@@ -17,17 +13,16 @@ class GraphicsComponent;
 class GameObject : public QObject {
   Q_OBJECT
 
- public:
+ protected:
+  QString name;
   int x;
   int y;
-  QString name;
-  eDirection dir;
-  eDirection nextDir;
-  InputComponent* input;
-  PhysicsComponent* physics;
-  GraphicsComponent* graphics;
 
-  GameObject(InputComponent*, PhysicsComponent*, GraphicsComponent*);
+ public:
+  GameObject();
+  GameObject(QString name);
+  QPoint GetPos();
+  void SetPos(QPoint);
   void Update(Maze& maze);
 };
 

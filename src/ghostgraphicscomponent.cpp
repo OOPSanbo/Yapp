@@ -1,5 +1,7 @@
 #include "ghostgraphicscomponent.h"
 
+#include "dynamicgameobject.h"
+
 GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
                                                QString name) {
   for (int i = 0; i < 8; i++) {
@@ -15,8 +17,10 @@ GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
   add = 1;
 }
 
-void GhostGraphicsComponent::Update(GameObject& obj) {
-  shape.setPos(obj.x, obj.y);
+void GhostGraphicsComponent::Update(GameObject& object) {
+  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
+
+  shape.setPos(object.GetPos());
   shape.setPixmap(sprite[index]);
   if (index % 2 == 0) {
     index += add;
@@ -24,8 +28,9 @@ void GhostGraphicsComponent::Update(GameObject& obj) {
     index -= add;
   }
 
-  if (obj.nextDir != STOP) return;
-  switch (obj.dir) {
+  if (dynamicObject.GetNextDirection() != STOP) return;
+
+  switch (dynamicObject.GetDirection()) {
     case (eDirection::UP):
       index = 6;
       break;

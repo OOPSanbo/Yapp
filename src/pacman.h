@@ -6,13 +6,12 @@
 #include <QPixmap>
 #include <QWidget>
 
-#include "gameobject.h"
+#include "dynamicgameobject.h"
 
-class Pacman : public GameObject {
+class Pacman : public DynamicGameObject {
   Q_OBJECT
 
  public:
-  Pacman(InputComponent* input, PhysicsComponent* physics,
-         GraphicsComponent* graphics);
+  Pacman(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
 };
 #endif  // PACMAN_H

@@ -2,10 +2,14 @@
 
 #include <QDebug>
 
+#include "dynamicgameobject.h"
+
 DemoInputComponent::DemoInputComponent() {}
 
-void DemoInputComponent::Update(GameObject& obj) {
-  if (obj.nextDir == eDirection::STOP) {
-    obj.nextDir = static_cast<eDirection>(rand() % 4);
+void DemoInputComponent::Update(GameObject& object) {
+  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
+
+  if (dynamicObject.GetNextDirection() == eDirection::STOP) {
+    dynamicObject.SetNextDirection(static_cast<eDirection>(rand() % 4));
   }
 }
