@@ -9,7 +9,7 @@
 class PacmanPhysicsComponent : public PhysicsComponent {
   Q_OBJECT
  public:
-  virtual void Update(GameObject& obj, Maze& maze);
+  virtual void Update(GameObject&, Maze&);
 
  private:
   QPoint DirToPoint(eDirection);
