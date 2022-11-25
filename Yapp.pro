@@ -31,7 +31,8 @@ SOURCES += \
     src/pacmangraphicscomponent.cpp \
     src/pacmanphysicscomponent.cpp \
     src/pellet.cpp \
-    src/staticgameobject.cpp
+    src/staticgameobject.cpp \
+    src/title.cpp
 
 HEADERS += \
     src/character.h \
@@ -56,7 +57,8 @@ HEADERS += \
     src/pacmangraphicscomponent.h \
     src/pacmanphysicscomponent.h \
     src/pellet.h \
-    src/staticgameobject.h
+    src/staticgameobject.h \
+    src/title.h
 
 FORMS += \
     MainWindow.ui
