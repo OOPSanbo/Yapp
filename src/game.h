@@ -20,7 +20,9 @@ class Game : public QObject {
 
  private:
   QGraphicsScene *scene;
+
   Maze *maze;
+  Score *score;
   GameObject *pacman;
   GameObject *blinky;
   GameObject *clyde;
@@ -31,6 +33,7 @@ class Game : public QObject {
   QList<GameObject *> items;
 
   DotFactory *dotFactory;
+
  private slots:
   void Update();
 };
