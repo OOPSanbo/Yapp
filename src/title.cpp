@@ -1,9 +1,8 @@
 #include "title.h"
-#define GHOST_SIZE 40
-#define MARGIN 3
-#define GRID_SIZE 20
+
 #include <QTimer>
 Title::Title(QGraphicsScene *scene) : scene(scene) {
+  int const GHOST_IMAGE_WIDTH = 4;
   QPixmap titleLogo = QPixmap(":/res/img/title.png").scaled(390, 89);
   titleshape.setPixmap(titleLogo);
   titleshape.setPos(97, -60);
@@ -19,11 +18,13 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
             << "PINKY"
             << "INKY"
             << "CLYDE";
+
   int Height = 4;
+
   for (int index = 0; index < 4; index++) {
-    images.append(QString(":/res/img/ghost/") + nicknames[index].toLower() +
+    images.append(IMAGE_GHOST_SRC + nicknames[index].toLower() +
                   QString("/4.png"));
-    points.append(QPointF(4, Height));
+    points.append(QPointF(GHOST_IMAGE_WIDTH, Height));
     Height = Height + MARGIN;
   }
 
@@ -72,10 +73,16 @@ void Title::printer(QString image, QString character, QString nickname,
            color);
 }
 void Title::dotPrinter() {
-  makeImage(":/res/img/item/dot.png", QPointF(11, 23), 20);
-  makeText("10 pts", QPointF(13, 23));
-  makeImage(":/res/img/item/pellet.png", QPointF(11, 25), 20);
-  makeText("50 pts", QPointF(13, 25));
+  int const IMAGE_WIDTH = 11;
+  int const TEXT_WIDTH = 13;
+  int const UPPER_INSTANCE_HEIGHT = 23;
+  int const LOWER_INSTANCE_HEIGHT = 25;
+  makeImage(IMAGE_ITEM_SRC + QString("dot.png"),
+            QPointF(IMAGE_WIDTH, UPPER_INSTANCE_HEIGHT), 20);
+  makeText("10 pts", QPointF(TEXT_WIDTH, UPPER_INSTANCE_HEIGHT));
+  makeImage(IMAGE_ITEM_SRC + QString("pellet.png"),
+            QPointF(IMAGE_WIDTH, LOWER_INSTANCE_HEIGHT), 20);
+  makeText("50 pts", QPointF(TEXT_WIDTH, LOWER_INSTANCE_HEIGHT));
 }
 void Title::printCredit() {
   makeText("㉿Industrial Security OOP Pac-Man", QPointF(1, 28));
@@ -83,11 +90,11 @@ void Title::printCredit() {
 void Title::makeImage(QString imageSrc, QPointF coordinate, int size) {
   QGraphicsPixmapItem *newImage = new QGraphicsPixmapItem();
   newImage->setPixmap(QPixmap(imageSrc).scaledToHeight(size));
-  newImage->setPos(coordinate * 20);
+  newImage->setPos(coordinate * GRID_SIZE);
   scene->addItem(newImage);
 }
 void Title::makeText(QString text, QPointF coordinate, QString color) {
   QGraphicsTextItem *newText = scene->addText(text);
-  newText->setPos(coordinate * 20);
+  newText->setPos(coordinate * GRID_SIZE);
   newText->setDefaultTextColor(color);
 }
