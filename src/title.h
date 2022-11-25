@@ -16,7 +16,9 @@ class Title : public QObject {
   QTimer *timer;
   void printer(QPixmap image, QString character, QString nickname,
                QPoint point);
-  void delay();
+  void dotPrinter();
+  void printCredit();
+  void delay(int ms);
  signals:
   void OnKeyPress();
 
