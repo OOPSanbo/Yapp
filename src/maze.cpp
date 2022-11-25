@@ -105,6 +105,7 @@ bool Maze::CheckWall(QPoint pos, QPoint dir) {
     return map[ceil((pos.y() + 10) / (double)20)]
               [ceil((pos.x() + 10) / (double)20)] != 0;
   }
+  return map[pos.y()][pos.x()] != 0;
 }
 
 bool Maze::CanChangeDir(QPoint pos, QPoint dir, QPoint nextdir) {

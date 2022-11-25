@@ -5,10 +5,6 @@
         <file>res/img/pacman/2.png</file>
         <file>res/img/item/dot.png</file>
         <file>res/img/item/pellet.png</file>
-        <file>res/img/ghost/eaten/d.png</file>
-        <file>res/img/ghost/eaten/l.png</file>
-        <file>res/img/ghost/eaten/r.png</file>
-        <file>res/img/ghost/eaten/u.png</file>
         <file>res/img/pacman/dead/0.png</file>
         <file>res/img/pacman/dead/1.png</file>
         <file>res/img/pacman/dead/2.png</file>
@@ -24,10 +20,6 @@
         <file>res/img/item/score/1.png</file>
         <file>res/img/item/score/2.png</file>
         <file>res/img/item/score/4.png</file>
-        <file>res/img/ghost/nerf/nerf01.png</file>
-        <file>res/img/ghost/nerf/nerf02.png</file>
-        <file>res/img/ghost/nerf/nerf11.png</file>
-        <file>res/img/ghost/nerf/nerf12.png</file>
         <file>res/img/lives_0.png</file>
         <file>res/img/lives_1.png</file>
         <file>res/img/lives_2.png</file>
@@ -74,5 +66,13 @@
         <file>res/img/ghost/inky/6.png</file>
         <file>res/img/ghost/inky/7.png</file>
         <file>res/img/title.png</file>
+        <file>res/img/ghost/eaten/0.png</file>
+        <file>res/img/ghost/eaten/1.png</file>
+        <file>res/img/ghost/eaten/2.png</file>
+        <file>res/img/ghost/eaten/3.png</file>
+        <file>res/img/ghost/nerf/0.png</file>
+        <file>res/img/ghost/nerf/1.png</file>
+        <file>res/img/ghost/nerf/2.png</file>
+        <file>res/img/ghost/nerf/3.png</file>
     </qresource>
 </RCC>

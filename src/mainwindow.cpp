@@ -14,6 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::HandleStartGame() {
   disconnect(connectSignal);
+  scene = new QGraphicsScene(0, 0, sceneWidth, sceneHeight);
+  scene->setBackgroundBrush(Qt::black);
+  scene->setSceneRect(0, -sceneMazeOffset, sceneWidth, sceneHeight);
+  ui->graphicsView->setScene(scene);
+
   scene->addPixmap(QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
   DrawDebugGrid();
 
@@ -35,6 +40,7 @@ void MainWindow::DrawDebugGrid() {
 void MainWindow::Intro() {
   title = new Title(scene);
   scene->installEventFilter(title);
+  DrawDebugGrid();
   connectSignal =
       connect(title, SIGNAL(OnKeyPress()), this, SLOT(HandleStartGame()));
 }
