@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
+  this->setWindowTitle("Yet Another Pac-Man Project!");
 
   scene = new QGraphicsScene(0, 0, sceneWidth, sceneHeight);
   scene->setBackgroundBrush(Qt::black);

@@ -73,5 +73,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+RC_ICONS = res/img/pacman/1.png
+
 RESOURCES += \
     resource.qrc \
