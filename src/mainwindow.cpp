@@ -33,6 +33,7 @@ void MainWindow::DrawDebugGrid() {
 void MainWindow::Intro() {
   title = new Title(scene);
   scene->installEventFilter(title);
+  DrawDebugGrid();
   connectSignal =
       connect(title, SIGNAL(OnKeyPress()), this, SLOT(HandleStartGame()));
 }
