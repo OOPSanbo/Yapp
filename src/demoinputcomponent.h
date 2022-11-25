@@ -10,7 +10,7 @@ class DemoInputComponent : public InputComponent {
 
  public:
   DemoInputComponent();
-  virtual void Update(GameObject& obj);
+  virtual void Update(GameObject& obj, Maze& maze);
 };
 
 #endif  // DEMOINPUTCOMPONENT_H

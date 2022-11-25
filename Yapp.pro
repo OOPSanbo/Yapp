@@ -9,13 +9,15 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/character.cpp \
+    src/chasebehavior.cpp \
     src/demoinputcomponent.cpp \
+    src/direction.cpp \
     src/dot.cpp \
     src/dotfactory.cpp \
     src/dotgraphicscomponent.cpp \
     src/dotphysicscomponent.cpp \
     src/dynamicgameobject.cpp \
+    src/frightenedbehavior.cpp \
     src/game.cpp \
     src/gameobject.cpp \
     src/ghost.cpp \
@@ -31,11 +33,12 @@ SOURCES += \
     src/pacmangraphicscomponent.cpp \
     src/pacmanphysicscomponent.cpp \
     src/pellet.cpp \
+    src/scatterbehavior.cpp \
     src/staticgameobject.cpp \
     src/title.cpp
 
 HEADERS += \
-    src/character.h \
+    src/chasebehavior.h \
     src/demoinputcomponent.h \
     src/direction.h \
     src/dot.h \
@@ -43,6 +46,7 @@ HEADERS += \
     src/dotgraphicscomponent.h \
     src/dotphysicscomponent.h \
     src/dynamicgameobject.h \
+    src/frightenedbehavior.h \
     src/game.h \
     src/gameobject.h \
     src/ghost.h \
@@ -57,6 +61,7 @@ HEADERS += \
     src/pacmangraphicscomponent.h \
     src/pacmanphysicscomponent.h \
     src/pellet.h \
+    src/scatterbehavior.h \
     src/staticgameobject.h \
     src/title.h
 
