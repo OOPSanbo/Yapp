@@ -1,6 +1,6 @@
 #include "ghostgraphicscomponent.h"
 
-#include "dynamicgameobject.h"
+#include "ghost.h"
 
 GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
                                                QString name) {
@@ -9,6 +9,16 @@ GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
         QPixmap(":/res/img/ghost/" + name + "/" + QString::number(i) + ".png")
             .scaledToHeight(scale));
   }
+  for (int i = 0; i < 4; i++) {
+    sprite.append(QPixmap(":/res/img/ghost/nerf/" + QString::number(i) + ".png")
+                      .scaledToHeight(scale));
+  }
+  for (int i = 0; i < 4; i++) {
+    sprite.append(
+        QPixmap(":/res/img/ghost/eaten/" + QString::number(i) + ".png")
+            .scaledToHeight(scale));
+  }
+
   shape.setPixmap(sprite[0]);
   shape.setTransformOriginPoint(scale / 2, scale / 2);
   graphics.addItem(&shape);
@@ -18,7 +28,17 @@ GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
 }
 
 void GhostGraphicsComponent::Update(GameObject& object) {
-  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
+  Ghost& ghostObject = static_cast<Ghost&>(object);
+  if (ghostObject.GetBehavior() == Frightened) {
+    if (index != 8)
+      index = 8;
+    else
+      index = 9;
+    shape.setPos(object.GetPos());
+    shape.setPixmap(sprite[index]);
+
+    return;
+  }
 
   shape.setPos(object.GetPos());
   shape.setPixmap(sprite[index]);
@@ -28,9 +48,9 @@ void GhostGraphicsComponent::Update(GameObject& object) {
     index -= add;
   }
 
-  if (dynamicObject.GetNextDirection() != STOP) return;
+  if (ghostObject.GetNextDirection() != STOP) return;
 
-  switch (dynamicObject.GetDirection()) {
+  switch (ghostObject.GetDirection()) {
     case (eDirection::UP):
       index = 6;
       break;

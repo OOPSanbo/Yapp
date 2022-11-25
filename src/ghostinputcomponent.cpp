@@ -22,14 +22,30 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
       chase->Chase(ghostObject, maze);
       break;
     case Scatter:
-      // scatter->Scatter(ghostObject, maze);
+      scatter->Scatter(ghostObject, maze);
       break;
     case Frightened:
-      // frightened->Frightened(ghostObject, maze);
+      chase->Chase(ghostObject, maze);
+      frightened->Frightened(ghostObject);
+      return;
+      break;
+    case Eaten:
+      ghostObject.SetTarget(QPoint(280, 260));
       break;
   }
 
   ghostObject.SetNextDirection(PathFind(ghostObject, maze));
+  /*
+  int timecounter = 0;
+  if (timecounter < 100) {
+    timecounter += 1;
+  } else {
+    timecounter = 0;
+    if (ghostObject.GetBehavior() == Chase)
+      ghostObject.SetBehavior(Scatter);
+    else
+      ghostObject.SetBehavior(Chase);
+  }*/
 }
 
 eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {
