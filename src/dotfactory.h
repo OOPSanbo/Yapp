@@ -12,9 +12,12 @@ class DotFactory : public ObjectFactory {
  public:
   DotFactory();
   DotFactory(QGraphicsScene*);
-
   DotFactory(PhysicsComponent*, GraphicsComponent*);
+
+  // get Score * to Connect Signal
   virtual GameObject* CreateObject(QString, QPoint);
+  virtual GameObject* CreateObject(QString, QPoint, Score*);
+
 };
 
 #endif  // DOTFACTORY_H
