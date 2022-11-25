@@ -11,8 +11,8 @@ class Title : public QObject {
  public:
   Title(QGraphicsScene *scene);
   bool eventFilter(QObject *object, QEvent *event);
-  void printer(QPixmap image, QString character, QString nickname,
-               QPoint point);
+  void printer(QString image, QString character, QString nickname,
+               QPointF point);
 
   QGraphicsScene *scene;
   QTimer *timer;
@@ -20,6 +20,9 @@ class Title : public QObject {
 
   void dotPrinter();
   void printCredit();
+  void makeImage(QString imageSrc, QPointF coordinate, int size);
+  void makeText(QString text, QPointF coordinate, QString color = "white");
+
  signals:
   void OnKeyPress();
   void timeout();
@@ -30,8 +33,8 @@ class Title : public QObject {
   QGraphicsPixmapItem titleshape;
   QStringList characters;
   QStringList nicknames;
-  QList<QPoint> points;
-  QList<QPixmap> images;
+  QList<QPointF> points;
+  QStringList images;
   int index;
 };
 
