@@ -52,7 +52,7 @@ void Game::GameLoop() {
   QTimer* loopTimer = new QTimer(this);
   connect(loopTimer, SIGNAL(timeout()), this, SLOT(Update()));
   loopTimer->start(70);
-  // loopTimer->setInterval(100);
+  // loopTimer->setInterval(20);
 }
 
 void Game::Update() {
