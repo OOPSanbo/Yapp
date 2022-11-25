@@ -35,7 +35,7 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
 
 bool Title::eventFilter(QObject *object, QEvent *event) {
   if (event->type() == QEvent::KeyPress) {
-    scene->removeItem(&titleshape);
+    disconnect(connectSignal);
     OnKeyPress();
   }
   return false;
@@ -70,32 +70,29 @@ void Title::printer(QPixmap image, QString character, QString nickname,
 
   if (character == QString("SHADOM")) {
     charecterText->setDefaultTextColor("red");
-
     nicknameText->setDefaultTextColor("red");
   } else if (character == QString("SPEEDY")) {
     charecterText->setDefaultTextColor("pink");
-
     nicknameText->setDefaultTextColor("pink");
   } else if (character == QString("BASHFUL")) {
     charecterText->setDefaultTextColor("skyblue");
-
     nicknameText->setDefaultTextColor("skyblue");
   } else if (character == QString("POKEY")) {
     charecterText->setDefaultTextColor("orange");
-
     nicknameText->setDefaultTextColor("orange");
   } else {
     charecterText->setDefaultTextColor("white");
-
     nicknameText->setDefaultTextColor("white");
   }
 }
 void Title::dotPrinter() {
   QGraphicsPixmapItem *dot = new QGraphicsPixmapItem();
   QGraphicsPixmapItem *pellet = new QGraphicsPixmapItem();
+
   dot->setPixmap(QPixmap(":/res/img/item/dot.png"));
   dot->setPos(225, 500);
   scene->addItem(dot);
+
   QGraphicsTextItem *dotText = scene->addText("10 pts");
   dotText->setPos(240, 490);
   dotText->setDefaultTextColor("white");
