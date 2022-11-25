@@ -16,6 +16,7 @@ Game::Game(QGraphicsScene* scene) : scene(scene) {
 
 void Game::Init() {
   maze = new Maze();
+  score = new Score(scene);
 
   foreach (QPoint dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
@@ -52,7 +53,7 @@ void Game::GameLoop() {
   QTimer* loopTimer = new QTimer(this);
   connect(loopTimer, SIGNAL(timeout()), this, SLOT(Update()));
   loopTimer->start(70);
-  // loopTimer->setInterval(20);
+  // loopTimer->setInterval(100);
 }
 
 void Game::Update() {

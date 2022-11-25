@@ -5,6 +5,7 @@
 #include <QObject>
 
 #include "maze.h"
+#include "score.h"
 
 class InputComponent;
 class PhysicsComponent;

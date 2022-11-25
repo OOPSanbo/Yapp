@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <iostream>
 
 #include "ui_MainWindow.h"
 MainWindow::MainWindow(QWidget *parent)
@@ -20,6 +21,7 @@ void MainWindow::HandleStartGame() {
 
   scene->addPixmap(QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
   DrawDebugGrid();
+
   game = new Game(scene);
   game->Init();
   game->GameLoop();
