@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::HandleStartGame() {
   disconnect(connectSignal);
+  scene = new QGraphicsScene(0, 0, sceneWidth, sceneHeight);
+  scene->setBackgroundBrush(Qt::black);
+  scene->setSceneRect(0, -sceneMazeOffset, sceneWidth, sceneHeight);
+  ui->graphicsView->setScene(scene);
+
   scene->addPixmap(QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
   DrawDebugGrid();
   game = new Game(scene);
