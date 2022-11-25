@@ -73,5 +73,6 @@
         <file>res/img/ghost/inky/5.png</file>
         <file>res/img/ghost/inky/6.png</file>
         <file>res/img/ghost/inky/7.png</file>
+        <file>res/img/title.png</file>
     </qresource>
 </RCC>

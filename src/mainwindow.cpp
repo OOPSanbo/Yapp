@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 
 #include "ui_MainWindow.h"
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
@@ -12,10 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
   ui->graphicsView->setScene(scene);
 }
 
-void MainWindow::StartGame() {
+void MainWindow::HandleStartGame() {
+  disconnect(connectSignal);
   scene->addPixmap(QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
   DrawDebugGrid();
-
   game = new Game(scene);
   game->Init();
   game->GameLoop();
@@ -29,6 +28,13 @@ void MainWindow::DrawDebugGrid() {
   // horizontal lines
   for (int y = -sceneMazeOffset; y <= sceneHeight; y += sceneGridScale)
     scene->addLine(0, y, sceneWidth, y, QPen(Qt::gray));
+}
+
+void MainWindow::Intro() {
+  title = new Title(scene);
+  scene->installEventFilter(title);
+  connectSignal =
+      connect(title, SIGNAL(OnKeyPress()), this, SLOT(HandleStartGame()));
 }
 
 MainWindow::~MainWindow() { delete ui; }

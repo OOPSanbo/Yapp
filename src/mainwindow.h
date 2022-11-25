@@ -1,11 +1,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <windows.h>
+
 #include <QGraphicsScene>
+#include <QImage>
+#include <QLabel>
 #include <QMainWindow>
-#include <QKeyEvent>
+#include <QObject>
+#include <QPixmap>
 
 #include "game.h"
+#include "title.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,18 +25,20 @@ class MainWindow : public QMainWindow {
  public:
   MainWindow(QWidget *parent = nullptr);
 
-  void Title();
-  void StartGame();
+  void Intro();
   void Score();
   ~MainWindow();
 
- private slots:
+ public slots:
+  void HandleStartGame();
 
  private:
   Ui::MainWindow *ui;
   QGraphicsScene *scene;
 
   Game *game;
+  Title *title;
+  QMetaObject::Connection connectSignal;
 
   const int sceneWidth = 560;
   const int sceneHeight = 720;
