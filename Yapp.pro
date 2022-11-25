@@ -34,7 +34,8 @@ SOURCES += \
     src/pacmanphysicscomponent.cpp \
     src/pellet.cpp \
     src/scatterbehavior.cpp \
-    src/staticgameobject.cpp
+    src/staticgameobject.cpp \
+    src/title.cpp
 
 HEADERS += \
     src/chasebehavior.h \
@@ -61,7 +62,8 @@ HEADERS += \
     src/pacmanphysicscomponent.h \
     src/pellet.h \
     src/scatterbehavior.h \
-    src/staticgameobject.h
+    src/staticgameobject.h \
+    src/title.h
 
 FORMS += \
     MainWindow.ui
