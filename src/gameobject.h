@@ -30,7 +30,7 @@ class GameObject : public QObject {
 class InputComponent : public QObject {
   Q_OBJECT
  public:
-  virtual void Update(GameObject&) = 0;
+  virtual void Update(GameObject&, Maze&) = 0;
 };
 
 class PhysicsComponent : public QObject {

@@ -36,7 +36,7 @@ bool KeyInputComponent::eventFilter(QObject *object, QEvent *event) {
   return true;
 }
 
-void KeyInputComponent::Update(GameObject &object) {
+void KeyInputComponent::Update(GameObject &object, Maze &maze) {
   DynamicGameObject &dynamicObject = static_cast<DynamicGameObject &>(object);
 
   dynamicObject.SetNextDirection(nextdir);
