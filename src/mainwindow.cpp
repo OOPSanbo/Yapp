@@ -34,7 +34,7 @@ void MainWindow::Intro() {
   title = new Title(scene);
   scene->installEventFilter(title);
   connectSignal =
-      connect(title, SIGNAL(OnKeyPress_test()), this, SLOT(HandleStartGame()));
+      connect(title, SIGNAL(OnKeyPress()), this, SLOT(HandleStartGame()));
 }
 
 MainWindow::~MainWindow() { delete ui; }

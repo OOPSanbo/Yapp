@@ -13,7 +13,7 @@ class Title : public QObject {
   QGraphicsScene *scene;
 
  signals:
-  void OnKeyPress_test();
+  void OnKeyPress();
 
  private:
   QGraphicsPixmapItem titleshape;

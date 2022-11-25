@@ -10,7 +10,7 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
 bool Title::eventFilter(QObject *object, QEvent *event) {
   if (event->type() == QEvent::KeyPress) {
     scene->removeItem(&titleshape);
-    OnKeyPress_test();
+    OnKeyPress();
   }
   return false;
 }
