@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <windows.h>
-
 #include <QGraphicsScene>
 #include <QImage>
 #include <QLabel>
