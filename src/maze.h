@@ -24,6 +24,7 @@ class Maze : public QObject, public QGraphicsPixmapItem {
   QList<QPoint> WhereAreDots();
   QList<QPoint> WhereArePellets();
   QPoint pacmanpos;
+  QPoint pacmandir;
   QPoint blinkypos;
   QPoint clydepos;
   QPoint inkypos;
