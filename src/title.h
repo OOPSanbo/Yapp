@@ -11,17 +11,28 @@ class Title : public QObject {
  public:
   Title(QGraphicsScene *scene);
   bool eventFilter(QObject *object, QEvent *event);
-  void printGenerator();
-  QGraphicsScene *scene;
-  QTimer *timer;
   void printer(QPixmap image, QString character, QString nickname,
                QPoint point);
-  void delay();
+
+  QGraphicsScene *scene;
+  QTimer *timer;
+  QMetaObject::Connection connectSignal;
+
+  void dotPrinter();
+  void printCredit();
  signals:
   void OnKeyPress();
+  void timeout();
+ private slots:
+  void printGenerator();
 
  private:
   QGraphicsPixmapItem titleshape;
+  QStringList characters;
+  QStringList nicknames;
+  QList<QPoint> points;
+  QList<QPixmap> images;
+  int index;
 };
 
 #endif  // TITLE_H
