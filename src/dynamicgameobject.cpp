@@ -27,7 +27,7 @@ void DynamicGameObject::SetNextDirection(eDirection nextDirection) {
 }
 
 void DynamicGameObject::Update(Maze& maze) {
-  input->Update(*this);
+  input->Update(*this, maze);
   physics->Update(*this, maze);
   graphics->Update(*this);
 }

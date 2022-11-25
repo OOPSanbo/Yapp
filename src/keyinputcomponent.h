@@ -14,7 +14,7 @@ class KeyInputComponent : public InputComponent {
 
  public:
   KeyInputComponent();
-  virtual void Update(GameObject &obj);
+  virtual void Update(GameObject &obj, Maze &maze);
   bool eventFilter(QObject *obj, QEvent *event);
 };
 

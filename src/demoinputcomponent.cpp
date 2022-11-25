@@ -6,7 +6,7 @@
 
 DemoInputComponent::DemoInputComponent() {}
 
-void DemoInputComponent::Update(GameObject& object) {
+void DemoInputComponent::Update(GameObject& object, Maze& maze) {
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
   if (dynamicObject.GetNextDirection() == eDirection::STOP) {

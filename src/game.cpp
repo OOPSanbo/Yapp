@@ -30,18 +30,20 @@ void Game::Init() {
   KeyInputComponent* key = new KeyInputComponent();
   pacman = new Pacman(QString("Pacman"), key, new PacmanPhysicsComponent(),
                       new PacmanGraphicsComponent(*scene));
-  blinky = new Ghost(QString("blinky"), new GhostInputComponent(),
+  blinky = new Ghost(QString("blinky"),
+                     new GhostInputComponent(new AggressiveChaseBehavior()),
                      new GhostPhysicsComponent(),
                      new GhostGraphicsComponent(*scene, "blinky"));
-  clyde = new Ghost(QString("clyde"), new GhostInputComponent(),
-                    new GhostPhysicsComponent(),
-                    new GhostGraphicsComponent(*scene, "clyde"));
-  inky = new Ghost(QString("inky"), new GhostInputComponent(),
-                   new GhostPhysicsComponent(),
-                   new GhostGraphicsComponent(*scene, "inky"));
-  pinky = new Ghost(QString("pinky"), new GhostInputComponent(),
-                    new GhostPhysicsComponent(),
-                    new GhostGraphicsComponent(*scene, "pinky"));
+  pinky = new Ghost(
+      QString("pinky"), new GhostInputComponent(new AmbushChaseBehavior()),
+      new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "pinky"));
+  inky = new Ghost(
+      QString("inky"), new GhostInputComponent(new PatrollChaseBehavior()),
+      new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "inky"));
+
+  clyde = new Ghost(
+      QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
+      new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
 
   scene->installEventFilter(key);
 }
