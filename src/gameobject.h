@@ -13,6 +13,8 @@ class GraphicsComponent;
 
 class GameObject : public QObject {
   Q_OBJECT
+ signals:
+  void Eaten();
 
  protected:
   QString name;

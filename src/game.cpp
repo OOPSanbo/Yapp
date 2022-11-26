@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "demoinputcomponent.h"
+#include "dot.h"
 #include "ghost.h"
 #include "ghostgraphicscomponent.h"
 #include "ghostinputcomponent.h"
@@ -20,12 +21,8 @@ void Game::Init() {
 
   foreach (QPoint dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
+    connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
     items.append(dot);
-  }
-
-  foreach (QPoint dotPos, maze->WhereArePellets()) {
-    GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
-    items.append(pellet);
   }
 
   KeyInputComponent* key = new KeyInputComponent();
@@ -45,6 +42,16 @@ void Game::Init() {
   clyde = new Ghost(
       QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
+
+  foreach (QPoint dotPos, maze->WhereArePellets()) {
+    GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
+    connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
+    connect(pellet, SIGNAL(Eaten()), blinky, SLOT(PelletEaten()));
+    connect(pellet, SIGNAL(Eaten()), pinky, SLOT(PelletEaten()));
+    connect(pellet, SIGNAL(Eaten()), inky, SLOT(PelletEaten()));
+    connect(pellet, SIGNAL(Eaten()), clyde, SLOT(PelletEaten()));
+    items.append(pellet);
+  }
 
   scene->installEventFilter(key);
 }

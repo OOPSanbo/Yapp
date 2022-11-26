@@ -13,7 +13,7 @@ class Dot : public StaticGameObject {
  public:
   QGraphicsPixmapItem shape;
   Dot(QString, PhysicsComponent*, GraphicsComponent*);
-  virtual void Eaten();
+  // void Eaten();
 };
 
 #endif  // DOT_H
