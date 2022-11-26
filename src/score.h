@@ -5,20 +5,21 @@
 #include <QKeyEvent>
 #include <QObject>
 
-class Score : public QObject{
+class Score : public QObject {
   Q_OBJECT
-  public:
-    Score(QGraphicsScene *scene);
-    QGraphicsScene *scene;
-    void UpdateScore();
+ public:
+  Score(QGraphicsScene *scene);
+  QGraphicsScene *scene;
+  void UpdateScore();
 
-  public slots:
-    void HandleIncreaseScore();
+ public slots:
+  void IncreaseDotScore();
+  void IncreasePelletScore();
 
-  private:
-    int score_value;
-    QGraphicsTextItem* score_text;
-    QGraphicsPixmapItem scoreshape;
+ private:
+  int score_value;
+  QGraphicsTextItem *score_text;
+  QGraphicsPixmapItem scoreshape;
 };
 
-#endif // SCORE_H
+#endif  // SCORE_H

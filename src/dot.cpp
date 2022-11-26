@@ -7,7 +7,3 @@ Dot::Dot(QString name, PhysicsComponent* physics, GraphicsComponent* graphics)
   // shape = QPixmap(":/res/img/item/dot.png");
   // setPixmap(shape.scaledToWidth(sshape.size().width() * 2.5));
 }
-
-void Dot::Eaten() {
-  // emit DotEaten();
-}

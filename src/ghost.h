@@ -23,5 +23,8 @@ class Ghost : public DynamicGameObject {
   QPoint GetTarget();
   void SetTarget(QPoint target);
   Ghost(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
+
+ private slots:
+  void PelletEaten();
 };
 #endif  // GHOST_H
