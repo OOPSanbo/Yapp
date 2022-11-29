@@ -96,24 +96,75 @@ bool Maze::CheckBound(QPoint pos) {
   return xBound && yBound;
 }
 
-bool Maze::CheckWall(QPoint pos, QPoint dir) {
-  pos = pos + dir;
-  if (dir.x() == -1 || dir.y() == -1) {
-    return map[floor((pos.y() + 10) / (double)20)]
-              [floor((pos.x() + 10) / (double)20)] != 0;
-  } else {
-    return map[ceil((pos.y() + 10) / (double)20)]
-              [ceil((pos.x() + 10) / (double)20)] != 0;
-  }
-  return map[pos.y()][pos.x()] != 0;
+int Maze::ReferMapOnCord(QPoint cord) {
+  if (CheckBound(cord) == false) return 1;
+  return map[cord.y()][cord.x()];
 }
 
-bool Maze::CanChangeDir(QPoint pos, QPoint dir, QPoint nextdir) {
-  if (dir == nextdir) {
-    return true;
-  } else if (dir + nextdir == QPoint(0, 0)) {
+QPoint Maze::TranslateToMazeCord(QPoint pos) {
+  int cordX, cordY;
+
+  cordX = floor(pos.x()) / (double)guiGridSize;
+  cordY = floor(pos.y()) / (double)guiGridSize;
+
+  return QPoint(cordX, cordY);
+}
+
+bool Maze::CanFowardToDirection(QPoint pos, QPoint dir) {
+  QPoint center = pos + QPoint(guiGridSize, guiGridSize);
+  QPoint nextMazeCord = TranslateToMazeCord(center) + dir;
+
+  if (ReferMapOnCord(nextMazeCord) != 0) {
     return true;
   }
+
+  QPoint nextPosCenter =
+      nextMazeCord * guiGridSize + QPoint(guiGridSize / 2, guiGridSize / 2);
+  int hitBound, wallBound;
+  bool canForward;
+
+  switch (dir::ToEnumDir(dir)) {
+    case UP:
+      hitBound = center.y() - guiGridSize;
+      wallBound = nextPosCenter.y();
+      canForward = hitBound > wallBound;
+      break;
+    case DOWN:
+      hitBound = center.y() + guiGridSize;
+      wallBound = nextPosCenter.y();
+      canForward = hitBound < wallBound;
+      break;
+    case LEFT:
+      hitBound = center.x() - guiGridSize;
+      wallBound = nextPosCenter.x();
+      canForward = hitBound > wallBound;
+      break;
+    case RIGHT:
+      hitBound = center.x() + guiGridSize;
+      wallBound = nextPosCenter.x();
+      canForward = hitBound < wallBound;
+      break;
+    default:
+      canForward = false;
+  }
+  return canForward;
+}
+
+bool Maze::CanTurnAroundToNextDirection(QPoint pos, QPoint dir,
+                                        QPoint nextdir) {
+  if (dir == nextdir) {
+    return true;
+  }
+  if (dir + nextdir == QPoint(0, 0)) {
+    return true;
+  }
+  bool isDividableWithTen = pos.x() % 10 == 0 && pos.y() % 10 == 0;
+  if (!isDividableWithTen) return false;
+
+  bool isMultipleWithOddTen =
+      (pos.x() / 10) % 2 == 1 && (pos.y() / 10) % 2 == 1;  // 10, 30, 50, ...
+  if (!isMultipleWithOddTen) return false;
+
   pos = pos + nextdir;
 
   if (dir == QPoint(-1, 0) && nextdir == QPoint(0, 1)) {  // left > down
