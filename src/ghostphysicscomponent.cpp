@@ -11,7 +11,8 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Direction::eDirection nextDirection = ghostObject.GetNextDirection();
 
   QPoint directionPoint = Direction::ToPoint(direction);
-  QPoint nextDirectionPoint = Direction::ToPoint(ghostObject.GetNextDirection());
+  QPoint nextDirectionPoint =
+      Direction::ToPoint(ghostObject.GetNextDirection());
 
   if (nextDirection != Direction::STOP &&
       maze.CanTurnAroundToNextDirection(
