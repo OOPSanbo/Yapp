@@ -96,6 +96,9 @@ void Game::lifeDecrease() {
     if (g->GetBehavior() != Frightened && g->GetBehavior() != Eaten) {
       static_cast<Pacman&>(*pacman).lifeStatus = false;
       life -= 1;
+      if (life == 0) {
+        // gameEnd();
+      }
       foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
     }
   }

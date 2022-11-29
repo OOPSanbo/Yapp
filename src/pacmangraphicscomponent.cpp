@@ -46,7 +46,7 @@ void PacmanGraphicsComponent::Update(GameObject& object) {
         break;
     }
   } else {
-    if (index == 11) {
+    if (index == 14) {
       index = 0;
       object.SetPos(QPoint(14 * 20 - 10, 17 * 20 - 10));
       pacman.lifeStatus = true;
