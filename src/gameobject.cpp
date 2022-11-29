@@ -4,9 +4,9 @@ GameObject::GameObject() {}
 
 GameObject::GameObject(QString name) : name(name) {}
 
-QPoint GameObject::GetPos() { return QPoint(x, y); }
+Point GameObject::GetPos() { return Point(x, y); }
 
-void GameObject::SetPos(QPoint pos) {
+void GameObject::SetPos(Point pos) {
   x = pos.x();
   y = pos.y();
 }

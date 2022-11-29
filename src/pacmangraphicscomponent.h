@@ -21,6 +21,6 @@ class PacmanGraphicsComponent : public GraphicsComponent {
  private:
   int index;
   int add;
-  QPoint lastPos;
+  Point lastPos;
 };
 #endif  // PACMANGRAPHICSCOMPONENT_H

@@ -2,11 +2,12 @@
 #define OBJECTFACTORY_H
 
 #include "gameobject.h"
+#include "point.h"
 
 class ObjectFactory {
  public:
   ObjectFactory();
-  virtual GameObject* CreateObject(QString, QPoint) = 0;
+  virtual GameObject* CreateObject(QString, Point) = 0;
 };
 
 #endif  // OBJECTFACTORY_H

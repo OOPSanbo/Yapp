@@ -65,61 +65,61 @@ Maze::Maze() {
           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 }
 
-QList<QPoint> Maze::WhereAreDots() {
-  QList<QPoint> dots;
+QList<Point> Maze::WhereAreDots() {
+  QList<Point> dots;
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
       if (map[y][x] == 1) {
-        dots.append(QPoint(x, y));
+        dots.append(Point(x, y));
       }
     }
   }
   return dots;
 }
 
-QList<QPoint> Maze::WhereArePellets() {
-  QList<QPoint> pellets;
+QList<Point> Maze::WhereArePellets() {
+  QList<Point> pellets;
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
       if (map[y][x] == 2) {
-        pellets.append(QPoint(x, y));
+        pellets.append(Point(x, y));
       }
     }
   }
   return pellets;
 }
 
-bool Maze::CheckBound(QPoint pos) {
+bool Maze::CheckBound(Point pos) {
   bool xBound = pos.x() >= 0 && pos.x() < (width);
   bool yBound = pos.y() >= 0 && pos.y() < (height - 1);
 
   return xBound && yBound;
 }
 
-int Maze::ReferMapOnCord(QPoint cord) {
+int Maze::ReferMapOnCord(Point cord) {
   if (CheckBound(cord) == false) return 0;
   return map[cord.y()][cord.x()];
 }
 
-QPoint Maze::TranslateToMazeCord(QPoint pos) {
+Point Maze::TranslateToMazeCord(Point pos) {
   int cordX, cordY;
 
   cordX = floor(pos.x()) / (double)guiGridSize;
   cordY = floor(pos.y()) / (double)guiGridSize;
 
-  return QPoint(cordX, cordY);
+  return Point(cordX, cordY);
 }
 
-bool Maze::CanFowardToDirection(QPoint pos, QPoint dir) {
-  QPoint center = pos + QPoint(guiGridSize, guiGridSize);
-  QPoint nextMazeCord = TranslateToMazeCord(center) + dir;
+bool Maze::CanFowardToDirection(Point pos, Point dir) {
+  Point center = pos + Point(guiGridSize);
+  Point nextMazeCord = TranslateToMazeCord(center) + dir;
 
   if (ReferMapOnCord(nextMazeCord) != 0) {
     return true;
   }
 
-  QPoint nextPosCenter =
-      nextMazeCord * guiGridSize + QPoint(guiGridSize / 2, guiGridSize / 2);
+  Point nextPosCenter =
+      nextMazeCord * guiGridSize + Point(guiGridSize / 2, guiGridSize / 2);
   int hitBound, wallBound;
   bool canForward;
 
@@ -150,12 +150,11 @@ bool Maze::CanFowardToDirection(QPoint pos, QPoint dir) {
   return canForward;
 }
 
-bool Maze::CanTurnAroundToNextDirection(QPoint pos, QPoint dir,
-                                        QPoint nextdir) {
+bool Maze::CanTurnAroundToNextDirection(Point pos, Point dir, Point nextdir) {
   if (dir == nextdir) {
     return true;
   }
-  if (dir + nextdir == QPoint(0, 0)) {
+  if (dir + nextdir == Point(0, 0)) {
     return true;
   }
   bool isDividableWithTen = pos.x() % 10 == 0 && pos.y() % 10 == 0;
@@ -167,8 +166,8 @@ bool Maze::CanTurnAroundToNextDirection(QPoint pos, QPoint dir,
 
   pos = pos + nextdir;
 
-  QPoint center = pos + QPoint(guiGridSize, guiGridSize);
-  QPoint nextMazeCord = TranslateToMazeCord(center) + nextdir;
+  Point center = pos + Point(guiGridSize, guiGridSize);
+  Point nextMazeCord = TranslateToMazeCord(center) + nextdir;
 
   if (ReferMapOnCord(nextMazeCord) != 0) {
     return true;
@@ -176,9 +175,9 @@ bool Maze::CanTurnAroundToNextDirection(QPoint pos, QPoint dir,
   return false;
 }
 
-bool Maze::IsEncounterIntersection(QPoint pos, QPoint dir) {
-  QPoint center = pos + QPoint(guiGridSize, guiGridSize);
-  QPoint currentMazeCord = TranslateToMazeCord(center);
+bool Maze::IsEncounterIntersection(Point pos, Point dir) {
+  Point center = pos + Point(guiGridSize, guiGridSize);
+  Point currentMazeCord = TranslateToMazeCord(center);
 
   int numIntersection = 0;
 
@@ -186,8 +185,9 @@ bool Maze::IsEncounterIntersection(QPoint pos, QPoint dir) {
     Direction::eDirection enumDir = static_cast<Direction::eDirection>(i);
     if (enumDir == Direction::ToEnumDir(dir)) continue;
 
-    QPoint nextMazeCord =
-        currentMazeCord + Direction::ToPoint(static_cast<Direction::eDirection>(i));
+    Point nextMazeCord =
+        currentMazeCord +
+        Direction::ToPoint(static_cast<Direction::eDirection>(i));
 
     if (ReferMapOnCord(nextMazeCord) != 0) {
       numIntersection++;
@@ -234,7 +234,7 @@ bool Maze::CheckCollisionGhost() {
           CheckCollisionInky() || CheckCollisionPinky());
 }
 
-bool Maze::CheckCollisionDot(QPoint dotpoint) {
+bool Maze::CheckCollisionDot(Point dotpoint) {
   if (pacmanpos.x() > dotpoint.x() + 10) return false;
   if (pacmanpos.x() + 20 < dotpoint.x()) return false;
   if (pacmanpos.y() > dotpoint.y() + 10) return false;

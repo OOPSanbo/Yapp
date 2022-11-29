@@ -16,8 +16,8 @@ void PatrollChaseBehavior::Chase(Ghost &ghostObject, Maze &maze) {
 }
 
 void RandomChaseBehavior::Chase(Ghost &ghostObject, Maze &maze) {
-  if (Direction::GetDistance(ghostObject.GetPos(), maze.pacmanpos) >= 160)
+  if (ghostObject.GetPos().distanceWith(maze.pacmanpos) >= 160)
     ghostObject.SetTarget(maze.pacmanpos);
   else
-    ghostObject.SetTarget(QPoint(480, 1000));
+    ghostObject.SetTarget(Point(480, 1000));
 }

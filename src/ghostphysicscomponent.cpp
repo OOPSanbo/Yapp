@@ -6,13 +6,18 @@
 void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
 
-  QPoint pos = object.GetPos();
+  Point pos = object.GetPos();
   Direction::eDirection direction = ghostObject.GetDirection();
   Direction::eDirection nextDirection = ghostObject.GetNextDirection();
 
+<<<<<<< HEAD
+  Point directionPoint = Direction::ToPoint(direction);
+  Point nextDirectionPoint = Direction::ToPoint(ghostObject.GetNextDirection());
+=======
   QPoint directionPoint = Direction::ToPoint(direction);
   QPoint nextDirectionPoint =
       Direction::ToPoint(ghostObject.GetNextDirection());
+>>>>>>> f99e18bcb2ccd1bc04c7e9df98137327589cc6a4
 
   if (nextDirection != Direction::STOP &&
       maze.CanTurnAroundToNextDirection(
@@ -29,15 +34,15 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       object.SetPos(pos);
     }
     if (ghostObject.GetBehavior() == Eaten &&
-        QPoint(280, 210) == ghostObject.GetPos()) {
+        Point(280, 210) == ghostObject.GetPos()) {
       ghostObject.SetBehavior(Chase);
       ghostObject.speed = 1;
     }
   }
-  if (pos == QPoint(26 * 20, 14 * 20 - 10)) {
-    object.SetPos(QPoint(10, 14 * 20 - 10));
-  } else if (pos == QPoint(0, 14 * 20 - 10)) {
-    object.SetPos(QPoint(26 * 20 - 10, 14 * 20 - 10));
+  if (pos == Point(26 * 20, 14 * 20 - 10)) {
+    object.SetPos(Point(10, 14 * 20 - 10));
+  } else if (pos == Point(0, 14 * 20 - 10)) {
+    object.SetPos(Point(26 * 20 - 10, 14 * 20 - 10));
   }
 
   if (ghostObject.GetName() == "blinky") {

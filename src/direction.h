@@ -3,14 +3,13 @@
 
 #include <math.h>
 
-#include <QPoint>
+#include "point.h"
 
 class Direction {
  public:
   enum eDirection { STOP = -1, UP, DOWN, LEFT, RIGHT = 3 };
-  static QPoint ToPoint(eDirection enumDir);
-  static eDirection ToEnumDir(QPoint point);
-  static double GetDistance(QPoint A, QPoint B);
+  static Point ToPoint(eDirection enumDir);
+  static eDirection ToEnumDir(Point point);
   static eDirection Reverse(eDirection enumDir);
 };
 
