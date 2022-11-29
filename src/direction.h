@@ -12,6 +12,7 @@ class dir {
   static QPoint ToPoint(eDirection enumDir);
   static eDirection ToEnumDir(QPoint point);
   static double GetDistance(QPoint A, QPoint B);
+  static eDirection Reverse(eDirection enumDir);
 };
 
 #endif  // DIRECTION_H

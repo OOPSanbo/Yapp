@@ -10,10 +10,6 @@ class GhostPhysicsComponent : public PhysicsComponent {
   Q_OBJECT
  public:
   virtual void Update(GameObject& obj, Maze& maze);
-
- private:
-  QPoint DirToPoint(eDirection);
-  QPoint PosToCord(QPoint);
 };
 
-#endif // GHOSTPHYSICSCOMPONENT_H
+#endif  // GHOSTPHYSICSCOMPONENT_H
