@@ -30,8 +30,8 @@ Ghost::Ghost(QString name, InputComponent* input, PhysicsComponent* physics,
     y = 20 * 24.5;
   }
   SetBehavior(Chase);
-  direction = eDirection::DOWN;
-  nextDirection = eDirection::RIGHT;
+  direction = Direction::eDirection::DOWN;
+  nextDirection = Direction::eDirection::RIGHT;
 }
 
 void Ghost::PelletEaten() { SetBehavior(Frightened); }

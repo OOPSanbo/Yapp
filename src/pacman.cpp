@@ -10,6 +10,6 @@ Pacman::Pacman(QString name, InputComponent* input, PhysicsComponent* physics,
   // TODO: Replace hardcoded positon & direction set
   x = 14 * 20 - 10;
   y = 17 * 20 - 10;
-  direction = eDirection::RIGHT;
-  nextDirection = eDirection::DOWN;
+  direction = Direction::RIGHT;
+  nextDirection = Direction::DOWN;
 }
