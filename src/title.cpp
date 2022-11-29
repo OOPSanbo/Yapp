@@ -50,6 +50,14 @@ void Title::printGenerator() {
   } else if (index == 5) {
     printCredit();
   } else {
+    makeImage(QString(":/res/img/pacman/0.png"), QPointF(14, 18), 40);
+    int width = 16;
+    foreach (QString name, nicknames) {
+      makeImage(
+          QString(":/res/img/ghost/") + name.toLower() + QString("/2.png"),
+          QPointF(width, 18), 40);
+      width += 2;
+    }
     disconnect(connectSignal);
   }
   index++;
