@@ -9,7 +9,7 @@ DemoInputComponent::DemoInputComponent() {}
 void DemoInputComponent::Update(GameObject& object, Maze& maze) {
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
-  if (dynamicObject.GetNextDirection() == eDirection::STOP) {
-    dynamicObject.SetNextDirection(static_cast<eDirection>(rand() % 4));
+  if (dynamicObject.GetNextDirection() == Direction::eDirection::STOP) {
+    dynamicObject.SetNextDirection(static_cast<Direction::eDirection>(rand() % 4));
   }
 }

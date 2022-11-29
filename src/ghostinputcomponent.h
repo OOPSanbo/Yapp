@@ -9,8 +9,8 @@
 
 class GhostInputComponent : public InputComponent {
  private:
-  eDirection dir = eDirection::LEFT;
-  eDirection PathFind(Ghost& ghostObject, Maze& maze);
+  Direction::eDirection dir = Direction::LEFT;
+  Direction::eDirection PathFind(Ghost& ghostObject, Maze& maze);
   ChaseBehavior* chase;
   ScatterBehavior* scatter;
   FrightenedBehavior* frightened;

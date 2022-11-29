@@ -1,6 +1,6 @@
 #include "direction.h"
 
-QPoint dir::ToPoint(eDirection enumDir) {
+QPoint Direction::ToPoint(eDirection enumDir) {
   QPoint directionPoint;
   switch (enumDir) {
     case UP:
@@ -22,7 +22,7 @@ QPoint dir::ToPoint(eDirection enumDir) {
   return directionPoint;
 }
 
-eDirection dir::ToEnumDir(QPoint point) {
+Direction::eDirection Direction::ToEnumDir(QPoint point) {
   if (point == QPoint(1, 0))
     return eDirection::RIGHT;
   else if (point == QPoint(-1, 0))
@@ -35,11 +35,11 @@ eDirection dir::ToEnumDir(QPoint point) {
     return eDirection::STOP;
 }
 
-double dir::GetDistance(QPoint A, QPoint B) {
+double Direction::GetDistance(QPoint A, QPoint B) {
   return sqrt(pow(A.x() - B.x(), 2) + pow(A.y() - B.y(), 2));
 }
 
-eDirection dir::Reverse(eDirection enumDir) {
+Direction::eDirection Direction::Reverse(eDirection enumDir) {
   switch (enumDir) {
     case UP:
       return DOWN;

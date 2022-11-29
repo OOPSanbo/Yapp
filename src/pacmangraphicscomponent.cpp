@@ -28,19 +28,19 @@ void PacmanGraphicsComponent::Update(GameObject& object) {
   if (index >= 2 || index <= 0) add = -add;
 
   switch (dynamicObject.GetDirection()) {
-    case (eDirection::UP):
+    case (Direction::UP):
       shape.setRotation(270);
       break;
-    case (eDirection::DOWN):
+    case (Direction::DOWN):
       shape.setRotation(90);
       break;
-    case (eDirection::LEFT):
+    case (Direction::LEFT):
       shape.setRotation(180);
       break;
-    case (eDirection::RIGHT):
+    case (Direction::RIGHT):
       shape.setRotation(0);
       break;
-    case (eDirection::STOP):
+    case (Direction::STOP):
       break;
   }
 }

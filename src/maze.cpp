@@ -123,23 +123,23 @@ bool Maze::CanFowardToDirection(QPoint pos, QPoint dir) {
   int hitBound, wallBound;
   bool canForward;
 
-  switch (dir::ToEnumDir(dir)) {
-    case UP:
+  switch (Direction::ToEnumDir(dir)) {
+    case Direction::UP:
       hitBound = center.y() - guiGridSize;
       wallBound = nextPosCenter.y();
       canForward = hitBound > wallBound;
       break;
-    case DOWN:
+    case Direction::DOWN:
       hitBound = center.y() + guiGridSize;
       wallBound = nextPosCenter.y();
       canForward = hitBound < wallBound;
       break;
-    case LEFT:
+    case Direction::LEFT:
       hitBound = center.x() - guiGridSize;
       wallBound = nextPosCenter.x();
       canForward = hitBound > wallBound;
       break;
-    case RIGHT:
+    case Direction::RIGHT:
       hitBound = center.x() + guiGridSize;
       wallBound = nextPosCenter.x();
       canForward = hitBound < wallBound;
@@ -183,11 +183,11 @@ bool Maze::IsEncounterIntersection(QPoint pos, QPoint dir) {
   int numIntersection = 0;
 
   for (int i = 0; i < 4; i++) {
-    eDirection enumDir = static_cast<eDirection>(i);
-    if (enumDir == dir::ToEnumDir(dir)) continue;
+    Direction::eDirection enumDir = static_cast<Direction::eDirection>(i);
+    if (enumDir == Direction::ToEnumDir(dir)) continue;
 
     QPoint nextMazeCord =
-        currentMazeCord + dir::ToPoint(static_cast<eDirection>(i));
+        currentMazeCord + Direction::ToPoint(static_cast<Direction::eDirection>(i));
 
     if (ReferMapOnCord(nextMazeCord) != 0) {
       numIntersection++;

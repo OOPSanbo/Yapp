@@ -42,19 +42,19 @@ void GhostGraphicsComponent::Update(GameObject& object) {
 
   if (ghostObject.GetBehavior() == Eaten) {
     switch (ghostObject.GetDirection()) {
-      case (eDirection::UP):
+      case (Direction::UP):
         index = 15;
         break;
-      case (eDirection::DOWN):
+      case (Direction::DOWN):
         index = 12;
         break;
-      case (eDirection::LEFT):
+      case (Direction::LEFT):
         index = 13;
         break;
-      case (eDirection::RIGHT):
+      case (Direction::RIGHT):
         index = 14;
         break;
-      case (eDirection::STOP):
+      case (Direction::STOP):
         break;
     }
 
@@ -72,22 +72,22 @@ void GhostGraphicsComponent::Update(GameObject& object) {
     index -= add;
   }
 
-  if (ghostObject.GetNextDirection() != STOP) return;
+  if (ghostObject.GetNextDirection() != Direction::STOP) return;
 
   switch (ghostObject.GetDirection()) {
-    case (eDirection::UP):
+    case (Direction::UP):
       index = 6;
       break;
-    case (eDirection::DOWN):
+    case (Direction::DOWN):
       index = 0;
       break;
-    case (eDirection::LEFT):
+    case (Direction::LEFT):
       index = 2;
       break;
-    case (eDirection::RIGHT):
+    case (Direction::RIGHT):
       index = 4;
       break;
-    case (eDirection::STOP):
+    case (Direction::STOP):
       break;
   }
 }

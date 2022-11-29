@@ -14,15 +14,15 @@ DynamicGameObject::DynamicGameObject(QString name, InputComponent* input,
                                      GraphicsComponent* graphics)
     : GameObject(name), input(input), physics(physics), graphics(graphics) {}
 
-eDirection DynamicGameObject::GetDirection() { return direction; }
+Direction::eDirection DynamicGameObject::GetDirection() { return direction; }
 
-eDirection DynamicGameObject::GetNextDirection() { return nextDirection; }
+Direction::eDirection DynamicGameObject::GetNextDirection() { return nextDirection; }
 
-void DynamicGameObject::SetDirection(eDirection direction) {
+void DynamicGameObject::SetDirection(Direction::eDirection direction) {
   this->direction = direction;
 }
 
-void DynamicGameObject::SetNextDirection(eDirection nextDirection) {
+void DynamicGameObject::SetNextDirection(Direction::eDirection nextDirection) {
   this->nextDirection = nextDirection;
 }
 
