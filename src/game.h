@@ -41,6 +41,7 @@ class Game : public QObject {
  private slots:
   void Update();
   void lifeDecrease();
+  void resume();
 };
 
 #endif  // GAME_H

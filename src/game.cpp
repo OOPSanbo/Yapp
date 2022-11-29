@@ -45,7 +45,11 @@ void Game::Init() {
   clyde = new Ghost(
       QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
+
   connect(pacman, SIGNAL(Eaten()), this, SLOT(lifeDecrease()));
+  Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
+  connect(&pacmanObject, SIGNAL(pacmanRevive()), this, SLOT(resume()));
+
   foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
@@ -67,7 +71,6 @@ void Game::GameLoop() {
 }
 
 void Game::Update() {
-  Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
   pacman->Update(*maze);
   blinky->Update(*maze);
   clyde->Update(*maze);
@@ -75,7 +78,6 @@ void Game::Update() {
   pinky->Update(*maze);
 
   foreach (GameObject* item, items) { item->Update(*maze); }
-  lastPacmanState = pacmanObject.lifeStatus;
 }
 void Game::lifeDisplay() {
   lifeLabel->setPixmap(QPixmap(QString(":/res/img/lives_") +
@@ -84,10 +86,23 @@ void Game::lifeDisplay() {
   lifeLabel->setPos(0, 31 * 20);
 }
 void Game::lifeDecrease() {
-  if (life == 0) {
-    // game end
-  } else {
+  if (static_cast<Ghost&>(*blinky).GetBehavior() != Frightened) {
+    static_cast<Pacman&>(*pacman).lifeStatus = false;
     life -= 1;
+    static_cast<Ghost&>(*blinky).SetBehavior(Stop);
+    static_cast<Ghost&>(*clyde).SetBehavior(Stop);
+    static_cast<Ghost&>(*inky).SetBehavior(Stop);
+    static_cast<Ghost&>(*pinky).SetBehavior(Stop);
     lifeDisplay();
   }
+}
+void Game::resume() {
+  static_cast<Ghost&>(*blinky).SetPos(QPoint(20 * 4.5, 20 * 4.5));
+  static_cast<Ghost&>(*clyde).SetPos(QPoint(20 * 24.5, 20 * 4.5));
+  static_cast<Ghost&>(*inky).SetPos(QPoint(20 * 4.5, 20 * 24.5));
+  static_cast<Ghost&>(*pinky).SetPos(QPoint(20 * 24.5, 20 * 24.5));
+  static_cast<Ghost&>(*blinky).SetBehavior(Chase);
+  static_cast<Ghost&>(*clyde).SetBehavior(Chase);
+  static_cast<Ghost&>(*inky).SetBehavior(Chase);
+  static_cast<Ghost&>(*pinky).SetBehavior(Chase);
 }
