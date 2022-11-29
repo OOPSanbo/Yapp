@@ -40,6 +40,30 @@ void GhostGraphicsComponent::Update(GameObject& object) {
     return;
   }
 
+  if (ghostObject.GetBehavior() == Eaten) {
+    switch (ghostObject.GetDirection()) {
+      case (eDirection::UP):
+        index = 15;
+        break;
+      case (eDirection::DOWN):
+        index = 12;
+        break;
+      case (eDirection::LEFT):
+        index = 13;
+        break;
+      case (eDirection::RIGHT):
+        index = 14;
+        break;
+      case (eDirection::STOP):
+        break;
+    }
+
+    shape.setPos(object.GetPos());
+    shape.setPixmap(sprite[index]);
+
+    return;
+  }
+
   shape.setPos(object.GetPos());
   shape.setPixmap(sprite[index]);
   if (index % 2 == 0) {
