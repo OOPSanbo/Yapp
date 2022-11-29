@@ -12,15 +12,15 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Point directionPoint = Direction::ToPoint(direction);
   Point nextDirectionPoint =
       Direction::ToPoint(dynamicObject.GetNextDirection());
-
-  if (nextDirection != Direction::eDirection::STOP &&
-      maze.CanTurnAroundToNextDirection(
-          pos, directionPoint,
-          nextDirectionPoint)) {  // check if pacman can change direction
-    directionPoint = nextDirectionPoint;
-    dynamicObject.SetDirection(nextDirection);
-    dynamicObject.SetNextDirection(Direction::eDirection::STOP);
-  }
+  if (pacmanObject.lifeStatus) {
+    if (nextDirection != Direction::eDirection::STOP &&
+        maze.CanTurnAroundToNextDirection(
+            pos, directionPoint,
+            nextDirectionPoint)) {  // check if pacman can change direction
+      directionPoint = nextDirectionPoint;
+      dynamicObject.SetDirection(nextDirection);
+      dynamicObject.SetNextDirection(Direction::eDirection::STOP);
+    }
 
   if (maze.CanFowardToDirection(pos,
                                 directionPoint)) {  // check if pacman can move
@@ -35,11 +35,11 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
     object.SetPos(Point(26 * 20 - 10, 14 * 20 - 10));
   }
 
-  maze.pacmanpos = object.GetPos();
-  maze.pacmandir = Direction::ToPoint(direction);
+    maze.pacmanpos = object.GetPos();
+    maze.pacmandir = Direction::ToPoint(direction);
 
-  if (maze.CheckCollisionGhost()) {
-    pacmanObject.lifeStatus = false;
-    emit pacmanObject.Eaten();
+    if (maze.CheckCollisionGhost() && pacmanObject.lifeStatus) {
+      emit pacmanObject.Eaten();
+    }
   }
 }

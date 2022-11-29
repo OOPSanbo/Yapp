@@ -14,5 +14,7 @@ class Pacman : public DynamicGameObject {
  public:
   Pacman(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
   bool lifeStatus = true;
+ signals:
+  void pacmanRevive();
 };
 #endif  // PACMAN_H
