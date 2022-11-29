@@ -41,17 +41,16 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   QPoint nextDirectionPoint = DirToPoint(dynamicObject.GetNextDirection());
 
   if (nextDirection != eDirection::STOP &&
-      maze.CanChangeDir(
+      maze.CanTurnAroundToNextDirection(
           pos, directionPoint,
-          nextDirectionPoint) &&  // check if pacman can change direction
-      pos.x() % 10 == 0 &&
-      pos.y() % 10 == 0) {
+          nextDirectionPoint)) {  // check if pacman can change direction
     directionPoint = nextDirectionPoint;
     dynamicObject.SetDirection(nextDirection);
     dynamicObject.SetNextDirection(eDirection::STOP);
   }
 
-  if (maze.CheckWall(pos, directionPoint)) {  // check if pacman can move
+  if (maze.CanFowardToDirection(pos,
+                                directionPoint)) {  // check if pacman can move
     QPoint nextPos = QPoint(pos.x() + directionPoint.x() * 5,
                             pos.y() + directionPoint.y() * 5);
     object.SetPos(nextPos);

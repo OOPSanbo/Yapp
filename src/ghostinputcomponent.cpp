@@ -61,15 +61,15 @@ eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {
     posB = pos + QPoint(0, 1);
     posC = pos + QPoint(0, -1);
   }
-  if (maze.CheckWall(posA, QPoint(0, 0)))
+  if (maze.CanFowardToDirection(posA, QPoint(0, 0)))
     distA = (dir::GetDistance(posA, target));
   else
     distA = 1000;
-  if (maze.CheckWall(posB, QPoint(0, 0)))
+  if (maze.CanFowardToDirection(posB, QPoint(0, 0)))
     distB = (dir::GetDistance(posB, target));
   else
     distB = 1000;
-  if (maze.CheckWall(posC, QPoint(0, 0)))
+  if (maze.CanFowardToDirection(posC, QPoint(0, 0)))
     distC = (dir::GetDistance(posC, target));
   else
     distC = 1000;
