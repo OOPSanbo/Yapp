@@ -1,7 +1,7 @@
 #include "ghostphysicscomponent.h"
 
 #include "direction.h"
-#include "dynamicgameobject.h"
+#include "ghost.h"
 
 QPoint GhostPhysicsComponent::DirToPoint(eDirection direction) {
   QPoint point;
@@ -31,23 +31,22 @@ QPoint GhostPhysicsComponent::PosToCord(QPoint point) {
 }
 
 void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
-  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
+  Ghost& ghostObject = static_cast<Ghost&>(object);
 
   QPoint pos = object.GetPos();
-
-  eDirection direction = dynamicObject.GetDirection();
-  eDirection nextDirection = dynamicObject.GetNextDirection();
+  eDirection direction = ghostObject.GetDirection();
+  eDirection nextDirection = ghostObject.GetNextDirection();
 
   QPoint directionPoint = DirToPoint(direction);
-  QPoint nextDirectionPoint = DirToPoint(dynamicObject.GetNextDirection());
+  QPoint nextDirectionPoint = DirToPoint(ghostObject.GetNextDirection());
 
   if (nextDirection != eDirection::STOP &&
       maze.CanTurnAroundToNextDirection(
           pos, directionPoint,
           nextDirectionPoint)) {  // check if pacman can change direction
     directionPoint = nextDirectionPoint;
-    dynamicObject.SetDirection(nextDirection);
-    dynamicObject.SetNextDirection(eDirection::STOP);
+    ghostObject.SetDirection(nextDirection);
+    ghostObject.SetNextDirection(eDirection::STOP);
   }
 
   if (maze.CanFowardToDirection(pos,
@@ -63,12 +62,33 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
     object.SetPos(QPoint(26 * 20 - 10, 14 * 20 - 10));
   }
 
-  if (dynamicObject.GetName() == "blinky")
+  if (ghostObject.GetName() == "blinky") {
     maze.blinkypos = pos;
-  else if (dynamicObject.GetName() == "clyde")
+    if (maze.CheckCollisionBlinky() &&
+        (ghostObject.GetBehavior() == Frightened)) {
+      ghostObject.SetBehavior(Eaten);
+      // speed up
+    }
+  } else if (ghostObject.GetName() == "clyde") {
     maze.clydepos = pos;
-  else if (dynamicObject.GetName() == "inky")
+    if (maze.CheckCollisionClyde() &&
+        (ghostObject.GetBehavior() == Frightened)) {
+      ghostObject.SetBehavior(Eaten);
+      // speed up
+    }
+  } else if (ghostObject.GetName() == "inky") {
     maze.inkypos = pos;
-  else if (dynamicObject.GetName() == "pinky")
+    if (maze.CheckCollisionInky() &&
+        (ghostObject.GetBehavior() == Frightened)) {
+      ghostObject.SetBehavior(Eaten);
+      // speed up
+    }
+  } else if (ghostObject.GetName() == "pinky") {
     maze.pinkypos = pos;
+    if (maze.CheckCollisionPinky() &&
+        (ghostObject.GetBehavior() == Frightened)) {
+      ghostObject.SetBehavior(Eaten);
+      // speed up
+    }
+  }
 }

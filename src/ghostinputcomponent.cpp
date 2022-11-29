@@ -25,7 +25,6 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
       scatter->Scatter(ghostObject, maze);
       break;
     case Frightened:
-      chase->Chase(ghostObject, maze);
       frightened->Frightened(ghostObject);
       return;
       break;

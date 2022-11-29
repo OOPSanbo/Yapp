@@ -12,12 +12,6 @@ void DotPhysicsComponent::Update(GameObject& object, Maze& maze) {
 
   if (maze.CheckCollisionDot(staticObject.GetPos())) {
     staticObject.status = false;
-    if (staticObject.GetName() == QString("dot")) {
-      emit staticObject.Eaten();
-
-    } else if (staticObject.GetName() == QString("pellet")) {
-      emit staticObject.Eaten();
-      // change pacman and ghost status
-    }
+    emit staticObject.Eaten();
   }
 }
