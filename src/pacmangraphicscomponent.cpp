@@ -13,17 +13,19 @@ PacmanGraphicsComponent::PacmanGraphicsComponent(QGraphicsScene& graphics) {
 
   index = 0;
   add = 1;
+  lastPos = QPoint(0, 0);
 }
 
 void PacmanGraphicsComponent::Update(GameObject& object) {
+  if (object.GetPos() == lastPos) return;
+  lastPos = object.GetPos();
+
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
   shape.setPos(object.GetPos());
   shape.setPixmap(sprite[index]);
   index += add;
   if (index >= 2 || index <= 0) add = -add;
-
-  if (dynamicObject.GetNextDirection() != STOP) return;
 
   switch (dynamicObject.GetDirection()) {
     case (eDirection::UP):

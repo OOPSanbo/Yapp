@@ -38,3 +38,18 @@ eDirection dir::ToEnumDir(QPoint point) {
 double dir::GetDistance(QPoint A, QPoint B) {
   return sqrt(pow(A.x() - B.x(), 2) + pow(A.y() - B.y(), 2));
 }
+
+eDirection dir::Reverse(eDirection enumDir) {
+  switch (enumDir) {
+    case UP:
+      return DOWN;
+    case DOWN:
+      return UP;
+    case LEFT:
+      return RIGHT;
+    case RIGHT:
+      return LEFT;
+    default:
+      return STOP;
+  }
+}
