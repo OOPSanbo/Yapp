@@ -18,7 +18,10 @@ Game::Game(QGraphicsScene* scene) : scene(scene) {
 void Game::Init() {
   maze = new Maze();
   score = new Score(scene);
-
+  life = 3;
+  lifeLabel = new QGraphicsPixmapItem();
+  scene->addItem(lifeLabel);
+  lifeDisplay();
   foreach (QPoint dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
@@ -42,7 +45,7 @@ void Game::Init() {
   clyde = new Ghost(
       QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
-
+  connect(pacman, SIGNAL(Eaten()), this, SLOT(lifeDecrease()));
   foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
@@ -70,4 +73,18 @@ void Game::Update() {
   inky->Update(*maze);
   pinky->Update(*maze);
   foreach (GameObject* item, items) { item->Update(*maze); }
+}
+void Game::lifeDisplay() {
+  lifeLabel->setPixmap(QPixmap(QString(":/res/img/lives_") +
+                               QString::number(life) + QString(".png"))
+                           .scaledToHeight(40));
+  lifeLabel->setPos(0, 31 * 20);
+}
+void Game::lifeDecrease() {
+  if (life == 0) {
+    // game end
+  } else {
+    life -= 1;
+    lifeDisplay();
+  }
 }
