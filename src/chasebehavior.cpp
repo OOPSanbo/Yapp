@@ -1,9 +1,5 @@
 #include "chasebehavior.h"
 
-#include <math.h>
-
-// void ChaseBehavior::SetTarget() {}
-
 ChaseBehavior::ChaseBehavior() {}
 
 void AggressiveChaseBehavior::Chase(Ghost &ghostObject, Maze &maze) {

@@ -5,6 +5,7 @@
 #include <QObject>
 
 #include "maze.h"
+#include "score.h"
 
 class InputComponent;
 class PhysicsComponent;
@@ -12,6 +13,8 @@ class GraphicsComponent;
 
 class GameObject : public QObject {
   Q_OBJECT
+ signals:
+  void Eaten();
 
  protected:
   QString name;

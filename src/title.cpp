@@ -1,30 +1,15 @@
 #include "title.h"
 
-#include <QThread>
+#include <QTimer>
 Title::Title(QGraphicsScene *scene) : scene(scene) {
-  QPixmap titleLogo = QPixmap(":/res/img/title.png").scaled(366, 89);
+  int const GHOST_IMAGE_WIDTH = 4;
+  QPixmap titleLogo = QPixmap(":/res/img/title.png").scaled(390, 89);
   titleshape.setPixmap(titleLogo);
   titleshape.setPos(97, -60);
   scene->addItem(&titleshape);
-  printGenerator();
-}
 
-bool Title::eventFilter(QObject *object, QEvent *event) {
-  if (event->type() == QEvent::KeyPress) {
-    scene->removeItem(&titleshape);
-    OnKeyPress();
-  }
-  return false;
-}
-void Title::printGenerator() {
-  QGraphicsTextItem *header = scene->addText("CHARACTER / NICKNAME");
-  header->setDefaultTextColor("white");
-  header->setPos(QPoint(115, 30));
-  delay();
-  QStringList characters;
-  QStringList nicknames;
-  QList<QPoint> points;
-  QList<QPixmap> images;
+  makeText("CHARACTER / NICKNAME", QPointF(7, 2.5));
+  index = 0;
   characters << "SHADOM"
              << "SPEEDY"
              << "BASHFUL"
@@ -33,59 +18,83 @@ void Title::printGenerator() {
             << "PINKY"
             << "INKY"
             << "CLYDE";
-  int Height = 100;
+
+  int Height = 4;
+
   for (int index = 0; index < 4; index++) {
-    images.append(QPixmap(QString(":/res/img/ghost/") +
-                          nicknames[index].toLower() + QString("/4.png"))
-                      .scaledToHeight(40));
-
-    points.append(QPoint(30, Height));
-    Height = Height + 60;
+    images.append(IMAGE_GHOST_SRC + nicknames[index].toLower() +
+                  QString("/4.png"));
+    points.append(QPointF(GHOST_IMAGE_WIDTH, Height));
+    Height = Height + MARGIN;
   }
-  for (int index = 0; index < characters.length(); index++) {
+
+  timer = new QTimer();
+  connectSignal =
+      connect(timer, SIGNAL(timeout()), this, SLOT(printGenerator()));
+  timer->start(1000);
+}
+
+bool Title::eventFilter(QObject *object, QEvent *event) {
+  if (event->type() == QEvent::KeyPress) {
+    disconnect(connectSignal);
+    OnKeyPress();
+  }
+  return false;
+}
+
+void Title::printGenerator() {
+  if (index < 4) {
     printer(images[index], characters[index], nicknames[index], points[index]);
-  }
-}
-
-void Title::printer(QPixmap image, QString character, QString nickname,
-                    QPoint point) {
-  QGraphicsPixmapItem *characterImage = new QGraphicsPixmapItem();
-  characterImage->setPixmap(image);
-  characterImage->setPos(point);
-  scene->addItem(characterImage);
-  delay();
-  QGraphicsTextItem *charecterText = scene->addText(QString('-') + character);
-  charecterText->setPos(point + QPoint(90, 0));
-
-  QGraphicsTextItem *nicknameText =
-      scene->addText(QString('"') + nickname + QString('"'));
-  nicknameText->setPos(point + QPoint(290, 0));
-
-  if (character == QString("SHADOM")) {
-    charecterText->setDefaultTextColor("red");
-    delay();
-    nicknameText->setDefaultTextColor("red");
-  } else if (character == QString("SPEEDY")) {
-    charecterText->setDefaultTextColor("pink");
-    delay();
-    nicknameText->setDefaultTextColor("pink");
-  } else if (character == QString("BASHFUL")) {
-    charecterText->setDefaultTextColor("skyblue");
-    delay();
-    nicknameText->setDefaultTextColor("skyblue");
-  } else if (character == QString("POKEY")) {
-    charecterText->setDefaultTextColor("orange");
-    delay();
-    nicknameText->setDefaultTextColor("orange");
+  } else if (index == 4) {
+    dotPrinter();
+  } else if (index == 5) {
+    printCredit();
   } else {
-    charecterText->setDefaultTextColor("white");
-    delay();
-    nicknameText->setDefaultTextColor("white");
+    disconnect(connectSignal);
   }
-  delay();
+  index++;
 }
-void Title::delay() {
-  QTime dieTime = QTime::currentTime().addSecs(1);
-  while (QTime::currentTime() < dieTime)
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+void Title::printer(QString image, QString character, QString nickname,
+                    QPointF point) {
+  QString color = "white";
+  makeImage(image, point, GHOST_SIZE);
+  if (character == QString("SHADOM")) {
+    color = QString("red");
+  } else if (character == QString("SPEEDY")) {
+    color = QString("pink");
+  } else if (character == QString("BASHFUL")) {
+    color = QString("skyblue");
+  } else if (character == QString("POKEY")) {
+    color = QString("orange");
+  }
+  makeText(QString('-') + character, point + QPointF(3, 0), color);
+  makeText(QString('"') + nickname + QString('"'), point + QPointF(13, 0),
+           color);
+}
+void Title::dotPrinter() {
+  int const IMAGE_WIDTH = 11;
+  int const TEXT_WIDTH = 13;
+  int const UPPER_INSTANCE_HEIGHT = 23;
+  int const LOWER_INSTANCE_HEIGHT = 25;
+  makeImage(IMAGE_ITEM_SRC + QString("dot.png"),
+            QPointF(IMAGE_WIDTH, UPPER_INSTANCE_HEIGHT), 20);
+  makeText("10 pts", QPointF(TEXT_WIDTH, UPPER_INSTANCE_HEIGHT));
+  makeImage(IMAGE_ITEM_SRC + QString("pellet.png"),
+            QPointF(IMAGE_WIDTH, LOWER_INSTANCE_HEIGHT), 20);
+  makeText("50 pts", QPointF(TEXT_WIDTH, LOWER_INSTANCE_HEIGHT));
+}
+void Title::printCredit() {
+  makeText("㉿Industrial Security OOP Pac-Man", QPointF(1, 28));
+}
+void Title::makeImage(QString imageSrc, QPointF coordinate, int size) {
+  QGraphicsPixmapItem *newImage = new QGraphicsPixmapItem();
+  newImage->setPixmap(QPixmap(imageSrc).scaledToHeight(size));
+  newImage->setPos(coordinate * GRID_SIZE);
+  scene->addItem(newImage);
+}
+void Title::makeText(QString text, QPointF coordinate, QString color) {
+  QGraphicsTextItem *newText = scene->addText(text);
+  newText->setPos(coordinate * GRID_SIZE);
+  newText->setDefaultTextColor(color);
 }
