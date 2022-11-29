@@ -31,7 +31,7 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
       return;
       break;
     case Eaten:
-      ghostObject.SetTarget(QPoint(280, 260));
+      ghostObject.SetTarget(QPoint(280, 210));
       break;
   }
 
