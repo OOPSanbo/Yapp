@@ -86,23 +86,32 @@ void Game::lifeDisplay() {
   lifeLabel->setPos(0, 31 * 20);
 }
 void Game::lifeDecrease() {
-  if (static_cast<Ghost&>(*blinky).GetBehavior() != Frightened) {
-    static_cast<Pacman&>(*pacman).lifeStatus = false;
-    life -= 1;
-    static_cast<Ghost&>(*blinky).SetBehavior(Stop);
-    static_cast<Ghost&>(*clyde).SetBehavior(Stop);
-    static_cast<Ghost&>(*inky).SetBehavior(Stop);
-    static_cast<Ghost&>(*pinky).SetBehavior(Stop);
-    lifeDisplay();
+  Ghost* blinkyGhost = &static_cast<Ghost&>(*blinky);
+  Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
+  Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
+  Ghost* pinkyGhost = &static_cast<Ghost&>(*pinky);
+  QList<Ghost*> ghosts;
+  ghosts << blinkyGhost << clydeGhost << inkyGhost << pinkyGhost;
+  foreach (Ghost* g, ghosts) {
+    if (g->GetBehavior() != Frightened && g->GetBehavior() != Eaten) {
+      static_cast<Pacman&>(*pacman).lifeStatus = false;
+      life -= 1;
+      foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
+    }
   }
+  lifeDisplay();
 }
 void Game::resume() {
-  static_cast<Ghost&>(*blinky).SetPos(QPoint(20 * 4.5, 20 * 4.5));
-  static_cast<Ghost&>(*clyde).SetPos(QPoint(20 * 24.5, 20 * 4.5));
-  static_cast<Ghost&>(*inky).SetPos(QPoint(20 * 4.5, 20 * 24.5));
-  static_cast<Ghost&>(*pinky).SetPos(QPoint(20 * 24.5, 20 * 24.5));
-  static_cast<Ghost&>(*blinky).SetBehavior(Chase);
-  static_cast<Ghost&>(*clyde).SetBehavior(Chase);
-  static_cast<Ghost&>(*inky).SetBehavior(Chase);
-  static_cast<Ghost&>(*pinky).SetBehavior(Chase);
+  Ghost* blinkyGhost = &static_cast<Ghost&>(*blinky);
+  Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
+  Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
+  Ghost* pinkyGhost = &static_cast<Ghost&>(*pinky);
+  blinkyGhost->SetPos(QPoint(20 * 4.5, 20 * 4.5));
+  clydeGhost->SetPos(QPoint(20 * 24.5, 20 * 4.5));
+  inkyGhost->SetPos(QPoint(20 * 4.5, 20 * 24.5));
+  pinkyGhost->SetPos(QPoint(20 * 24.5, 20 * 24.5));
+  blinkyGhost->SetBehavior(Chase);
+  clydeGhost->SetBehavior(Chase);
+  inkyGhost->SetBehavior(Chase);
+  pinkyGhost->SetBehavior(Chase);
 }
