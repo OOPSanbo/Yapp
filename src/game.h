@@ -25,6 +25,7 @@ class Game : public QObject {
   Maze *maze;
   Score *score;
   QGraphicsPixmapItem *lifeLabel;
+  bool lastPacmanState = true;
   int life;
   GameObject *pacman;
   GameObject *blinky;

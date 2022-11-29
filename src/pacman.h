@@ -13,5 +13,6 @@ class Pacman : public DynamicGameObject {
 
  public:
   Pacman(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
+  bool lifeStatus = true;
 };
 #endif  // PACMAN_H
