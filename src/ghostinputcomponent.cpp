@@ -34,17 +34,6 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
   }
 
   ghostObject.SetNextDirection(PathFind(ghostObject, maze));
-  /*
-  int timecounter = 0;
-  if (timecounter < 100) {
-    timecounter += 1;
-  } else {
-    timecounter = 0;
-    if (ghostObject.GetBehavior() == Chase)
-      ghostObject.SetBehavior(Scatter);
-    else
-      ghostObject.SetBehavior(Chase);
-  }*/
 }
 
 eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {

@@ -91,4 +91,11 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       // speed up
     }
   }
+
+  if (ghostObject.GetBehavior() != Frightened)
+    ghostObject.timer = 0;
+  else
+    ghostObject.timer += 1;
+
+  if (ghostObject.timer >= 100) ghostObject.SetBehavior(Chase);
 }
