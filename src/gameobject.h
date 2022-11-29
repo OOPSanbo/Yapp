@@ -5,6 +5,7 @@
 #include <QObject>
 
 #include "maze.h"
+#include "point.h"
 #include "score.h"
 
 class InputComponent;
@@ -24,8 +25,8 @@ class GameObject : public QObject {
  public:
   GameObject();
   GameObject(QString name);
-  QPoint GetPos();
-  void SetPos(QPoint);
+  Point GetPos();
+  void SetPos(Point);
   virtual void Update(Maze& maze) = 0;
   QString GetName();
 };

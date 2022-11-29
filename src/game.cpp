@@ -22,7 +22,7 @@ void Game::Init() {
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
-  foreach (QPoint dotPos, maze->WhereAreDots()) {
+  foreach (Point dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
     items.append(dot);
@@ -46,7 +46,7 @@ void Game::Init() {
       QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
   connect(pacman, SIGNAL(Eaten()), this, SLOT(lifeDecrease()));
-  foreach (QPoint dotPos, maze->WhereArePellets()) {
+  foreach (Point dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
     connect(pellet, SIGNAL(Eaten()), blinky, SLOT(PelletEaten()));
@@ -72,7 +72,9 @@ void Game::Update() {
   clyde->Update(*maze);
   inky->Update(*maze);
   pinky->Update(*maze);
-  foreach (GameObject* item, items) { item->Update(*maze); }
+  foreach (GameObject* item, items) {
+    item->Update(*maze);
+  }
 }
 void Game::lifeDisplay() {
   lifeLabel->setPixmap(QPixmap(QString(":/res/img/lives_") +

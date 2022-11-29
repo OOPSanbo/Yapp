@@ -13,7 +13,7 @@ PacmanGraphicsComponent::PacmanGraphicsComponent(QGraphicsScene& graphics) {
 
   index = 0;
   add = 1;
-  lastPos = QPoint(0, 0);
+  lastPos = Point(0, 0);
 }
 
 void PacmanGraphicsComponent::Update(GameObject& object) {

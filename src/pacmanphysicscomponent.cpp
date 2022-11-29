@@ -5,12 +5,13 @@
 void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
-  QPoint pos = object.GetPos();
+  Point pos = object.GetPos();
   Direction::eDirection direction = dynamicObject.GetDirection();
   Direction::eDirection nextDirection = dynamicObject.GetNextDirection();
 
-  QPoint directionPoint = Direction::ToPoint(direction);
-  QPoint nextDirectionPoint = Direction::ToPoint(dynamicObject.GetNextDirection());
+  Point directionPoint = Direction::ToPoint(direction);
+  Point nextDirectionPoint =
+      Direction::ToPoint(dynamicObject.GetNextDirection());
 
   if (nextDirection != Direction::eDirection::STOP &&
       maze.CanTurnAroundToNextDirection(
@@ -23,15 +24,15 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
 
   if (maze.CanFowardToDirection(pos,
                                 directionPoint)) {  // check if pacman can move
-    QPoint nextPos = QPoint(pos.x() + directionPoint.x() * 5,
-                            pos.y() + directionPoint.y() * 5);
+    Point nextPos = Point(pos.x() + directionPoint.x() * 5,
+                          pos.y() + directionPoint.y() * 5);
     object.SetPos(nextPos);
   }
 
-  if (pos == QPoint(26 * 20, 14 * 20 - 10)) {  // check tunnel
-    object.SetPos(QPoint(10, 14 * 20 - 10));
-  } else if (pos == QPoint(0, 14 * 20 - 10)) {
-    object.SetPos(QPoint(26 * 20 - 10, 14 * 20 - 10));
+  if (pos == Point(26 * 20, 14 * 20 - 10)) {  // check tunnel
+    object.SetPos(Point(10, 14 * 20 - 10));
+  } else if (pos == Point(0, 14 * 20 - 10)) {
+    object.SetPos(Point(26 * 20 - 10, 14 * 20 - 10));
   }
 
   maze.pacmanpos = object.GetPos();
