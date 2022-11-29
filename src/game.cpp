@@ -67,6 +67,7 @@ void Game::GameLoop() {
 }
 
 void Game::Update() {
+  Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
   pacman->Update(*maze);
   blinky->Update(*maze);
   clyde->Update(*maze);
@@ -75,7 +76,9 @@ void Game::Update() {
   foreach (GameObject* item, items) {
     item->Update(*maze);
   }
+  lastPacmanState = pacmanObject.lifeStatus;
 }
+
 void Game::lifeDisplay() {
   lifeLabel->setPixmap(QPixmap(QString(":/res/img/lives_") +
                                QString::number(life) + QString(".png"))

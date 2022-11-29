@@ -1,14 +1,14 @@
 #include "pacmanphysicscomponent.h"
 
 #include "dynamicgameobject.h"
-
+#include "pacman.h"
 void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
+  Pacman& pacmanObject = static_cast<Pacman&>(object);
 
   Point pos = object.GetPos();
   Direction::eDirection direction = dynamicObject.GetDirection();
   Direction::eDirection nextDirection = dynamicObject.GetNextDirection();
-
   Point directionPoint = Direction::ToPoint(direction);
   Point nextDirectionPoint =
       Direction::ToPoint(dynamicObject.GetNextDirection());
@@ -39,6 +39,7 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   maze.pacmandir = Direction::ToPoint(direction);
 
   if (maze.CheckCollisionGhost()) {
-    emit dynamicObject.Eaten();
+    pacmanObject.lifeStatus = false;
+    emit pacmanObject.Eaten();
   }
 }
