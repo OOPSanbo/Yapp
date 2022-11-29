@@ -66,7 +66,6 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   maze.pacmandir = dir::ToPoint(direction);
 
   if (maze.CheckCollisionGhost()) {
-    // object.SetPos(QPoint(0, 0));
-    // pacman is dead
+    emit dynamicObject.Eaten();
   }
 }

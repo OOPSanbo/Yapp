@@ -17,12 +17,15 @@ class Game : public QObject {
   Game(QGraphicsScene *scene);
   void Init();
   void GameLoop();
+  void lifeDisplay();
 
  private:
   QGraphicsScene *scene;
 
   Maze *maze;
   Score *score;
+  QGraphicsPixmapItem *lifeLabel;
+  int life;
   GameObject *pacman;
   GameObject *blinky;
   GameObject *clyde;
@@ -36,6 +39,7 @@ class Game : public QObject {
 
  private slots:
   void Update();
+  void lifeDecrease();
 };
 
 #endif  // GAME_H
