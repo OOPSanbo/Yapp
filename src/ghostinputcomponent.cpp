@@ -16,7 +16,7 @@ GhostInputComponent::GhostInputComponent(ChaseBehavior* chasebehavior) {
 void GhostInputComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
   if (!maze.IsEncounterIntersection(ghostObject.GetPos(),
-                                    dir::ToPoint(ghostObject.GetDirection())))
+                                    Direction::ToPoint(ghostObject.GetDirection())))
     return;
 
   switch (ghostObject.GetBehavior()) {
@@ -38,35 +38,35 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
   ghostObject.SetNextDirection(PathFind(ghostObject, maze));
 }
 
-eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {
+Direction::eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {
   QPoint currentPos = ghostObject.GetPos();
-  QPoint currentDir = dir::ToPoint(ghostObject.GetDirection());
+  QPoint currentDir = Direction::ToPoint(ghostObject.GetDirection());
   QPoint target = ghostObject.GetTarget();
   QPoint leftDir, rightDir;
   QPoint leftPos, rightPos, nextdir;
   double distOnCurrentDir, distOnLeftDir, distOnRightDir, minDir;
 
   if (currentDir.y()) {
-    leftDir = dir::ToPoint(eDirection::LEFT);
-    rightDir = dir::ToPoint(eDirection::RIGHT);
+    leftDir = Direction::ToPoint(Direction::LEFT);
+    rightDir = Direction::ToPoint(Direction::RIGHT);
     leftPos = currentPos + leftDir;
     rightPos = currentPos + rightDir;
   } else {
-    leftDir = dir::ToPoint(eDirection::UP);
-    rightDir = dir::ToPoint(eDirection::DOWN);
+    leftDir = Direction::ToPoint(Direction::UP);
+    rightDir = Direction::ToPoint(Direction::DOWN);
     leftPos = currentPos + leftDir;
     rightPos = currentPos + rightDir;
   }
   if (maze.CanFowardToDirection(currentPos, currentDir))
-    distOnCurrentDir = (dir::GetDistance(currentPos, target));
+    distOnCurrentDir = (Direction::GetDistance(currentPos, target));
   else
     distOnCurrentDir = 1000;
   if (maze.CanFowardToDirection(leftPos, leftDir))
-    distOnLeftDir = (dir::GetDistance(leftPos, target));
+    distOnLeftDir = (Direction::GetDistance(leftPos, target));
   else
     distOnLeftDir = 1000;
   if (maze.CanFowardToDirection(rightPos, rightDir))
-    distOnRightDir = (dir::GetDistance(rightPos, target));
+    distOnRightDir = (Direction::GetDistance(rightPos, target));
   else
     distOnRightDir = 1000;
 
@@ -81,5 +81,5 @@ eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {
   else if (minDir == distOnRightDir)
     nextdir = rightPos - currentPos;
 
-  return dir::ToEnumDir(nextdir);
+  return Direction::ToEnumDir(nextdir);
 }
