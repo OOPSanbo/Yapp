@@ -198,34 +198,34 @@ bool Maze::IsEncounterIntersection(QPoint pos, QPoint dir) {
 }
 
 bool Maze::CheckCollisionBlinky() {
-  if (pacmanpos.x() > blinkypos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < blinkypos.x()) return false;
-  if (pacmanpos.y() > blinkypos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < blinkypos.y()) return false;
+  if (pacmanpos.x() > blinkypos.x() + 30) return false;
+  if (pacmanpos.x() + 30 < blinkypos.x()) return false;
+  if (pacmanpos.y() > blinkypos.y() + 30) return false;
+  if (pacmanpos.y() + 30 < blinkypos.y()) return false;
   return true;
 }
 
 bool Maze::CheckCollisionClyde() {
-  if (pacmanpos.x() > clydepos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < clydepos.x()) return false;
-  if (pacmanpos.y() > clydepos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < clydepos.y()) return false;
+  if (pacmanpos.x() > clydepos.x() + 30) return false;
+  if (pacmanpos.x() + 30 < clydepos.x()) return false;
+  if (pacmanpos.y() > clydepos.y() + 30) return false;
+  if (pacmanpos.y() + 30 < clydepos.y()) return false;
   return true;
 }
 
 bool Maze::CheckCollisionInky() {
-  if (pacmanpos.x() > inkypos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < inkypos.x()) return false;
-  if (pacmanpos.y() > inkypos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < inkypos.y()) return false;
+  if (pacmanpos.x() > inkypos.x() + 30) return false;
+  if (pacmanpos.x() + 30 < inkypos.x()) return false;
+  if (pacmanpos.y() > inkypos.y() + 30) return false;
+  if (pacmanpos.y() + 30 < inkypos.y()) return false;
   return true;
 }
 
 bool Maze::CheckCollisionPinky() {
-  if (pacmanpos.x() > pinkypos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < pinkypos.x()) return false;
-  if (pacmanpos.y() > pinkypos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < pinkypos.y()) return false;
+  if (pacmanpos.x() > pinkypos.x() + 30) return false;
+  if (pacmanpos.x() + 30 < pinkypos.x()) return false;
+  if (pacmanpos.y() > pinkypos.y() + 30) return false;
+  if (pacmanpos.y() + 30 < pinkypos.y()) return false;
   return true;
 }
 
