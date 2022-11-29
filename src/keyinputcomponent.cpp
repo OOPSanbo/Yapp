@@ -17,19 +17,19 @@ bool KeyInputComponent::eventFilter(QObject *object, QEvent *event) {
   switch (key) {
     case Qt::Key_Right:
     case Qt::Key_D:
-      nextdir = eDirection::RIGHT;
+      nextdir = Direction::eDirection::RIGHT;
       break;
     case Qt::Key_Left:
     case Qt::Key_A:
-      nextdir = eDirection::LEFT;
+      nextdir = Direction::eDirection::LEFT;
       break;
     case Qt::Key_Up:
     case Qt::Key_W:
-      nextdir = eDirection::UP;
+      nextdir = Direction::eDirection::UP;
       break;
     case Qt::Key_Down:
     case Qt::Key_S:
-      nextdir = eDirection::DOWN;
+      nextdir = Direction::eDirection::DOWN;
       break;
   }
 

@@ -5,8 +5,8 @@
 
 class DynamicGameObject : public GameObject {
  protected:
-  eDirection direction;
-  eDirection nextDirection;
+  Direction::eDirection direction;
+  Direction::eDirection nextDirection;
 
   InputComponent *input;
   PhysicsComponent *physics;
@@ -19,10 +19,10 @@ class DynamicGameObject : public GameObject {
   DynamicGameObject(QString, InputComponent *, PhysicsComponent *,
                     GraphicsComponent *);
 
-  eDirection GetDirection();
-  eDirection GetNextDirection();
-  void SetDirection(eDirection);
-  void SetNextDirection(eDirection);
+  Direction::eDirection GetDirection();
+  Direction::eDirection GetNextDirection();
+  void SetDirection(Direction::eDirection);
+  void SetNextDirection(Direction::eDirection);
   virtual void Update(Maze &);
 };
 

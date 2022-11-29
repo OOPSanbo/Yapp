@@ -10,7 +10,7 @@
 class KeyInputComponent : public InputComponent {
   Q_OBJECT
  private:
-  eDirection nextdir = eDirection::STOP;
+  Direction::eDirection nextdir = Direction::eDirection::STOP;
 
  public:
   KeyInputComponent();

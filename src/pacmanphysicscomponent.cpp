@@ -2,51 +2,23 @@
 
 #include "dynamicgameobject.h"
 
-QPoint PacmanPhysicsComponent::DirToPoint(eDirection direction) {
-  QPoint point;
-  switch (direction) {
-    case UP:
-      point = QPoint(0, -1);
-      break;
-    case DOWN:
-      point = QPoint(0, 1);
-      break;
-    case LEFT:
-      point = QPoint(-1, 0);
-      break;
-    case RIGHT:
-      point = QPoint(1, 0);
-      break;
-    default:
-      point = QPoint(0, 0);
-  }
-  return point;
-}
-
-QPoint PacmanPhysicsComponent::PosToCord(QPoint point) {
-  QPoint cord = QPoint(round((point.x() + 10) / (double)20),
-                       round((point.y() + 10) / (double)20));
-  return cord;
-}
-
 void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
 
   QPoint pos = object.GetPos();
-  QPoint cord = PosToCord(pos);
-  eDirection direction = dynamicObject.GetDirection();
-  eDirection nextDirection = dynamicObject.GetNextDirection();
+  Direction::eDirection direction = dynamicObject.GetDirection();
+  Direction::eDirection nextDirection = dynamicObject.GetNextDirection();
 
-  QPoint directionPoint = DirToPoint(direction);
-  QPoint nextDirectionPoint = DirToPoint(dynamicObject.GetNextDirection());
+  QPoint directionPoint = Direction::ToPoint(direction);
+  QPoint nextDirectionPoint = Direction::ToPoint(dynamicObject.GetNextDirection());
 
-  if (nextDirection != eDirection::STOP &&
+  if (nextDirection != Direction::eDirection::STOP &&
       maze.CanTurnAroundToNextDirection(
           pos, directionPoint,
           nextDirectionPoint)) {  // check if pacman can change direction
     directionPoint = nextDirectionPoint;
     dynamicObject.SetDirection(nextDirection);
-    dynamicObject.SetNextDirection(eDirection::STOP);
+    dynamicObject.SetNextDirection(Direction::eDirection::STOP);
   }
 
   if (maze.CanFowardToDirection(pos,
@@ -63,7 +35,7 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
   }
 
   maze.pacmanpos = object.GetPos();
-  maze.pacmandir = dir::ToPoint(direction);
+  maze.pacmandir = Direction::ToPoint(direction);
 
   if (maze.CheckCollisionGhost()) {
     emit dynamicObject.Eaten();
