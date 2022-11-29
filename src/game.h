@@ -18,6 +18,7 @@ class Game : public QObject {
   void Init();
   void GameLoop();
   void lifeDisplay();
+  void gameEnd();
 
  private:
   QGraphicsScene *scene;
@@ -25,8 +26,8 @@ class Game : public QObject {
   Maze *maze;
   Score *score;
   QGraphicsPixmapItem *lifeLabel;
-  bool lastPacmanState = true;
   int life;
+  QMetaObject::Connection updateTimer;
   GameObject *pacman;
   GameObject *blinky;
   GameObject *clyde;

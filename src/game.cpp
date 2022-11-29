@@ -65,7 +65,7 @@ void Game::Init() {
 
 void Game::GameLoop() {
   QTimer* loopTimer = new QTimer(this);
-  connect(loopTimer, SIGNAL(timeout()), this, SLOT(Update()));
+  updateTimer = connect(loopTimer, SIGNAL(timeout()), this, SLOT(Update()));
   loopTimer->start(70);
   // loopTimer->setInterval(100);
 }
@@ -95,16 +95,17 @@ void Game::lifeDecrease() {
   foreach (Ghost* g, ghosts) {
     if (g->GetBehavior() != Frightened && g->GetBehavior() != Eaten) {
       static_cast<Pacman&>(*pacman).lifeStatus = false;
-      life -= 1;
-      if (life == 0) {
-        // gameEnd();
-      }
       foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
     }
   }
-  lifeDisplay();
 }
 void Game::resume() {
+  life -= 1;
+  lifeDisplay();
+  if (life == 0) {
+    gameEnd();
+    return;
+  }
   Ghost* blinkyGhost = &static_cast<Ghost&>(*blinky);
   Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
   Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
@@ -117,4 +118,10 @@ void Game::resume() {
   clydeGhost->SetBehavior(Chase);
   inkyGhost->SetBehavior(Chase);
   pinkyGhost->SetBehavior(Chase);
+}
+void Game::gameEnd() {
+  disconnect(updateTimer);
+  QGraphicsTextItem* newText = scene->addText("Game Over");
+  newText->setPos(QPoint(10, 17) * 20);
+  newText->setDefaultTextColor("red");
 }
