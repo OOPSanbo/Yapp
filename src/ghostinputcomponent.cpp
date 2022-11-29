@@ -15,8 +15,8 @@ GhostInputComponent::GhostInputComponent(ChaseBehavior* chasebehavior) {
 
 void GhostInputComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
-  if (!maze.IsEncounterIntersection(ghostObject.GetPos(),
-                                    Direction::ToPoint(ghostObject.GetDirection())))
+  if (!maze.IsEncounterIntersection(
+          ghostObject.GetPos(), Direction::ToPoint(ghostObject.GetDirection())))
     return;
 
   switch (ghostObject.GetBehavior()) {
@@ -31,19 +31,20 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
       return;
       break;
     case Eaten:
-      ghostObject.SetTarget(QPoint(280, 210));
+      ghostObject.SetTarget(Point(280, 210));
       break;
   }
 
   ghostObject.SetNextDirection(PathFind(ghostObject, maze));
 }
 
-Direction::eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {
-  QPoint currentPos = ghostObject.GetPos();
-  QPoint currentDir = Direction::ToPoint(ghostObject.GetDirection());
-  QPoint target = ghostObject.GetTarget();
-  QPoint leftDir, rightDir;
-  QPoint leftPos, rightPos, nextdir;
+Direction::eDirection GhostInputComponent::PathFind(Ghost& ghostObject,
+                                                    Maze& maze) {
+  Point currentPos = ghostObject.GetPos();
+  Point currentDir = Direction::ToPoint(ghostObject.GetDirection());
+  Point target = ghostObject.GetTarget();
+  Point leftDir, rightDir;
+  Point leftPos, rightPos, nextdir;
   double distOnCurrentDir, distOnLeftDir, distOnRightDir, minDir;
 
   if (currentDir.y()) {
@@ -58,15 +59,15 @@ Direction::eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& ma
     rightPos = currentPos + rightDir;
   }
   if (maze.CanFowardToDirection(currentPos, currentDir))
-    distOnCurrentDir = (Direction::GetDistance(currentPos, target));
+    distOnCurrentDir = currentPos.distanceWith(target);
   else
     distOnCurrentDir = 1000;
   if (maze.CanFowardToDirection(leftPos, leftDir))
-    distOnLeftDir = (Direction::GetDistance(leftPos, target));
+    distOnLeftDir = leftPos.distanceWith(target);
   else
     distOnLeftDir = 1000;
   if (maze.CanFowardToDirection(rightPos, rightDir))
-    distOnRightDir = (Direction::GetDistance(rightPos, target));
+    distOnRightDir = rightPos.distanceWith(target);
   else
     distOnRightDir = 1000;
 

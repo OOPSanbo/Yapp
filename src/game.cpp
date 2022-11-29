@@ -22,7 +22,7 @@ void Game::Init() {
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
-  foreach (QPoint dotPos, maze->WhereAreDots()) {
+  foreach (Point dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
     items.append(dot);
@@ -76,9 +76,9 @@ void Game::Update() {
   clyde->Update(*maze);
   inky->Update(*maze);
   pinky->Update(*maze);
-
   foreach (GameObject* item, items) { item->Update(*maze); }
 }
+
 void Game::lifeDisplay() {
   lifeLabel->setPixmap(QPixmap(QString(":/res/img/lives_") +
                                QString::number(life) + QString(".png"))
