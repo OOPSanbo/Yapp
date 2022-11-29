@@ -3,5 +3,11 @@
 FrightenedBehavior::FrightenedBehavior() {}
 
 void FrightenedBehavior::Frightened(Ghost &ghostObject) {
-  ghostObject.SetNextDirection(static_cast<eDirection>(rand() % 4));
+  eDirection randomDirection = static_cast<eDirection>(rand() % 4);
+
+  while (randomDirection == dir::Reverse(ghostObject.GetDirection())) {
+    randomDirection = static_cast<eDirection>(rand() % 4);
+  }
+
+  ghostObject.SetNextDirection(randomDirection);
 }

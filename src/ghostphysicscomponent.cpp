@@ -3,33 +3,6 @@
 #include "direction.h"
 #include "ghost.h"
 
-QPoint GhostPhysicsComponent::DirToPoint(eDirection direction) {
-  QPoint point;
-  switch (direction) {
-    case UP:
-      point = QPoint(0, -1);
-      break;
-    case DOWN:
-      point = QPoint(0, 1);
-      break;
-    case LEFT:
-      point = QPoint(-1, 0);
-      break;
-    case RIGHT:
-      point = QPoint(1, 0);
-      break;
-    default:
-      point = QPoint(0, 0);
-  }
-  return point;
-}
-
-QPoint GhostPhysicsComponent::PosToCord(QPoint point) {
-  QPoint cord = QPoint(floor((point.x() + 10) / (double)20),
-                       floor((point.y() + 10) / (double)20));
-  return cord;
-}
-
 void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
 
@@ -37,8 +10,8 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   eDirection direction = ghostObject.GetDirection();
   eDirection nextDirection = ghostObject.GetNextDirection();
 
-  QPoint directionPoint = DirToPoint(direction);
-  QPoint nextDirectionPoint = DirToPoint(ghostObject.GetNextDirection());
+  QPoint directionPoint = dir::ToPoint(direction);
+  QPoint nextDirectionPoint = dir::ToPoint(ghostObject.GetNextDirection());
 
   if (nextDirection != eDirection::STOP &&
       maze.CanTurnAroundToNextDirection(

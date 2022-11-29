@@ -176,6 +176,27 @@ bool Maze::CanTurnAroundToNextDirection(QPoint pos, QPoint dir,
   return false;
 }
 
+bool Maze::IsEncounterIntersection(QPoint pos, QPoint dir) {
+  QPoint center = pos + QPoint(guiGridSize, guiGridSize);
+  QPoint currentMazeCord = TranslateToMazeCord(center);
+
+  int numIntersection = 0;
+
+  for (int i = 0; i < 4; i++) {
+    eDirection enumDir = static_cast<eDirection>(i);
+    if (enumDir == dir::ToEnumDir(dir)) continue;
+
+    QPoint nextMazeCord =
+        currentMazeCord + dir::ToPoint(static_cast<eDirection>(i));
+
+    if (ReferMapOnCord(nextMazeCord) != 0) {
+      numIntersection++;
+    }
+  }
+
+  return numIntersection >= 2;
+}
+
 bool Maze::CheckCollisionBlinky() {
   if (pacmanpos.x() > blinkypos.x() + 40) return false;
   if (pacmanpos.x() + 40 < blinkypos.x()) return false;
