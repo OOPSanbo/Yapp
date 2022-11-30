@@ -8,9 +8,9 @@ eGhostBehavior Ghost::GetBehavior() { return behavior; }
 
 void Ghost::SetBehavior(eGhostBehavior behavior) { this->behavior = behavior; }
 
-QPoint Ghost::GetTarget() { return target; }
+Point Ghost::GetTarget() { return target; }
 
-void Ghost::SetTarget(QPoint target) { this->target = target; }
+void Ghost::SetTarget(Point target) { this->target = target; }
 
 Ghost::Ghost(QString name, InputComponent* input, PhysicsComponent* physics,
              GraphicsComponent* graphics)
@@ -30,8 +30,8 @@ Ghost::Ghost(QString name, InputComponent* input, PhysicsComponent* physics,
     y = 20 * 24.5;
   }
   SetBehavior(Chase);
-  direction = Direction::eDirection::DOWN;
-  nextDirection = Direction::eDirection::RIGHT;
+  direction = Direction::DOWN;
+  nextDirection = Direction::RIGHT;
 }
 
 void Ghost::PelletEaten() { SetBehavior(Frightened); }

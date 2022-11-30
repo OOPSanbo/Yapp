@@ -13,16 +13,18 @@ PacmanGraphicsComponent::PacmanGraphicsComponent(QGraphicsScene& graphics) {
 
   index = 0;
   add = 1;
-  lastPos = QPoint(0, 0);
+  lastPos = Point(0, 0);
 }
 
 void PacmanGraphicsComponent::Update(GameObject& object) {
-  if (object.GetPos() == lastPos) return;
-  lastPos = object.GetPos();
   DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
   Pacman& pacman = static_cast<Pacman&>(object);
-  shape.setPos(object.GetPos());
+
   if (pacman.lifeStatus) {
+    shape.setPos(object.GetPos());
+    if (object.GetPos() == lastPos) return;
+    lastPos = object.GetPos();
+
     shape.setPixmap(sprite[index]);
     index += add;
     if (index >= 2 || index <= 0) add = -add;
@@ -44,11 +46,11 @@ void PacmanGraphicsComponent::Update(GameObject& object) {
         break;
     }
   } else {
-    shape.setRotation(0);
-    if (index == 11) {
+    if (index == 14) {
       index = 0;
       object.SetPos(QPoint(14 * 20 - 10, 17 * 20 - 10));
       pacman.lifeStatus = true;
+      emit pacman.pacmanRevive();
     }
     shape.setPixmap(QPixmap(QString(":/res/img/pacman/dead/") +
                             QString::number(index) + QString(".png"))

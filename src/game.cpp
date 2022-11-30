@@ -22,7 +22,7 @@ void Game::Init() {
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
-  foreach (QPoint dotPos, maze->WhereAreDots()) {
+  foreach (Point dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
     items.append(dot);
@@ -45,7 +45,11 @@ void Game::Init() {
   clyde = new Ghost(
       QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
+
   connect(pacman, SIGNAL(Eaten()), this, SLOT(lifeDecrease()));
+  Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
+  connect(&pacmanObject, SIGNAL(pacmanRevive()), this, SLOT(resume()));
+
   foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
@@ -61,22 +65,20 @@ void Game::Init() {
 
 void Game::GameLoop() {
   QTimer* loopTimer = new QTimer(this);
-  connect(loopTimer, SIGNAL(timeout()), this, SLOT(Update()));
+  updateTimer = connect(loopTimer, SIGNAL(timeout()), this, SLOT(Update()));
   loopTimer->start(70);
   // loopTimer->setInterval(100);
 }
 
 void Game::Update() {
-  Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
   pacman->Update(*maze);
   blinky->Update(*maze);
   clyde->Update(*maze);
   inky->Update(*maze);
   pinky->Update(*maze);
-
   foreach (GameObject* item, items) { item->Update(*maze); }
-  lastPacmanState = pacmanObject.lifeStatus;
 }
+
 void Game::lifeDisplay() {
   lifeLabel->setPixmap(QPixmap(QString(":/res/img/lives_") +
                                QString::number(life) + QString(".png"))
@@ -84,10 +86,42 @@ void Game::lifeDisplay() {
   lifeLabel->setPos(0, 31 * 20);
 }
 void Game::lifeDecrease() {
-  if (life == 0) {
-    // game end
-  } else {
-    life -= 1;
-    lifeDisplay();
+  Ghost* blinkyGhost = &static_cast<Ghost&>(*blinky);
+  Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
+  Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
+  Ghost* pinkyGhost = &static_cast<Ghost&>(*pinky);
+  QList<Ghost*> ghosts;
+  ghosts << blinkyGhost << clydeGhost << inkyGhost << pinkyGhost;
+  foreach (Ghost* g, ghosts) {
+    if (g->GetBehavior() != Frightened && g->GetBehavior() != Eaten) {
+      static_cast<Pacman&>(*pacman).lifeStatus = false;
+      foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
+    }
   }
+}
+void Game::resume() {
+  life -= 1;
+  lifeDisplay();
+  if (life == 0) {
+    gameEnd();
+    return;
+  }
+  Ghost* blinkyGhost = &static_cast<Ghost&>(*blinky);
+  Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
+  Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
+  Ghost* pinkyGhost = &static_cast<Ghost&>(*pinky);
+  blinkyGhost->SetPos(QPoint(20 * 4.5, 20 * 4.5));
+  clydeGhost->SetPos(QPoint(20 * 24.5, 20 * 4.5));
+  inkyGhost->SetPos(QPoint(20 * 4.5, 20 * 24.5));
+  pinkyGhost->SetPos(QPoint(20 * 24.5, 20 * 24.5));
+  blinkyGhost->SetBehavior(Chase);
+  clydeGhost->SetBehavior(Chase);
+  inkyGhost->SetBehavior(Chase);
+  pinkyGhost->SetBehavior(Chase);
+}
+void Game::gameEnd() {
+  disconnect(updateTimer);
+  QGraphicsTextItem* newText = scene->addText("Game Over");
+  newText->setPos(QPoint(10, 17) * 20);
+  newText->setDefaultTextColor("red");
 }

@@ -74,5 +74,8 @@
         <file>res/img/ghost/nerf/1.png</file>
         <file>res/img/ghost/nerf/2.png</file>
         <file>res/img/ghost/nerf/3.png</file>
+        <file>res/img/pacman/dead/11.png</file>
+        <file>res/img/pacman/dead/12.png</file>
+        <file>res/img/pacman/dead/13.png</file>
     </qresource>
 </RCC>

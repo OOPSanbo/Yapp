@@ -15,8 +15,11 @@ GhostInputComponent::GhostInputComponent(ChaseBehavior* chasebehavior) {
 
 void GhostInputComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
-  if (!maze.IsEncounterIntersection(ghostObject.GetPos(),
-                                    Direction::ToPoint(ghostObject.GetDirection())))
+
+  // check if encounter intersection at next position
+  Point nextPos =
+      ghostObject.GetPos() + Direction::ToPoint(ghostObject.GetDirection()) * 5;
+  if (!maze.IsEncounterIntersection(nextPos, ghostObject.GetDirection()))
     return;
 
   switch (ghostObject.GetBehavior()) {
@@ -28,58 +31,59 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
       break;
     case Frightened:
       frightened->Frightened(ghostObject);
-      return;
       break;
     case Eaten:
-      ghostObject.SetTarget(QPoint(280, 210));
+      ghostObject.SetTarget(Point(280, 210));
       break;
   }
 
-  ghostObject.SetNextDirection(PathFind(ghostObject, maze));
+  ghostObject.SetNextDirection(FindNextDirection(ghostObject, maze));
 }
 
-Direction::eDirection GhostInputComponent::PathFind(Ghost& ghostObject, Maze& maze) {
-  QPoint currentPos = ghostObject.GetPos();
-  QPoint currentDir = Direction::ToPoint(ghostObject.GetDirection());
-  QPoint target = ghostObject.GetTarget();
-  QPoint leftDir, rightDir;
-  QPoint leftPos, rightPos, nextdir;
-  double distOnCurrentDir, distOnLeftDir, distOnRightDir, minDir;
+Direction::eDirection GhostInputComponent::FindNextDirection(Ghost& ghostObject,
+                                                             Maze& maze) {
+  Direction::eDirection nextDir = Direction::STOP;
 
-  if (currentDir.y()) {
-    leftDir = Direction::ToPoint(Direction::LEFT);
-    rightDir = Direction::ToPoint(Direction::RIGHT);
-    leftPos = currentPos + leftDir;
-    rightPos = currentPos + rightDir;
-  } else {
-    leftDir = Direction::ToPoint(Direction::UP);
-    rightDir = Direction::ToPoint(Direction::DOWN);
-    leftPos = currentPos + leftDir;
-    rightPos = currentPos + rightDir;
+  Direction::eDirection currentDir = ghostObject.GetDirection();
+  Direction::eDirection clockwiseDir = Direction::RotateClockwise(currentDir);
+  Direction::eDirection counterClockwiseDir =
+      Direction::RotateCounterClockwise(currentDir);
+
+  Point currentPos = ghostObject.GetPos();
+
+  Point currentCord = maze.TranslateToMazeCord(currentPos);
+  Point nextCord = currentCord + Direction::ToPoint(currentDir);
+  Point clockwiseCord = currentCord + Direction::ToPoint(clockwiseDir);
+  Point counterClockwiseCord =
+      currentCord + Direction::ToPoint(counterClockwiseDir);
+
+  double distWithCurrentDir = 1000;
+  double distWithClockwiseDir = 1000;
+  double distWithCounterClockwiseDir = 1000;
+
+  Point targetCord = maze.TranslateToMazeCord(ghostObject.GetTarget());
+
+  if (maze.CanFowardToDirection(currentPos, currentDir)) {
+    distWithCurrentDir = nextCord.distanceWith(targetCord);
   }
-  if (maze.CanFowardToDirection(currentPos, currentDir))
-    distOnCurrentDir = (Direction::GetDistance(currentPos, target));
-  else
-    distOnCurrentDir = 1000;
-  if (maze.CanFowardToDirection(leftPos, leftDir))
-    distOnLeftDir = (Direction::GetDistance(leftPos, target));
-  else
-    distOnLeftDir = 1000;
-  if (maze.CanFowardToDirection(rightPos, rightDir))
-    distOnRightDir = (Direction::GetDistance(rightPos, target));
-  else
-    distOnRightDir = 1000;
 
-  minDir = distOnCurrentDir;
-  if (minDir > distOnLeftDir) minDir = distOnLeftDir;
-  if (minDir > distOnRightDir) minDir = distOnRightDir;
+  if (maze.CanFowardToDirection(currentPos, clockwiseDir)) {
+    distWithClockwiseDir = clockwiseCord.distanceWith(targetCord);
+  }
 
-  if (minDir == distOnCurrentDir)
-    nextdir = currentPos - currentPos;
-  else if (minDir == distOnLeftDir)
-    nextdir = leftPos - currentPos;
-  else if (minDir == distOnRightDir)
-    nextdir = rightPos - currentPos;
+  if (maze.CanFowardToDirection(currentPos, counterClockwiseDir)) {
+    distWithCounterClockwiseDir = counterClockwiseCord.distanceWith(targetCord);
+  }
 
-  return Direction::ToEnumDir(nextdir);
+  double minDist = qMin(distWithCurrentDir, distWithClockwiseDir);
+  minDist = qMin(minDist, distWithCounterClockwiseDir);
+
+  if (minDist == distWithCurrentDir)
+    nextDir = currentDir;
+  else if (minDist == distWithClockwiseDir)
+    nextDir = clockwiseDir;
+  else if (minDist == distWithCounterClockwiseDir)
+    nextDir = counterClockwiseDir;
+
+  return nextDir;
 }
