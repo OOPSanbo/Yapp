@@ -15,6 +15,7 @@ class DotGraphicsComponent : public GraphicsComponent {
   // TODO remove name
   DotGraphicsComponent(QString, QGraphicsScene&);
   virtual void Update(GameObject&);
+  virtual void Delete();
 };
 
 #endif  // DOTGRAPHICSCOMPONENT_H

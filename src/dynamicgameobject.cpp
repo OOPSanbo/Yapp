@@ -16,7 +16,9 @@ DynamicGameObject::DynamicGameObject(QString name, InputComponent* input,
 
 Direction::eDirection DynamicGameObject::GetDirection() { return direction; }
 
-Direction::eDirection DynamicGameObject::GetNextDirection() { return nextDirection; }
+Direction::eDirection DynamicGameObject::GetNextDirection() {
+  return nextDirection;
+}
 
 void DynamicGameObject::SetDirection(Direction::eDirection direction) {
   this->direction = direction;
@@ -31,3 +33,4 @@ void DynamicGameObject::Update(Maze& maze) {
   physics->Update(*this, maze);
   graphics->Update(*this);
 }
+void DynamicGameObject::Delete() { graphics->Delete(); }

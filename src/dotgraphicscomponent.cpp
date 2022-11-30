@@ -20,3 +20,4 @@ void DotGraphicsComponent::Update(GameObject& object) {
     shape.setVisible(false);
   }
 }
+void DotGraphicsComponent::Delete() {}

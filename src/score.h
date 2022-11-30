@@ -11,6 +11,7 @@ class Score : public QObject {
   Score(QGraphicsScene *scene);
   QGraphicsScene *scene;
   void UpdateScore();
+  void Delete();
 
  public slots:
   void IncreaseDotScore();

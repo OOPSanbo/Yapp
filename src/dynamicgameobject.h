@@ -24,6 +24,7 @@ class DynamicGameObject : public GameObject {
   void SetDirection(Direction::eDirection);
   void SetNextDirection(Direction::eDirection);
   virtual void Update(Maze &);
+  virtual void Delete();
 };
 
 #endif  // DYNAMICGAMEOBJECT_H

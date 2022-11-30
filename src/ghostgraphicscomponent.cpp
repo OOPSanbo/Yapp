@@ -3,7 +3,8 @@
 #include "ghost.h"
 
 GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
-                                               QString name) {
+                                               QString name)
+    : graphics(graphics) {
   for (int i = 0; i < 8; i++) {
     sprite.append(
         QPixmap(":/res/img/ghost/" + name + "/" + QString::number(i) + ".png")
@@ -93,3 +94,4 @@ void GhostGraphicsComponent::Update(GameObject& object) {
     }
   }
 }
+void GhostGraphicsComponent::Delete() { graphics.removeItem(&shape); }
