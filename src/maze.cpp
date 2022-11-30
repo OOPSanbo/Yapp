@@ -110,9 +110,10 @@ Point Maze::TranslateToMazeCord(Point pos) {
   return Point(cordX, cordY);
 }
 
-bool Maze::CanFowardToDirection(Point pos, Point dir) {
+bool Maze::CanFowardToDirection(Point pos, Direction::eDirection dir) {
+  Point dirPoint = Direction::ToPoint(dir);
   Point center = pos + Point(guiGridSize);
-  Point nextMazeCord = TranslateToMazeCord(center) + dir;
+  Point nextMazeCord = TranslateToMazeCord(center) + dirPoint;
 
   if (ReferMapOnCord(nextMazeCord) != 0) {
     return true;
@@ -123,7 +124,7 @@ bool Maze::CanFowardToDirection(Point pos, Point dir) {
   int hitBound, wallBound;
   bool canForward;
 
-  switch (Direction::ToEnumDir(dir)) {
+  switch (dir) {
     case Direction::UP:
       hitBound = center.y() - guiGridSize;
       wallBound = nextPosCenter.y();
@@ -183,7 +184,7 @@ bool Maze::IsEncounterIntersection(Point pos, Point dir) {
 
   for (int i = 0; i < 4; i++) {
     Direction::eDirection enumDir = static_cast<Direction::eDirection>(i);
-    if (enumDir == Direction::ToEnumDir(dir)) continue;
+    if (enumDir == Direction::ToEnumDirection(dir)) continue;
 
     Point nextMazeCord =
         currentMazeCord +

@@ -11,7 +11,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Direction::eDirection nextDirection = ghostObject.GetNextDirection();
 
   Point directionPoint = Direction::ToPoint(direction);
-  Point nextDirectionPoint = Direction::ToPoint(ghostObject.GetNextDirection());
+  Point nextDirectionPoint = Direction::ToPoint(nextDirection);
 
   if (nextDirection != Direction::STOP &&
       maze.CanTurnAroundToNextDirection(
@@ -23,7 +23,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   }
   int i;
   for (i = 0; i < ghostObject.speed; i++) {
-    if (maze.CanFowardToDirection(pos, directionPoint)) {
+    if (maze.CanFowardToDirection(pos, direction)) {
       pos = pos + directionPoint * 5;
       object.SetPos(pos);
     }
@@ -44,28 +44,28 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
     if (maze.CheckCollisionBlinky() &&
         (ghostObject.GetBehavior() == Frightened)) {
       ghostObject.SetBehavior(Eaten);
-      ghostObject.speed = 4;
+      ghostObject.speed = 2;
     }
   } else if (ghostObject.GetName() == "clyde") {
     maze.clydepos = pos;
     if (maze.CheckCollisionClyde() &&
         (ghostObject.GetBehavior() == Frightened)) {
       ghostObject.SetBehavior(Eaten);
-      ghostObject.speed = 4;
+      ghostObject.speed = 2;
     }
   } else if (ghostObject.GetName() == "inky") {
     maze.inkypos = pos;
     if (maze.CheckCollisionInky() &&
         (ghostObject.GetBehavior() == Frightened)) {
       ghostObject.SetBehavior(Eaten);
-      ghostObject.speed = 4;
+      ghostObject.speed = 2;
     }
   } else if (ghostObject.GetName() == "pinky") {
     maze.pinkypos = pos;
     if (maze.CheckCollisionPinky() &&
         (ghostObject.GetBehavior() == Frightened)) {
       ghostObject.SetBehavior(Eaten);
-      ghostObject.speed = 4;
+      ghostObject.speed = 2;
     }
   }
 

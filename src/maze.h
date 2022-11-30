@@ -17,12 +17,12 @@ class Maze : public QObject {
   const int guiGridSize = 20;
   QList<QList<int>> map;
   bool CheckBound(Point pos);
-  Point TranslateToMazeCord(Point pos);
   int ReferMapOnCord(Point cord);
 
  public:
   Maze();
-  bool CanFowardToDirection(Point pos, Point dir);
+  Point TranslateToMazeCord(Point pos);
+  bool CanFowardToDirection(Point pos, Direction::eDirection dir);
   bool CanTurnAroundToNextDirection(Point pos, Point dir, Point nextdir);
   bool IsEncounterIntersection(Point pos, Point dir);
   QList<Point> WhereAreDots();
