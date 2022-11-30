@@ -29,65 +29,67 @@ GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
 
 void GhostGraphicsComponent::Update(GameObject& object) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
-  if (ghostObject.GetBehavior() == Frightened) {
-    if (index != 8)
-      index = 8;
-    else
-      index = 9;
-    shape.setPos(object.GetPos());
-    shape.setPixmap(sprite[index]);
+  if (ghostObject.GetBehavior() != Stop) {
+    if (ghostObject.GetBehavior() == Frightened) {
+      if (index != 8)
+        index = 8;
+      else
+        index = 9;
+      shape.setPos(object.GetPos());
+      shape.setPixmap(sprite[index]);
 
-    return;
-  }
+      return;
+    }
 
-  if (ghostObject.GetBehavior() == Eaten) {
-    switch (ghostObject.GetDirection()) {
-      case (Direction::UP):
-        index = 15;
-        break;
-      case (Direction::DOWN):
-        index = 12;
-        break;
-      case (Direction::LEFT):
-        index = 13;
-        break;
-      case (Direction::RIGHT):
-        index = 14;
-        break;
-      case (Direction::STOP):
-        break;
+    if (ghostObject.GetBehavior() == Eaten) {
+      switch (ghostObject.GetDirection()) {
+        case (Direction::UP):
+          index = 15;
+          break;
+        case (Direction::DOWN):
+          index = 12;
+          break;
+        case (Direction::LEFT):
+          index = 13;
+          break;
+        case (Direction::RIGHT):
+          index = 14;
+          break;
+        case (Direction::STOP):
+          break;
+      }
+
+      shape.setPos(object.GetPos());
+      shape.setPixmap(sprite[index]);
+
+      return;
     }
 
     shape.setPos(object.GetPos());
     shape.setPixmap(sprite[index]);
+    if (index % 2 == 0) {
+      index += add;
+    } else {
+      index -= add;
+    }
 
-    return;
-  }
+    if (ghostObject.GetNextDirection() != Direction::STOP) return;
 
-  shape.setPos(object.GetPos());
-  shape.setPixmap(sprite[index]);
-  if (index % 2 == 0) {
-    index += add;
-  } else {
-    index -= add;
-  }
-
-  if (ghostObject.GetNextDirection() != Direction::STOP) return;
-
-  switch (ghostObject.GetDirection()) {
-    case (Direction::UP):
-      index = 6;
-      break;
-    case (Direction::DOWN):
-      index = 0;
-      break;
-    case (Direction::LEFT):
-      index = 2;
-      break;
-    case (Direction::RIGHT):
-      index = 4;
-      break;
-    case (Direction::STOP):
-      break;
+    switch (ghostObject.GetDirection()) {
+      case (Direction::UP):
+        index = 6;
+        break;
+      case (Direction::DOWN):
+        index = 0;
+        break;
+      case (Direction::LEFT):
+        index = 2;
+        break;
+      case (Direction::RIGHT):
+        index = 4;
+        break;
+      case (Direction::STOP):
+        break;
+    }
   }
 }
