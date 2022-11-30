@@ -7,6 +7,7 @@ class DotGraphicsComponent : public GraphicsComponent {
  private:
   QString name;
   QGraphicsPixmapItem shape;
+  QGraphicsScene& graphics;
   QPixmap sprite;
   const int scale = 20;
 

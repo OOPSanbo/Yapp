@@ -2,10 +2,9 @@
 
 #include "staticgameobject.h"
 
-DotGraphicsComponent::DotGraphicsComponent() {}
-
 DotGraphicsComponent::DotGraphicsComponent(QString name,
-                                           QGraphicsScene& graphics) {
+                                           QGraphicsScene& graphics)
+    : graphics(graphics) {
   sprite = QPixmap(":/res/img/item/" + name + ".png").scaledToHeight(scale);
 
   shape.setPixmap(sprite);
@@ -17,7 +16,7 @@ void DotGraphicsComponent::Update(GameObject& object) {
   StaticGameObject& staticObject = static_cast<StaticGameObject&>(object);
   shape.setPos(object.GetPos());
   if (staticObject.status == false) {
-    shape.setVisible(false);
+    Delete();
   }
 }
-void DotGraphicsComponent::Delete() {}
+void DotGraphicsComponent::Delete() { graphics.removeItem(&shape); }

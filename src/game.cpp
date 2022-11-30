@@ -127,6 +127,7 @@ void Game::gameEnd() {
   inky->Delete();
   pacman->Delete();
   score->Delete();
+  foreach (GameObject* item, items) { item->Delete(); }
   disconnect(updateTimer);
   gameOver = scene->addText("Game Over");
   gameOver->setPos(QPoint(10, 17) * 20);
@@ -142,6 +143,7 @@ bool Game::eventFilter(QObject* object, QEvent* event) {
     delete inky;
     delete blinky;
     delete clyde;
+
     scene->removeEventFilter(this);
     Init();
     GameLoop();
