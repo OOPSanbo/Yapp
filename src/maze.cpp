@@ -103,9 +103,10 @@ int Maze::ReferMapOnCord(Point cord) {
 
 Point Maze::TranslateToMazeCord(Point pos) {
   int cordX, cordY;
+  Point centerPos = pos + Point(guiGridSize, guiGridSize);
 
-  cordX = floor(pos.x()) / (double)guiGridSize;
-  cordY = floor(pos.y()) / (double)guiGridSize;
+  cordX = floor(centerPos.x()) / (double)guiGridSize;
+  cordY = floor(centerPos.y()) / (double)guiGridSize;
 
   return Point(cordX, cordY);
 }
@@ -113,7 +114,7 @@ Point Maze::TranslateToMazeCord(Point pos) {
 bool Maze::CanFowardToDirection(Point pos, Direction::eDirection dir) {
   Point dirPoint = Direction::ToPoint(dir);
   Point center = pos + Point(guiGridSize);
-  Point nextMazeCord = TranslateToMazeCord(center) + dirPoint;
+  Point nextMazeCord = TranslateToMazeCord(pos) + dirPoint;
 
   if (ReferMapOnCord(nextMazeCord) != 0) {
     return true;
@@ -151,13 +152,12 @@ bool Maze::CanFowardToDirection(Point pos, Direction::eDirection dir) {
   return canForward;
 }
 
-bool Maze::CanTurnAroundToNextDirection(Point pos, Point dir, Point nextdir) {
-  if (dir == nextdir) {
+bool Maze::CanTurnAroundToNextDirection(Point pos, Direction::eDirection dir,
+                                        Direction::eDirection nextDir) {
+  if (dir == nextDir || Direction::Reverse(dir) == nextDir) {
     return true;
   }
-  if (dir + nextdir == Point(0, 0)) {
-    return true;
-  }
+
   bool isDividableWithTen = pos.x() % 10 == 0 && pos.y() % 10 == 0;
   if (!isDividableWithTen) return false;
 
@@ -165,26 +165,25 @@ bool Maze::CanTurnAroundToNextDirection(Point pos, Point dir, Point nextdir) {
       (pos.x() / 10) % 2 == 1 && (pos.y() / 10) % 2 == 1;  // 10, 30, 50, ...
   if (!isMultipleWithOddTen) return false;
 
-  pos = pos + nextdir;
+  Point nextPos = pos + Direction::ToPoint(nextDir);
 
-  Point center = pos + Point(guiGridSize, guiGridSize);
-  Point nextMazeCord = TranslateToMazeCord(center) + nextdir;
+  Point nextMazeCord =
+      TranslateToMazeCord(nextPos) + Direction::ToPoint(nextDir);
 
   if (ReferMapOnCord(nextMazeCord) != 0) {
     return true;
-  }
-  return false;
+  } else
+    return false;
 }
 
-bool Maze::IsEncounterIntersection(Point pos, Point dir) {
-  Point center = pos + Point(guiGridSize, guiGridSize);
-  Point currentMazeCord = TranslateToMazeCord(center);
+bool Maze::IsEncounterIntersection(Point pos, Direction::eDirection dir) {
+  Point currentMazeCord = TranslateToMazeCord(pos);
 
   int numIntersection = 0;
 
   for (int i = 0; i < 4; i++) {
     Direction::eDirection enumDir = static_cast<Direction::eDirection>(i);
-    if (enumDir == Direction::ToEnumDirection(dir)) continue;
+    if (enumDir == dir) continue;
 
     Point nextMazeCord =
         currentMazeCord +
@@ -199,35 +198,31 @@ bool Maze::IsEncounterIntersection(Point pos, Point dir) {
 }
 
 bool Maze::CheckCollisionBlinky() {
-  if (pacmanpos.x() > blinkypos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < blinkypos.x()) return false;
-  if (pacmanpos.y() > blinkypos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < blinkypos.y()) return false;
-  return true;
+  Point pacmanCord = TranslateToMazeCord(pacmanpos);
+  Point blinkyCord = TranslateToMazeCord(blinkypos);
+
+  return pacmanCord == blinkyCord;
 }
 
 bool Maze::CheckCollisionClyde() {
-  if (pacmanpos.x() > clydepos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < clydepos.x()) return false;
-  if (pacmanpos.y() > clydepos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < clydepos.y()) return false;
-  return true;
+  Point pacmanCord = TranslateToMazeCord(pacmanpos);
+  Point clydeCord = TranslateToMazeCord(clydepos);
+
+  return pacmanCord == clydeCord;
 }
 
 bool Maze::CheckCollisionInky() {
-  if (pacmanpos.x() > inkypos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < inkypos.x()) return false;
-  if (pacmanpos.y() > inkypos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < inkypos.y()) return false;
-  return true;
+  Point pacmanCord = TranslateToMazeCord(pacmanpos);
+  Point inkyCord = TranslateToMazeCord(inkypos);
+
+  return pacmanCord == inkyCord;
 }
 
 bool Maze::CheckCollisionPinky() {
-  if (pacmanpos.x() > pinkypos.x() + 40) return false;
-  if (pacmanpos.x() + 40 < pinkypos.x()) return false;
-  if (pacmanpos.y() > pinkypos.y() + 40) return false;
-  if (pacmanpos.y() + 40 < pinkypos.y()) return false;
-  return true;
+  Point pacmanCord = TranslateToMazeCord(pacmanpos);
+  Point pinkyCord = TranslateToMazeCord(pinkypos);
+
+  return pacmanCord == pinkyCord;
 }
 
 bool Maze::CheckCollisionGhost() {
@@ -236,6 +231,10 @@ bool Maze::CheckCollisionGhost() {
 }
 
 bool Maze::CheckCollisionDot(Point dotpoint) {
+  Point pacmanCord = TranslateToMazeCord(pacmanpos);
+  Point dotCord = TranslateToMazeCord(dotpoint - Point(10, 10));
+
+  return pacmanCord == dotCord;
   if (pacmanpos.x() > dotpoint.x() + 10) return false;
   if (pacmanpos.x() + 20 < dotpoint.x()) return false;
   if (pacmanpos.y() > dotpoint.y() + 10) return false;

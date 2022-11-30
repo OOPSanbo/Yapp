@@ -19,8 +19,7 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
   // check if encounter intersection at next position
   Point nextPos =
       ghostObject.GetPos() + Direction::ToPoint(ghostObject.GetDirection()) * 5;
-  if (!maze.IsEncounterIntersection(
-          nextPos, Direction::ToPoint(ghostObject.GetDirection())))
+  if (!maze.IsEncounterIntersection(nextPos, ghostObject.GetDirection()))
     return;
 
   switch (ghostObject.GetBehavior()) {

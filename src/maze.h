@@ -23,8 +23,9 @@ class Maze : public QObject {
   Maze();
   Point TranslateToMazeCord(Point pos);
   bool CanFowardToDirection(Point pos, Direction::eDirection dir);
-  bool CanTurnAroundToNextDirection(Point pos, Point dir, Point nextdir);
-  bool IsEncounterIntersection(Point pos, Point dir);
+  bool CanTurnAroundToNextDirection(Point pos, Direction::eDirection dir,
+                                    Direction::eDirection nextdir);
+  bool IsEncounterIntersection(Point pos, Direction::eDirection dir);
   QList<Point> WhereAreDots();
   QList<Point> WhereArePellets();
   Point pacmandir;
