@@ -10,20 +10,20 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
     Direction::eDirection direction = ghostObject.GetDirection();
     Direction::eDirection nextDirection = ghostObject.GetNextDirection();
 
-  Point directionPoint = Direction::ToPoint(direction);
-  Point nextDirectionPoint = Direction::ToPoint(ghostObject.GetNextDirection());
+    Point directionPoint = Direction::ToPoint(direction);
+    Point nextDirectionPoint = Direction::ToPoint(nextDirection);
 
     if (nextDirection != Direction::STOP &&
         maze.CanTurnAroundToNextDirection(
-            pos, directionPoint,
-            nextDirectionPoint)) {  // check if pacman can change direction
+            pos, direction,
+            nextDirection)) {  // check if pacman can change direction
       directionPoint = nextDirectionPoint;
       ghostObject.SetDirection(nextDirection);
       ghostObject.SetNextDirection(Direction::eDirection::STOP);
     }
     int i;
     for (i = 0; i < ghostObject.speed; i++) {
-      if (maze.CanFowardToDirection(pos, directionPoint)) {
+      if (maze.CanFowardToDirection(pos, direction)) {
         pos = pos + directionPoint * 5;
         object.SetPos(pos);
       }

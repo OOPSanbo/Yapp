@@ -1,8 +1,8 @@
 #include "direction.h"
 
-Point Direction::ToPoint(eDirection enumDir) {
+Point Direction::ToPoint(eDirection enumDirection) {
   Point directionPoint;
-  switch (enumDir) {
+  switch (enumDirection) {
     case UP:
       directionPoint = Point(0, -1);
       break;
@@ -22,21 +22,21 @@ Point Direction::ToPoint(eDirection enumDir) {
   return directionPoint;
 }
 
-Direction::eDirection Direction::ToEnumDir(Point point) {
-  if (point == Point(1, 0))
-    return eDirection::RIGHT;
-  else if (point == Point(-1, 0))
-    return eDirection::LEFT;
+Direction::eDirection Direction::ToEnumDirection(Point point) {
+  if (point == Point(0, -1))
+    return UP;
   else if (point == Point(0, 1))
-    return eDirection::DOWN;
-  else if (point == Point(0, -1))
-    return eDirection::UP;
+    return DOWN;
+  else if (point == Point(-1, 0))
+    return LEFT;
+  else if (point == Point(1, 0))
+    return RIGHT;
   else
     return eDirection::STOP;
 }
 
-Direction::eDirection Direction::Reverse(eDirection enumDir) {
-  switch (enumDir) {
+Direction::eDirection Direction::Reverse(eDirection enumDirection) {
+  switch (enumDirection) {
     case UP:
       return DOWN;
     case DOWN:
@@ -48,4 +48,24 @@ Direction::eDirection Direction::Reverse(eDirection enumDir) {
     default:
       return STOP;
   }
+}
+
+Direction::eDirection Direction::RotateClockwise(eDirection enumDirection) {
+  switch (enumDirection) {
+    case UP:
+      return RIGHT;
+    case DOWN:
+      return LEFT;
+    case LEFT:
+      return UP;
+    case RIGHT:
+      return DOWN;
+    default:
+      return STOP;
+  }
+}
+
+Direction::eDirection Direction::RotateCounterClockwise(
+    eDirection enumDirection) {
+  return Reverse(RotateClockwise(enumDirection));
 }

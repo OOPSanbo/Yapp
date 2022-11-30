@@ -10,7 +10,7 @@
 class GhostInputComponent : public InputComponent {
  private:
   Direction::eDirection dir = Direction::LEFT;
-  Direction::eDirection PathFind(Ghost& ghostObject, Maze& maze);
+  Direction::eDirection FindNextDirection(Ghost& ghostObject, Maze& maze);
   ChaseBehavior* chase;
   ScatterBehavior* scatter;
   FrightenedBehavior* frightened;
