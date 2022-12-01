@@ -35,3 +35,4 @@ void Score::IncreasePelletScore() {
 
   score_text->setPlainText(score_str);
 }
+void Score::Delete() { scene->removeItem(score_text); }

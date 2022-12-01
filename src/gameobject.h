@@ -28,6 +28,7 @@ class GameObject : public QObject {
   Point GetPos();
   void SetPos(Point);
   virtual void Update(Maze& maze) = 0;
+  virtual void Delete() = 0;
   QString GetName();
 };
 
@@ -47,6 +48,7 @@ class GraphicsComponent : public QObject {
   Q_OBJECT
  public:
   virtual void Update(GameObject&) = 0;
+  virtual void Delete() = 0;
 };
 
 #endif  // GAMEOBJECT_H
