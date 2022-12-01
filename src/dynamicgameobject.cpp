@@ -37,3 +37,4 @@ void DynamicGameObject::Update(Maze& maze) {
   physics->Update(*this, maze);
   graphics->Update(*this);
 }
+void DynamicGameObject::Delete() { graphics->Delete(); }

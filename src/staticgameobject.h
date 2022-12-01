@@ -13,6 +13,7 @@ class StaticGameObject : public GameObject {
   StaticGameObject(QString, PhysicsComponent *, GraphicsComponent *);
   bool status = true;
   virtual void Update(Maze &);
+  virtual void Delete();
 };
 
 #endif  // STATICGAMEOBJECT_H

@@ -33,7 +33,7 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
       frightened->Frightened(ghostObject);
       break;
     case Eaten:
-      ghostObject.SetTarget(Point(280, 210));
+      ghostObject.SetTarget(Point(240, 210));
       break;
   }
 

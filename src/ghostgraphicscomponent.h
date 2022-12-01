@@ -12,10 +12,12 @@ class GhostGraphicsComponent : public GraphicsComponent {
  public:
   QGraphicsPixmapItem shape;
   QList<QPixmap> sprite;
+  QGraphicsScene& graphics;
   const int scale = 40;
 
   GhostGraphicsComponent(QGraphicsScene&, QString);
   virtual void Update(GameObject&);
+  virtual void Delete();
 
  private:
   int index;

@@ -2,7 +2,8 @@
 
 #include "pacman.h"
 
-PacmanGraphicsComponent::PacmanGraphicsComponent(QGraphicsScene& graphics) {
+PacmanGraphicsComponent::PacmanGraphicsComponent(QGraphicsScene& graphics)
+    : graphics(graphics) {
   for (int i = 0; i < 3; i++) {
     sprite.append(QPixmap(":/res/img/pacman/" + QString::number(i) + ".png")
                       .scaledToHeight(scale));
@@ -58,3 +59,4 @@ void PacmanGraphicsComponent::Update(GameObject& object) {
     index += 1;
   }
 }
+void PacmanGraphicsComponent::Delete() { graphics.removeItem(&shape); }

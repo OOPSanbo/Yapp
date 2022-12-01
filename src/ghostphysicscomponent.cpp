@@ -25,10 +25,10 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         ghostObject.MoveToDirection();
       }
       if (ghostObject.GetBehavior() == Eaten &&
-          Point(280, 210) == ghostObject.GetPos()) {
+          ghostObject.GetTarget() == ghostObject.GetPos()) {
         ghostObject.SetBehavior(Chase);
-        ghostObject.speed = 1;
       }
+      if (ghostObject.GetBehavior() != Eaten) ghostObject.speed = 1;
     }
 
     if (pos == Point(26 * 20, 14 * 20 - 10)) {
@@ -38,6 +38,10 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
     }
 
     if (ghostObject.GetName() == "blinky") {
+      if (ghostObject.GetBehavior() == Eaten) {
+        maze.blinkypos = Point(-100, -100);
+        return;
+      }
       maze.blinkypos = pos;
       if (maze.CheckCollisionBlinky() &&
           (ghostObject.GetBehavior() == Frightened)) {
@@ -45,6 +49,10 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         ghostObject.speed = 4;
       }
     } else if (ghostObject.GetName() == "clyde") {
+      if (ghostObject.GetBehavior() == Eaten) {
+        maze.clydepos = Point(-100, -100);
+        return;
+      }
       maze.clydepos = pos;
       if (maze.CheckCollisionClyde() &&
           (ghostObject.GetBehavior() == Frightened)) {
@@ -52,6 +60,10 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         ghostObject.speed = 4;
       }
     } else if (ghostObject.GetName() == "inky") {
+      if (ghostObject.GetBehavior() == Eaten) {
+        maze.inkypos = Point(-100, -100);
+        return;
+      }
       maze.inkypos = pos;
       if (maze.CheckCollisionInky() &&
           (ghostObject.GetBehavior() == Frightened)) {
@@ -59,6 +71,10 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         ghostObject.speed = 4;
       }
     } else if (ghostObject.GetName() == "pinky") {
+      if (ghostObject.GetBehavior() == Eaten) {
+        maze.pinkypos = Point(-100, -100);
+        return;
+      }
       maze.pinkypos = pos;
       if (maze.CheckCollisionPinky() &&
           (ghostObject.GetBehavior() == Frightened)) {

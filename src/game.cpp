@@ -106,6 +106,7 @@ void Game::resume() {
     gameEnd();
     return;
   }
+
   Ghost* blinkyGhost = &static_cast<Ghost&>(*blinky);
   Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
   Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
@@ -120,8 +121,32 @@ void Game::resume() {
   pinkyGhost->SetBehavior(Chase);
 }
 void Game::gameEnd() {
+  blinky->Delete();
+  clyde->Delete();
+  pinky->Delete();
+  inky->Delete();
+  pacman->Delete();
+  score->Delete();
+  foreach (GameObject* item, items) { item->Delete(); }
   disconnect(updateTimer);
-  QGraphicsTextItem* newText = scene->addText("Game Over");
-  newText->setPos(QPoint(10, 17) * 20);
-  newText->setDefaultTextColor("red");
+  gameOver = scene->addText("Game Over");
+  gameOver->setPos(QPoint(10, 17) * 20);
+  gameOver->setDefaultTextColor("red");
+  scene->installEventFilter(this);
+}
+
+bool Game::eventFilter(QObject* object, QEvent* event) {
+  if (event->type() == QEvent::KeyPress) {
+    scene->removeItem(gameOver);
+    delete pacman;
+    delete pinky;
+    delete inky;
+    delete blinky;
+    delete clyde;
+
+    scene->removeEventFilter(this);
+    Init();
+    GameLoop();
+  }
+  return false;
 }

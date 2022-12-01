@@ -15,6 +15,7 @@ class Game : public QObject {
   Q_OBJECT
  public:
   Game(QGraphicsScene *scene);
+  bool eventFilter(QObject *object, QEvent *event);
   void Init();
   void GameLoop();
   void lifeDisplay();
@@ -26,6 +27,7 @@ class Game : public QObject {
   Maze *maze;
   Score *score;
   QGraphicsPixmapItem *lifeLabel;
+  QGraphicsTextItem *gameOver;
   int life;
   QMetaObject::Connection updateTimer;
   GameObject *pacman;

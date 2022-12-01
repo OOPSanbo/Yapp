@@ -13,10 +13,12 @@ class PacmanGraphicsComponent : public GraphicsComponent {
  public:
   QGraphicsPixmapItem shape;
   QList<QPixmap> sprite;
+  QGraphicsScene& graphics;
   const int scale = 40;
 
   PacmanGraphicsComponent(QGraphicsScene& graphics);
   virtual void Update(GameObject& obj);
+  virtual void Delete();
 
  private:
   int index;

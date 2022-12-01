@@ -10,3 +10,4 @@ void StaticGameObject::Update(Maze& maze) {
   physics->Update(*this, maze);
   graphics->Update(*this);
 }
+void StaticGameObject::Delete() { graphics->Delete(); }
