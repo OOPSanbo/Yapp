@@ -5,27 +5,24 @@
 
 void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
+
+  Point pos = object.GetPos();
+  Direction::eDirection direction = ghostObject.GetDirection();
+  Direction::eDirection nextDirection = ghostObject.GetNextDirection();
+
   if (ghostObject.GetBehavior() != Stop) {
-    Point pos = object.GetPos();
-    Direction::eDirection direction = ghostObject.GetDirection();
-    Direction::eDirection nextDirection = ghostObject.GetNextDirection();
-
-    Point directionPoint = Direction::ToPoint(direction);
-    Point nextDirectionPoint = Direction::ToPoint(nextDirection);
-
     if (nextDirection != Direction::STOP &&
         maze.CanTurnAroundToNextDirection(
             pos, direction,
             nextDirection)) {  // check if pacman can change direction
-      directionPoint = nextDirectionPoint;
       ghostObject.SetDirection(nextDirection);
       ghostObject.SetNextDirection(Direction::eDirection::STOP);
     }
+
     int i;
     for (i = 0; i < ghostObject.speed; i++) {
-      if (maze.CanFowardToDirection(pos, direction)) {
-        pos = pos + directionPoint * 5;
-        object.SetPos(pos);
+      if (maze.CanFowardToDirection(pos, ghostObject.GetDirection())) {
+        ghostObject.MoveToDirection();
       }
       if (ghostObject.GetBehavior() == Eaten &&
           Point(280, 210) == ghostObject.GetPos()) {
@@ -33,6 +30,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         ghostObject.speed = 1;
       }
     }
+
     if (pos == Point(26 * 20, 14 * 20 - 10)) {
       object.SetPos(Point(10, 14 * 20 - 10));
     } else if (pos == Point(0, 14 * 20 - 10)) {

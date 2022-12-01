@@ -16,7 +16,9 @@ DynamicGameObject::DynamicGameObject(QString name, InputComponent* input,
 
 Direction::eDirection DynamicGameObject::GetDirection() { return direction; }
 
-Direction::eDirection DynamicGameObject::GetNextDirection() { return nextDirection; }
+Direction::eDirection DynamicGameObject::GetNextDirection() {
+  return nextDirection;
+}
 
 void DynamicGameObject::SetDirection(Direction::eDirection direction) {
   this->direction = direction;
@@ -24,6 +26,10 @@ void DynamicGameObject::SetDirection(Direction::eDirection direction) {
 
 void DynamicGameObject::SetNextDirection(Direction::eDirection nextDirection) {
   this->nextDirection = nextDirection;
+}
+
+void DynamicGameObject::MoveToDirection() {
+  SetPos(GetPos() + Direction::ToPoint(direction) * minimumMoveScale);
 }
 
 void DynamicGameObject::Update(Maze& maze) {
