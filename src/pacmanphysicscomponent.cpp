@@ -3,24 +3,29 @@
 #include "dynamicgameobject.h"
 #include "pacman.h"
 void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
+  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
   Pacman& pacmanObject = static_cast<Pacman&>(object);
 
   Point pos = object.GetPos();
-  Direction::eDirection direction = pacmanObject.GetDirection();
-  Direction::eDirection nextDirection = pacmanObject.GetNextDirection();
-
+  Direction::eDirection direction = dynamicObject.GetDirection();
+  Direction::eDirection nextDirection = dynamicObject.GetNextDirection();
+  Point directionPoint = Direction::ToPoint(direction);
+  Point nextDirectionPoint =
+      Direction::ToPoint(dynamicObject.GetNextDirection());
   if (pacmanObject.lifeStatus) {
     if (nextDirection != Direction::eDirection::STOP &&
         maze.CanTurnAroundToNextDirection(
             pos, direction,
             nextDirection)) {  // check if pacman can change direction
-      pacmanObject.SetDirection(nextDirection);
-      pacmanObject.SetNextDirection(Direction::eDirection::STOP);
+      directionPoint = nextDirectionPoint;
+      dynamicObject.SetDirection(nextDirection);
+      dynamicObject.SetNextDirection(Direction::eDirection::STOP);
     }
-
     // check if pacman can move
-    if (maze.CanFowardToDirection(pos, pacmanObject.GetDirection())) {
-      pacmanObject.MoveToDirection();
+    if (maze.CanFowardToDirection(pos, direction)) {
+      Point nextPos = Point(pos.x() + directionPoint.x() * 5,
+                            pos.y() + directionPoint.y() * 5);
+      object.SetPos(nextPos);
     }
 
     // check tunnel
@@ -30,7 +35,7 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
       object.SetPos(Point(26 * 20 - 10, 14 * 20 - 10));
     }
 
-    maze.pacmanpos = pos;
+    maze.pacmanpos = object.GetPos();
     maze.pacmandir = Direction::ToPoint(direction);
 
     if (maze.CheckCollisionGhost() && pacmanObject.lifeStatus) {

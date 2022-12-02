@@ -22,7 +22,7 @@ void Game::Init() {
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
-  foreach (Point dotPos, maze->FindDotCords()) {
+  foreach (Point dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
     items.append(dot);
@@ -50,7 +50,7 @@ void Game::Init() {
   Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
   connect(&pacmanObject, SIGNAL(pacmanRevive()), this, SLOT(resume()));
 
-  foreach (QPoint dotPos, maze->FindPelletCords()) {
+  foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
     connect(pellet, SIGNAL(Eaten()), blinky, SLOT(PelletEaten()));

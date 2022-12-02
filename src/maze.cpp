@@ -65,7 +65,7 @@ Maze::Maze() {
           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 }
 
-QList<Point> Maze::FindDotCords() {
+QList<Point> Maze::WhereAreDots() {
   QList<Point> dots;
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
@@ -77,7 +77,7 @@ QList<Point> Maze::FindDotCords() {
   return dots;
 }
 
-QList<Point> Maze::FindPelletCords() {
+QList<Point> Maze::WhereArePellets() {
   QList<Point> pellets;
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
@@ -235,4 +235,9 @@ bool Maze::CheckCollisionDot(Point dotpoint) {
   Point dotCord = TranslateToMazeCord(dotpoint - Point(10, 10));
 
   return pacmanCord == dotCord;
+  if (pacmanpos.x() > dotpoint.x() + 10) return false;
+  if (pacmanpos.x() + 20 < dotpoint.x()) return false;
+  if (pacmanpos.y() > dotpoint.y() + 10) return false;
+  if (pacmanpos.y() + 20 < dotpoint.y()) return false;
+  return true;
 }

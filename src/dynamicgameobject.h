@@ -4,9 +4,6 @@
 #include "gameobject.h"
 
 class DynamicGameObject : public GameObject {
- private:
-  const int minimumMoveScale = 5;
-
  protected:
   Direction::eDirection direction;
   Direction::eDirection nextDirection;
@@ -26,7 +23,6 @@ class DynamicGameObject : public GameObject {
   Direction::eDirection GetNextDirection();
   void SetDirection(Direction::eDirection);
   void SetNextDirection(Direction::eDirection);
-  void MoveToDirection();
   virtual void Update(Maze &);
   virtual void Delete();
 };
