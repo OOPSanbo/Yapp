@@ -6,8 +6,21 @@
 void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
   if (ghostObject.starttimer != 0) {
-    ghostObject.starttimer -= 1;
     return;
+  }
+
+  if (ghostObject.GetBehavior() == GoOutGate) {
+    if (ghostObject.GetPos().x() > 260) {
+      ghostObject.SetDirection(Direction::LEFT);
+
+    } else if (ghostObject.GetPos().x() < 260) {
+      ghostObject.SetDirection(Direction::RIGHT);
+    } else if (ghostObject.GetPos().x() == 260 &&
+               ghostObject.GetPos().y() >= 210 &&
+               ghostObject.GetPos().y() <= 270) {
+      ghostObject.SetPos(ghostObject.GetPos() + Point(0, -5));
+      return;
+    }
   }
 
   if (ghostObject.GetBehavior() != Stop) {
@@ -95,9 +108,23 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
     }
 
     if (ghostObject.GetBehavior() != Frightened)
-      ghostObject.timer = 0;
+      ghostObject.frightenedtimer = 0;
     else
-      ghostObject.timer += 1;
-    if (ghostObject.timer >= 100) ghostObject.SetBehavior(Chase);
+      ghostObject.frightenedtimer += 1;
+    if (ghostObject.frightenedtimer >= 100) ghostObject.SetBehavior(Chase);
+
+    if (ghostObject.GetBehavior() == Chase) {
+      ghostObject.modetimer += 1;
+      if (ghostObject.modetimer >= 100) {
+        ghostObject.modetimer = 0;
+        ghostObject.SetBehavior(Scatter);
+      }
+    } else if (ghostObject.GetBehavior() == Scatter) {
+      ghostObject.modetimer += 1;
+      if (ghostObject.modetimer >= 100) {
+        ghostObject.modetimer = 0;
+        ghostObject.SetBehavior(Chase);
+      }
+    }
   }
 }

@@ -15,22 +15,21 @@ void SoundEngine::BeginSound() {
 }
 
 void SoundEngine::EatDotsSound() {
-  player->setSource(QUrl::fromLocalFile("qrc:/res/sound/pacman_chomp.wav"));
+  player->setSource(QUrl("qrc:/res/sound/pacman_chomp.wav"));
   player->play();
 }
 
 void SoundEngine::DeathSound() {
-  player->setSource(QUrl::fromLocalFile("qrc:/res/sound/pacman_death.wav"));
+  player->setSource(QUrl("qrc:/res/sound/pacman_death.wav"));
   player->play();
 }
 
 void SoundEngine::EatGhostSound() {
-  player->setSource(QUrl::fromLocalFile("qrc:/res/sound/pacman_eatghost.wav"));
+  player->setSource(QUrl("qrc:/res/sound/pacman_eatghost.wav"));
   player->play();
 }
 
 void SoundEngine::EndSound() {
-  player->setSource(
-      QUrl::fromLocalFile("qrc:/res/sound/pacman_intermission.wav"));
+  player->setSource(QUrl("qrc:/res/sound/pacman_intermission.wav"));
   player->play();
 }
