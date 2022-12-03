@@ -121,6 +121,7 @@ void Game::resume() {
   pinkyGhost->SetBehavior(Chase);
 }
 void Game::gameEnd() {
+  score->SaveHighscore();
   blinky->Delete();
   clyde->Delete();
   pinky->Delete();
