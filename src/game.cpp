@@ -19,12 +19,15 @@ void Game::Init() {
   maze = new Maze();
   score = new Score(scene);
   life = 3;
+  dotnum = 0;
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
   foreach (Point dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
+    connect(dot, SIGNAL(Eaten()), this, SLOT(DotCount()));
+    dotnum += 1;
     items.append(dot);
   }
 
@@ -52,6 +55,8 @@ void Game::Init() {
 
   foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
+    dotnum += 1;
+    connect(pellet, SIGNAL(Eaten()), this, SLOT(DotCount()));
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
     connect(pellet, SIGNAL(Eaten()), blinky, SLOT(PelletEaten()));
     connect(pellet, SIGNAL(Eaten()), pinky, SLOT(PelletEaten()));
@@ -93,7 +98,7 @@ void Game::lifeDecrease() {
   QList<Ghost*> ghosts;
   ghosts << blinkyGhost << clydeGhost << inkyGhost << pinkyGhost;
   foreach (Ghost* g, ghosts) {
-    if (g->GetBehavior() != Frightened && g->GetBehavior() != Eaten) {
+    if (g->GetBehavior() != Frightened && g->GetBehavior() != Dead) {
       static_cast<Pacman&>(*pacman).lifeStatus = false;
       foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
     }
@@ -111,14 +116,23 @@ void Game::resume() {
   Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
   Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
   Ghost* pinkyGhost = &static_cast<Ghost&>(*pinky);
-  blinkyGhost->SetPos(QPoint(20 * 4.5, 20 * 4.5));
-  clydeGhost->SetPos(QPoint(20 * 24.5, 20 * 4.5));
-  inkyGhost->SetPos(QPoint(20 * 4.5, 20 * 24.5));
-  pinkyGhost->SetPos(QPoint(20 * 24.5, 20 * 24.5));
+  blinkyGhost->SetPos(Point(270, 210));
+  blinkyGhost->starttimer = 0;
+  clydeGhost->SetPos(Point(270, 210));
+  clydeGhost->starttimer = 100;
+  inkyGhost->SetPos(Point(270, 210));
+  inkyGhost->starttimer = 50;
+  pinkyGhost->SetPos(Point(270, 210));
+  pinkyGhost->starttimer = 10;
   blinkyGhost->SetBehavior(Chase);
   clydeGhost->SetBehavior(Chase);
   inkyGhost->SetBehavior(Chase);
   pinkyGhost->SetBehavior(Chase);
+}
+
+void Game::DotCount() {
+  dotnum -= 1;
+  if (dotnum == 0) GameClear();
 }
 void Game::gameEnd() {
   score->SaveHighscore();
@@ -133,6 +147,22 @@ void Game::gameEnd() {
   gameOver = scene->addText("Game Over");
   gameOver->setPos(QPoint(10, 17) * 20);
   gameOver->setDefaultTextColor("red");
+  scene->installEventFilter(this);
+}
+
+void Game::GameClear() {
+  score->SaveHighscore();
+  blinky->Delete();
+  clyde->Delete();
+  pinky->Delete();
+  inky->Delete();
+  pacman->Delete();
+  score->Delete();
+  foreach (GameObject* item, items) { item->Delete(); }
+  disconnect(updateTimer);
+  gameOver = scene->addText("Game Clear!");
+  gameOver->setPos(QPoint(10, 17) * 20);
+  gameOver->setDefaultTextColor("yellow");
   scene->installEventFilter(this);
 }
 

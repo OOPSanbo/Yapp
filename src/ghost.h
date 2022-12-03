@@ -10,7 +10,7 @@
 #include "gameobject.h"
 #include "point.h"
 
-enum eGhostBehavior { Chase = 0, Scatter, Frightened, Eaten, Stop };
+enum eGhostBehavior { Chase = 0, Scatter, Frightened, Dead, Stop };
 
 class Ghost : public DynamicGameObject {
   Q_OBJECT
@@ -26,6 +26,7 @@ class Ghost : public DynamicGameObject {
   Ghost(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
   int timer = 0;
   int speed = 1;
+  int starttimer;
 
  private slots:
   void PelletEaten();
