@@ -16,6 +16,7 @@ Game::Game(QGraphicsScene* scene) : scene(scene) {
 }
 
 void Game::Init() {
+  soundengine = new SoundEngine();
   maze = new Maze();
   score = new Score(scene);
   life = 3;
@@ -27,6 +28,7 @@ void Game::Init() {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
     connect(dot, SIGNAL(Eaten()), this, SLOT(DotCount()));
+    connect(dot, SIGNAL(Eaten()), soundengine, SLOT(EatDotsSound()));
     dotnum += 1;
     items.append(dot);
   }
@@ -44,10 +46,14 @@ void Game::Init() {
   inky = new Ghost(
       QString("inky"), new GhostInputComponent(new PatrollChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "inky"));
-
   clyde = new Ghost(
       QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
+
+  connect(blinky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
+  connect(pinky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
+  connect(inky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
+  connect(clyde, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
 
   connect(pacman, SIGNAL(Eaten()), this, SLOT(lifeDecrease()));
   Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
@@ -56,6 +62,7 @@ void Game::Init() {
   foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
     dotnum += 1;
+    connect(pellet, SIGNAL(Eaten()), soundengine, SLOT(EatDotsSound()));
     connect(pellet, SIGNAL(Eaten()), this, SLOT(DotCount()));
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
     connect(pellet, SIGNAL(Eaten()), blinky, SLOT(PelletEaten()));
@@ -66,6 +73,7 @@ void Game::Init() {
   }
 
   scene->installEventFilter(key);
+  soundengine->BeginSound();
 }
 
 void Game::GameLoop() {
@@ -100,6 +108,7 @@ void Game::lifeDecrease() {
   foreach (Ghost* g, ghosts) {
     if (g->GetBehavior() != Frightened && g->GetBehavior() != Dead) {
       static_cast<Pacman&>(*pacman).lifeStatus = false;
+      soundengine->DeathSound();
       foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
     }
   }
@@ -128,12 +137,14 @@ void Game::resume() {
   clydeGhost->SetBehavior(Chase);
   inkyGhost->SetBehavior(Chase);
   pinkyGhost->SetBehavior(Chase);
+  soundengine->BeginSound();
 }
 
 void Game::DotCount() {
   dotnum -= 1;
   if (dotnum == 0) GameClear();
 }
+
 void Game::gameEnd() {
   score->SaveHighscore();
   blinky->Delete();
@@ -147,6 +158,7 @@ void Game::gameEnd() {
   gameOver = scene->addText("Game Over");
   gameOver->setPos(QPoint(10, 17) * 20);
   gameOver->setDefaultTextColor("red");
+  soundengine->EndSound();
   scene->installEventFilter(this);
 }
 
@@ -163,6 +175,7 @@ void Game::GameClear() {
   gameOver = scene->addText("Game Clear!");
   gameOver->setPos(QPoint(10, 17) * 20);
   gameOver->setDefaultTextColor("yellow");
+  soundengine->EndSound();
   scene->installEventFilter(this);
 }
 

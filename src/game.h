@@ -10,6 +10,7 @@
 #include "dotfactory.h"
 #include "dynamicgameobject.h"
 #include "gameobject.h"
+#include "soundengine.h"
 
 class Game : public QObject {
   Q_OBJECT
@@ -40,7 +41,7 @@ class Game : public QObject {
 
   QList<GameObject *> ghosts;
   QList<GameObject *> items;
-
+  SoundEngine *soundengine;
   DotFactory *dotFactory;
 
  private slots:

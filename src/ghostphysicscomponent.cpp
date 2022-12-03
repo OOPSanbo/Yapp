@@ -52,6 +52,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       maze.blinkypos = pos;
       if (maze.CheckCollisionBlinky() &&
           (ghostObject.GetBehavior() == Frightened)) {
+        emit ghostObject.Eaten();
         ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
@@ -63,6 +64,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       maze.clydepos = pos;
       if (maze.CheckCollisionClyde() &&
           (ghostObject.GetBehavior() == Frightened)) {
+        emit ghostObject.Eaten();
         ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
@@ -74,6 +76,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       maze.inkypos = pos;
       if (maze.CheckCollisionInky() &&
           (ghostObject.GetBehavior() == Frightened)) {
+        emit ghostObject.Eaten();
         ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
@@ -85,6 +88,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       maze.pinkypos = pos;
       if (maze.CheckCollisionPinky() &&
           (ghostObject.GetBehavior() == Frightened)) {
+        emit ghostObject.Eaten();
         ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
