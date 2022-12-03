@@ -26,6 +26,7 @@ class Ghost : public DynamicGameObject {
   Ghost(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
   int timer = 0;
   int speed = 1;
+  int starttimer;
 
  private slots:
   void PelletEaten();

@@ -5,6 +5,11 @@
 
 void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
+  if (ghostObject.starttimer != 0) {
+    ghostObject.starttimer -= 1;
+    return;
+  }
+
   if (ghostObject.GetBehavior() != Stop) {
     Point pos = object.GetPos();
     Direction::eDirection direction = ghostObject.GetDirection();

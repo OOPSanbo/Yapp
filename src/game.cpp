@@ -116,10 +116,14 @@ void Game::resume() {
   Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
   Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
   Ghost* pinkyGhost = &static_cast<Ghost&>(*pinky);
-  blinkyGhost->SetPos(QPoint(20 * 4.5, 20 * 4.5));
-  clydeGhost->SetPos(QPoint(20 * 24.5, 20 * 4.5));
-  inkyGhost->SetPos(QPoint(20 * 4.5, 20 * 24.5));
-  pinkyGhost->SetPos(QPoint(20 * 24.5, 20 * 24.5));
+  blinkyGhost->SetPos(Point(270, 210));
+  blinkyGhost->starttimer = 0;
+  clydeGhost->SetPos(Point(270, 210));
+  clydeGhost->starttimer = 100;
+  inkyGhost->SetPos(Point(270, 210));
+  inkyGhost->starttimer = 50;
+  pinkyGhost->SetPos(Point(270, 210));
+  pinkyGhost->starttimer = 10;
   blinkyGhost->SetBehavior(Chase);
   clydeGhost->SetBehavior(Chase);
   inkyGhost->SetBehavior(Chase);
