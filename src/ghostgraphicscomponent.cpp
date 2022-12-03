@@ -32,17 +32,28 @@ void GhostGraphicsComponent::Update(GameObject& object) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
   if (ghostObject.GetBehavior() != Stop) {
     if (ghostObject.GetBehavior() == Frightened) {
-      if (index != 8)
-        index = 8;
-      else
-        index = 9;
-      shape.setPos(object.GetPos());
-      shape.setPixmap(sprite[index]);
+      if (ghostObject.timer >= 85) {
+        if (index != 10)
+          index = 10;
+        else
+          index = 9;
+        shape.setPos(object.GetPos());
+        shape.setPixmap(sprite[index]);
 
-      return;
+        return;
+      } else {
+        if (index != 8)
+          index = 8;
+        else
+          index = 9;
+        shape.setPos(object.GetPos());
+        shape.setPixmap(sprite[index]);
+
+        return;
+      }
     }
 
-    if (ghostObject.GetBehavior() == Eaten) {
+    if (ghostObject.GetBehavior() == Dead) {
       switch (ghostObject.GetDirection()) {
         case (Direction::UP):
           index = 15;

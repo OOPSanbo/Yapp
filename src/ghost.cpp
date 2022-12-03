@@ -34,4 +34,6 @@ Ghost::Ghost(QString name, InputComponent* input, PhysicsComponent* physics,
   nextDirection = Direction::RIGHT;
 }
 
-void Ghost::PelletEaten() { SetBehavior(Frightened); }
+void Ghost::PelletEaten() {
+  if (behavior != Dead) SetBehavior(Frightened);
+}

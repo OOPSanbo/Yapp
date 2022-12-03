@@ -20,6 +20,7 @@ class Game : public QObject {
   void GameLoop();
   void lifeDisplay();
   void gameEnd();
+  void GameClear();
 
  private:
   QGraphicsScene *scene;
@@ -29,6 +30,7 @@ class Game : public QObject {
   QGraphicsPixmapItem *lifeLabel;
   QGraphicsTextItem *gameOver;
   int life;
+  int dotnum;
   QMetaObject::Connection updateTimer;
   GameObject *pacman;
   GameObject *blinky;
@@ -45,6 +47,7 @@ class Game : public QObject {
   void Update();
   void lifeDecrease();
   void resume();
+  void DotCount();
 };
 
 #endif  // GAME_H
