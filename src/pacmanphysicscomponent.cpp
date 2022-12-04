@@ -3,23 +3,22 @@
 #include "dynamicgameobject.h"
 #include "pacman.h"
 void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
-  DynamicGameObject& dynamicObject = static_cast<DynamicGameObject&>(object);
   Pacman& pacmanObject = static_cast<Pacman&>(object);
 
   Point pos = object.GetPos();
-  Direction::eDirection direction = dynamicObject.GetDirection();
-  Direction::eDirection nextDirection = dynamicObject.GetNextDirection();
+  Direction::eDirection direction = pacmanObject.GetDirection();
+  Direction::eDirection nextDirection = pacmanObject.GetNextDirection();
   Point directionPoint = Direction::ToPoint(direction);
   Point nextDirectionPoint =
-      Direction::ToPoint(dynamicObject.GetNextDirection());
+      Direction::ToPoint(pacmanObject.GetNextDirection());
   if (pacmanObject.lifeStatus) {
     if (nextDirection != Direction::eDirection::STOP &&
         maze.CanTurnAroundToNextDirection(
             pos, direction,
             nextDirection)) {  // check if pacman can change direction
       directionPoint = nextDirectionPoint;
-      dynamicObject.SetDirection(nextDirection);
-      dynamicObject.SetNextDirection(Direction::eDirection::STOP);
+      pacmanObject.SetDirection(nextDirection);
+      pacmanObject.SetNextDirection(Direction::eDirection::STOP);
     }
     // check if pacman can move
     if (maze.CanFowardToDirection(pos, direction)) {

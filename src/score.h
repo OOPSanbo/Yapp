@@ -12,6 +12,7 @@ class Score : public QObject {
   QGraphicsScene *scene;
   void UpdateScore();
   void Delete();
+  void SaveHighscore();
 
  public slots:
   void IncreaseDotScore();
@@ -19,7 +20,9 @@ class Score : public QObject {
 
  private:
   int score_value;
+  int highscore_value;
   QGraphicsTextItem *score_text;
+  QGraphicsTextItem *highscore_text;
   QGraphicsPixmapItem scoreshape;
 };
 

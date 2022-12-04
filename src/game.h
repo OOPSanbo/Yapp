@@ -10,6 +10,7 @@
 #include "dotfactory.h"
 #include "dynamicgameobject.h"
 #include "gameobject.h"
+#include "soundengine.h"
 
 class Game : public QObject {
   Q_OBJECT
@@ -20,6 +21,7 @@ class Game : public QObject {
   void GameLoop();
   void lifeDisplay();
   void gameEnd();
+  void GameClear();
 
  private:
   QGraphicsScene *scene;
@@ -29,6 +31,7 @@ class Game : public QObject {
   QGraphicsPixmapItem *lifeLabel;
   QGraphicsTextItem *gameOver;
   int life;
+  int dotnum;
   QMetaObject::Connection updateTimer;
   GameObject *pacman;
   GameObject *blinky;
@@ -38,13 +41,14 @@ class Game : public QObject {
 
   QList<GameObject *> ghosts;
   QList<GameObject *> items;
-
+  SoundEngine *soundengine;
   DotFactory *dotFactory;
 
  private slots:
   void Update();
   void lifeDecrease();
   void resume();
+  void DotCount();
 };
 
 #endif  // GAME_H

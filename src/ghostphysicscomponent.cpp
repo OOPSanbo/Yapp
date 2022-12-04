@@ -5,6 +5,24 @@
 
 void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
+  if (ghostObject.starttimer != 0) {
+    return;
+  }
+
+  if (ghostObject.GetBehavior() == GoOutGate) {
+    if (ghostObject.GetPos().x() > 260) {
+      ghostObject.SetDirection(Direction::LEFT);
+
+    } else if (ghostObject.GetPos().x() < 260) {
+      ghostObject.SetDirection(Direction::RIGHT);
+    } else if (ghostObject.GetPos().x() == 260 &&
+               ghostObject.GetPos().y() >= 210 &&
+               ghostObject.GetPos().y() <= 270) {
+      ghostObject.SetPos(ghostObject.GetPos() + Point(0, -5));
+      return;
+    }
+  }
+
   if (ghostObject.GetBehavior() != Stop) {
     Point pos = object.GetPos();
     Direction::eDirection direction = ghostObject.GetDirection();
@@ -27,11 +45,11 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         pos = pos + directionPoint * 5;
         object.SetPos(pos);
       }
-      if (ghostObject.GetBehavior() == Eaten &&
+      if (ghostObject.GetBehavior() == Dead &&
           ghostObject.GetTarget() == ghostObject.GetPos()) {
         ghostObject.SetBehavior(Chase);
       }
-      if (ghostObject.GetBehavior() != Eaten) ghostObject.speed = 1;
+      if (ghostObject.GetBehavior() != Dead) ghostObject.speed = 1;
     }
     if (pos == Point(26 * 20, 14 * 20 - 10)) {
       object.SetPos(Point(10, 14 * 20 - 10));
@@ -40,55 +58,73 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
     }
 
     if (ghostObject.GetName() == "blinky") {
-      if (ghostObject.GetBehavior() == Eaten) {
+      if (ghostObject.GetBehavior() == Dead) {
         maze.blinkypos = Point(-100, -100);
         return;
       }
       maze.blinkypos = pos;
       if (maze.CheckCollisionBlinky() &&
           (ghostObject.GetBehavior() == Frightened)) {
-        ghostObject.SetBehavior(Eaten);
+        emit ghostObject.Eaten();
+        ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
     } else if (ghostObject.GetName() == "clyde") {
-      if (ghostObject.GetBehavior() == Eaten) {
+      if (ghostObject.GetBehavior() == Dead) {
         maze.clydepos = Point(-100, -100);
         return;
       }
       maze.clydepos = pos;
       if (maze.CheckCollisionClyde() &&
           (ghostObject.GetBehavior() == Frightened)) {
-        ghostObject.SetBehavior(Eaten);
+        emit ghostObject.Eaten();
+        ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
     } else if (ghostObject.GetName() == "inky") {
-      if (ghostObject.GetBehavior() == Eaten) {
+      if (ghostObject.GetBehavior() == Dead) {
         maze.inkypos = Point(-100, -100);
         return;
       }
       maze.inkypos = pos;
       if (maze.CheckCollisionInky() &&
           (ghostObject.GetBehavior() == Frightened)) {
-        ghostObject.SetBehavior(Eaten);
+        emit ghostObject.Eaten();
+        ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
     } else if (ghostObject.GetName() == "pinky") {
-      if (ghostObject.GetBehavior() == Eaten) {
+      if (ghostObject.GetBehavior() == Dead) {
         maze.pinkypos = Point(-100, -100);
         return;
       }
       maze.pinkypos = pos;
       if (maze.CheckCollisionPinky() &&
           (ghostObject.GetBehavior() == Frightened)) {
-        ghostObject.SetBehavior(Eaten);
+        emit ghostObject.Eaten();
+        ghostObject.SetBehavior(Dead);
         ghostObject.speed = 4;
       }
     }
 
     if (ghostObject.GetBehavior() != Frightened)
-      ghostObject.timer = 0;
+      ghostObject.frightenedtimer = 0;
     else
-      ghostObject.timer += 1;
-    if (ghostObject.timer >= 100) ghostObject.SetBehavior(Chase);
+      ghostObject.frightenedtimer += 1;
+    if (ghostObject.frightenedtimer >= 100) ghostObject.SetBehavior(Chase);
+
+    if (ghostObject.GetBehavior() == Chase) {
+      ghostObject.modetimer += 1;
+      if (ghostObject.modetimer >= 100) {
+        ghostObject.modetimer = 0;
+        ghostObject.SetBehavior(Scatter);
+      }
+    } else if (ghostObject.GetBehavior() == Scatter) {
+      ghostObject.modetimer += 1;
+      if (ghostObject.modetimer >= 100) {
+        ghostObject.modetimer = 0;
+        ghostObject.SetBehavior(Chase);
+      }
+    }
   }
 }

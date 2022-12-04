@@ -16,15 +16,20 @@ Game::Game(QGraphicsScene* scene) : scene(scene) {
 }
 
 void Game::Init() {
+  soundengine = new SoundEngine();
   maze = new Maze();
   score = new Score(scene);
   life = 3;
+  dotnum = 0;
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
   foreach (Point dotPos, maze->WhereAreDots()) {
     GameObject* dot = dotFactory->CreateObject("dot", dotPos);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
+    connect(dot, SIGNAL(Eaten()), this, SLOT(DotCount()));
+    connect(dot, SIGNAL(Eaten()), soundengine, SLOT(EatDotsSound()));
+    dotnum += 1;
     items.append(dot);
   }
 
@@ -41,10 +46,14 @@ void Game::Init() {
   inky = new Ghost(
       QString("inky"), new GhostInputComponent(new PatrollChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "inky"));
-
   clyde = new Ghost(
       QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
       new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
+
+  connect(blinky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
+  connect(pinky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
+  connect(inky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
+  connect(clyde, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
 
   connect(pacman, SIGNAL(Eaten()), this, SLOT(lifeDecrease()));
   Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
@@ -52,6 +61,9 @@ void Game::Init() {
 
   foreach (QPoint dotPos, maze->WhereArePellets()) {
     GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
+    dotnum += 1;
+    connect(pellet, SIGNAL(Eaten()), soundengine, SLOT(EatDotsSound()));
+    connect(pellet, SIGNAL(Eaten()), this, SLOT(DotCount()));
     connect(pellet, SIGNAL(Eaten()), score, SLOT(IncreasePelletScore()));
     connect(pellet, SIGNAL(Eaten()), blinky, SLOT(PelletEaten()));
     connect(pellet, SIGNAL(Eaten()), pinky, SLOT(PelletEaten()));
@@ -61,6 +73,7 @@ void Game::Init() {
   }
 
   scene->installEventFilter(key);
+  soundengine->BeginSound();
 }
 
 void Game::GameLoop() {
@@ -93,8 +106,9 @@ void Game::lifeDecrease() {
   QList<Ghost*> ghosts;
   ghosts << blinkyGhost << clydeGhost << inkyGhost << pinkyGhost;
   foreach (Ghost* g, ghosts) {
-    if (g->GetBehavior() != Frightened && g->GetBehavior() != Eaten) {
+    if (g->GetBehavior() != Frightened && g->GetBehavior() != Dead) {
       static_cast<Pacman&>(*pacman).lifeStatus = false;
+      soundengine->DeathSound();
       foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
     }
   }
@@ -111,16 +125,28 @@ void Game::resume() {
   Ghost* clydeGhost = &static_cast<Ghost&>(*clyde);
   Ghost* inkyGhost = &static_cast<Ghost&>(*inky);
   Ghost* pinkyGhost = &static_cast<Ghost&>(*pinky);
-  blinkyGhost->SetPos(QPoint(20 * 4.5, 20 * 4.5));
-  clydeGhost->SetPos(QPoint(20 * 24.5, 20 * 4.5));
-  inkyGhost->SetPos(QPoint(20 * 4.5, 20 * 24.5));
-  pinkyGhost->SetPos(QPoint(20 * 24.5, 20 * 24.5));
+  blinkyGhost->SetPos(Point(270, 210));
+  blinkyGhost->starttimer = 0;
+  clydeGhost->SetPos(Point(270, 210));
+  clydeGhost->starttimer = 100;
+  inkyGhost->SetPos(Point(270, 210));
+  inkyGhost->starttimer = 50;
+  pinkyGhost->SetPos(Point(270, 210));
+  pinkyGhost->starttimer = 10;
   blinkyGhost->SetBehavior(Chase);
   clydeGhost->SetBehavior(Chase);
   inkyGhost->SetBehavior(Chase);
   pinkyGhost->SetBehavior(Chase);
+  soundengine->BeginSound();
 }
+
+void Game::DotCount() {
+  dotnum -= 1;
+  if (dotnum == 0) GameClear();
+}
+
 void Game::gameEnd() {
+  score->SaveHighscore();
   blinky->Delete();
   clyde->Delete();
   pinky->Delete();
@@ -132,6 +158,24 @@ void Game::gameEnd() {
   gameOver = scene->addText("Game Over");
   gameOver->setPos(QPoint(10, 17) * 20);
   gameOver->setDefaultTextColor("red");
+  soundengine->EndSound();
+  scene->installEventFilter(this);
+}
+
+void Game::GameClear() {
+  score->SaveHighscore();
+  blinky->Delete();
+  clyde->Delete();
+  pinky->Delete();
+  inky->Delete();
+  pacman->Delete();
+  score->Delete();
+  foreach (GameObject* item, items) { item->Delete(); }
+  disconnect(updateTimer);
+  gameOver = scene->addText("Game Clear!");
+  gameOver->setPos(QPoint(10, 17) * 20);
+  gameOver->setDefaultTextColor("yellow");
+  soundengine->EndSound();
   scene->installEventFilter(this);
 }
 

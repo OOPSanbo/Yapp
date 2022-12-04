@@ -17,21 +17,27 @@ Ghost::Ghost(QString name, InputComponent* input, PhysicsComponent* physics,
     : DynamicGameObject(name, input, physics, graphics) {
   // TODO: Replace hardcoded positon & direction set
   if (name == "blinky") {
-    x = 20 * 4.5;
-    y = 20 * 4.5;
+    x = 260;
+    y = 210;
+    starttimer = 1;
   } else if (name == "pinky") {
-    x = 20 * 24.5;
-    y = 20 * 4.5;
+    x = 260;
+    y = 270;
+    starttimer = 10;
   } else if (name == "inky") {
-    x = 20 * 4.5;
-    y = 20 * 24.5;
+    x = 220;
+    y = 270;
+    starttimer = 50;
   } else if (name == "clyde") {
-    x = 20 * 24.5;
-    y = 20 * 24.5;
+    x = 300;
+    y = 270;
+    starttimer = 100;
   }
-  SetBehavior(Chase);
-  direction = Direction::DOWN;
+  SetBehavior(GoOutGate);
+  direction = Direction::RIGHT;
   nextDirection = Direction::RIGHT;
 }
 
-void Ghost::PelletEaten() { SetBehavior(Frightened); }
+void Ghost::PelletEaten() {
+  if (behavior != Dead && behavior != GoOutGate) SetBehavior(Frightened);
+}

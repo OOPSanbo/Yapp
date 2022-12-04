@@ -15,6 +15,24 @@ GhostInputComponent::GhostInputComponent(ChaseBehavior* chasebehavior) {
 
 void GhostInputComponent::Update(GameObject& object, Maze& maze) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
+  if (ghostObject.starttimer != 0) {
+    ghostObject.starttimer -= 1;
+    if (ghostObject.starttimer == 0) {
+      ghostObject.SetBehavior(GoOutGate);
+    } else
+      return;
+  }
+
+  if (ghostObject.GetBehavior() == GoOutGate) {
+    if (ghostObject.GetPos().x() != 260) {
+      ghostObject.SetTarget(Point(260, ghostObject.GetPos().y()));
+      return;
+    } else if (ghostObject.GetPos().y() != 210) {
+      ghostObject.SetTarget(Point(260, 210));
+      return;
+    } else
+      ghostObject.SetBehavior(Chase);
+  }
 
   // check if encounter intersection at next position
   Point nextPos =
@@ -32,8 +50,8 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
     case Frightened:
       frightened->Frightened(ghostObject);
       break;
-    case Eaten:
-      ghostObject.SetTarget(Point(240, 210));
+    case Dead:
+      ghostObject.SetTarget(Point(260, 210));
       break;
   }
 
