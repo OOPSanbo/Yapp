@@ -89,7 +89,9 @@ void Game::Update() {
   clyde->Update(*maze);
   inky->Update(*maze);
   pinky->Update(*maze);
-  foreach (GameObject* item, items) { item->Update(*maze); }
+  foreach (GameObject* item, items) {
+    item->Update(*maze);
+  }
 }
 
 void Game::lifeDisplay() {
@@ -109,7 +111,9 @@ void Game::lifeDecrease() {
     if (g->GetBehavior() != Frightened && g->GetBehavior() != Dead) {
       static_cast<Pacman&>(*pacman).lifeStatus = false;
       soundengine->DeathSound();
-      foreach (Ghost* gho, ghosts) { gho->SetBehavior(Stop); }
+      foreach (Ghost* gho, ghosts) {
+        gho->SetBehavior(Stop);
+      }
     }
   }
 }
@@ -153,7 +157,9 @@ void Game::gameEnd() {
   inky->Delete();
   pacman->Delete();
   score->Delete();
-  foreach (GameObject* item, items) { item->Delete(); }
+  foreach (GameObject* item, items) {
+    item->Delete();
+  }
   disconnect(updateTimer);
   gameOver = scene->addText("Game Over");
   gameOver->setPos(QPoint(10, 17) * 20);
@@ -170,7 +176,9 @@ void Game::GameClear() {
   inky->Delete();
   pacman->Delete();
   score->Delete();
-  foreach (GameObject* item, items) { item->Delete(); }
+  foreach (GameObject* item, items) {
+    item->Delete();
+  }
   disconnect(updateTimer);
   gameOver = scene->addText("Game Clear!");
   gameOver->setPos(QPoint(10, 17) * 20);

@@ -6,6 +6,7 @@
 #include <QObject>
 
 #include "gameobject.h"
+#include "ghost.h"
 
 class GhostGraphicsComponent : public GraphicsComponent {
   Q_OBJECT
@@ -20,8 +21,12 @@ class GhostGraphicsComponent : public GraphicsComponent {
   virtual void Delete();
 
  private:
-  int index;
+  int base;
   int add;
+  void ChangeSpriteFrightened(Ghost& ghostObject);
+  void ChangeSpriteDead(Ghost& ghostObject);
+  void ChangeSpriteDefault(Ghost& ghostObject);
+  void RenderSprite(Ghost& ghostObject);
 };
 
 #endif  // GHOSTGRAPHICSCOMPONENT_H
