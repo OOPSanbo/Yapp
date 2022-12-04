@@ -32,7 +32,7 @@ void GhostGraphicsComponent::Update(GameObject& object) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
   if (ghostObject.GetBehavior() != Stop) {
     if (ghostObject.GetBehavior() == Frightened) {
-      if (ghostObject.timer >= 85) {
+      if (ghostObject.frightenedtimer >= 85) {
         if (index != 10)
           index = 10;
         else

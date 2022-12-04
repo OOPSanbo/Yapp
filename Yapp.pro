@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,6 +37,7 @@ SOURCES += \
     src/point.cpp \
     src/scatterbehavior.cpp \
     src/score.cpp \
+    src/soundengine.cpp \
     src/staticgameobject.cpp \
     src/title.cpp
 
@@ -66,6 +68,7 @@ HEADERS += \
     src/point.h \
     src/scatterbehavior.h \
     src/score.h \
+    src/soundengine.h \
     src/staticgameobject.h \
     src/title.h
 

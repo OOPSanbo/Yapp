@@ -16,7 +16,8 @@ void DotGraphicsComponent::Update(GameObject& object) {
   StaticGameObject& staticObject = static_cast<StaticGameObject&>(object);
   shape.setPos(object.GetPos());
   if (staticObject.status == false) {
-    Delete();
+    shape.setVisible(false);
+    // Delete();
   }
 }
 void DotGraphicsComponent::Delete() { graphics.removeItem(&shape); }
