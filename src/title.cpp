@@ -1,7 +1,11 @@
 #include "title.h"
 
 #include <QTimer>
+
+#include "soundengine.h"
 Title::Title(QGraphicsScene *scene) : scene(scene) {
+  SoundEngine soundengine;
+  soundengine.BeginSound();
   int const GHOST_IMAGE_WIDTH = 4;
   QPixmap titleLogo = QPixmap(":/res/img/title.png").scaled(390, 89);
   titleshape.setPixmap(titleLogo);

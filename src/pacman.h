@@ -14,7 +14,13 @@ class Pacman : public DynamicGameObject {
  public:
   Pacman(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
   bool lifeStatus = true;
+  bool energized = false;
+  int timer;
+
  signals:
   void pacmanRevive();
+
+ public slots:
+  void Energize();
 };
 #endif  // PACMAN_H
