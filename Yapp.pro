@@ -11,7 +11,6 @@ CONFIG += c++17
 
 SOURCES += \
     src/chasebehavior.cpp \
-    src/demoinputcomponent.cpp \
     src/direction.cpp \
     src/dotgraphicscomponent.cpp \
     src/dotphysicscomponent.cpp \
@@ -31,6 +30,7 @@ SOURCES += \
     src/maze.cpp \
     src/objectfactory.cpp \
     src/pacman.cpp \
+    src/pacmanfactory.cpp \
     src/pacmangraphicscomponent.cpp \
     src/pacmanphysicscomponent.cpp \
     src/point.cpp \
@@ -42,7 +42,6 @@ SOURCES += \
 
 HEADERS += \
     src/chasebehavior.h \
-    src/demoinputcomponent.h \
     src/direction.h \
     src/dotgraphicscomponent.h \
     src/dotphysicscomponent.h \
@@ -61,6 +60,7 @@ HEADERS += \
     src/maze.h \
     src/objectfactory.h \
     src/pacman.h \
+    src/pacmanfactory.h \
     src/pacmangraphicscomponent.h \
     src/pacmanphysicscomponent.h \
     src/point.h \

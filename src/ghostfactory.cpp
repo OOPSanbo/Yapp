@@ -7,24 +7,25 @@
 
 GhostFactory::GhostFactory(QGraphicsScene* scene) : scene(scene) {}
 
-GameObject* GhostFactory::CreateObject(QString name, Point pos) {
-  Ghost* ghost = new Ghost(name, pos * 20);
-
+GameObject* GhostFactory::CreateObject(QString name, QPointF cord) {
+  Ghost* ghost;
   ChaseBehavior* chaseBehavior;
   int timeLimit;
+
   if (name == "blinky") {
+    ghost = new Ghost(name, Point(cord * guiGridSize), Direction::RIGHT);
     chaseBehavior = new AggressiveChaseBehavior();
     timeLimit = 1;
-  }
-  if (name == "pinky") {
+  } else if (name == "pinky") {
+    ghost = new Ghost(name, Point(cord * guiGridSize), Direction::LEFT);
     chaseBehavior = new AmbushChaseBehavior();
     timeLimit = 10;
-  }
-  if (name == "inky") {
+  } else if (name == "inky") {
+    ghost = new Ghost(name, Point(cord * guiGridSize), Direction::RIGHT);
     chaseBehavior = new PatrollChaseBehavior();
     timeLimit = 50;
-  }
-  if (name == "clyde") {
+  } else {  // clyde
+    ghost = new Ghost(name, Point(cord * guiGridSize), Direction::LEFT);
     chaseBehavior = new RandomChaseBehavior();
     timeLimit = 100;
   }

@@ -9,6 +9,7 @@ class Point : public QPoint {
   Point(int x);
   Point(int x, int y);
   Point(QPoint point);
+  Point(QPointF fPoint);
   Point(const Point& point);
 
   Point& operator=(const Point& point);

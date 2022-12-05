@@ -2,24 +2,12 @@
 
 DynamicGameObject::DynamicGameObject() : GameObject() {}
 
-DynamicGameObject::DynamicGameObject(QString name) : GameObject(name) {}
-
 DynamicGameObject::DynamicGameObject(QString name, Point pos,
                                      Direction::eDirection direction) {
   this->name = name;
   SetPos(pos);
-  SetDirection(direction);
+  this->direction = direction;
 }
-
-DynamicGameObject::DynamicGameObject(InputComponent* input,
-                                     PhysicsComponent* physics,
-                                     GraphicsComponent* graphics)
-    : input(input), physics(physics), graphics(graphics) {}
-
-DynamicGameObject::DynamicGameObject(QString name, InputComponent* input,
-                                     PhysicsComponent* physics,
-                                     GraphicsComponent* graphics)
-    : GameObject(name), input(input), physics(physics), graphics(graphics) {}
 
 void DynamicGameObject::AddInputComponent(InputComponent* input) {
   this->input = input;

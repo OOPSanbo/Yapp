@@ -19,8 +19,7 @@ class Ghost : public DynamicGameObject {
   Point target;
 
  public:
-  Ghost(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
-  Ghost(QString name, Point pos);
+  Ghost(QString name, Point pos, Direction::eDirection direction);
   eGhostBehavior GetBehavior();
   void SetBehavior(eGhostBehavior behavior);
   Point GetTarget();

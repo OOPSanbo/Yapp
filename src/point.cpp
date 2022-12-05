@@ -10,6 +10,8 @@ Point::Point(int x, int y) : QPoint(x, y) {}
 
 Point::Point(QPoint point) : QPoint(point) {}
 
+Point::Point(QPointF fPoint) : QPoint(int(fPoint.x()), int(fPoint.y())) {}
+
 Point::Point(const Point &point) : QPoint(point.x(), point.y()) {}
 
 Point &Point::operator=(const Point &point) {

@@ -3,17 +3,17 @@
 
 #include "gameobject.h"
 #include "objectfactory.h"
-#include "point.h"
 
 class ItemFactory : public ObjectFactory {
  private:
   QGraphicsScene* scene;
+  const int guiGridSize = 20;
 
  public:
   ItemFactory();
   ItemFactory(QGraphicsScene* scene);
 
-  virtual GameObject* CreateObject(QString name, Point pos);
+  virtual GameObject* CreateObject(QString name, QPointF cord);
 };
 
 #endif  // ITEMFACTORY_H
