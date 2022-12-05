@@ -10,7 +10,6 @@ int main(int argc, char *argv[]) {
   QString family = QFontDatabase::applicationFontFamilies(id).at(0);
   QFont SerifFont(family);
   a.setFont(SerifFont);
-  //  a.setWindowIcon(QIcon(":/res/img/pacman/1.png"));
   w.show();
   w.Intro();
   return a.exec();

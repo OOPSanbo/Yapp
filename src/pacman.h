@@ -12,10 +12,11 @@ class Pacman : public DynamicGameObject {
   Q_OBJECT
 
  public:
-  Pacman(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
   bool lifeStatus = true;
   bool energized = false;
   int timer;
+
+  Pacman(QString name, Point pos, Direction::eDirection direction);
 
  signals:
   void pacmanRevive();

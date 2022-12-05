@@ -7,7 +7,7 @@
 class ObjectFactory {
  public:
   ObjectFactory();
-  virtual GameObject* CreateObject(QString, Point) = 0;
+  virtual GameObject* CreateObject(QString name, QPointF cord) = 0;
 };
 
 #endif  // OBJECTFACTORY_H

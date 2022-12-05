@@ -2,6 +2,7 @@
 #define STATICGAMEOBJECT_H
 
 #include "gameobject.h"
+#include "point.h"
 
 class StaticGameObject : public GameObject {
  protected:
@@ -9,10 +10,14 @@ class StaticGameObject : public GameObject {
   GraphicsComponent *graphics;
 
  public:
+  bool status = true;
   StaticGameObject();
   StaticGameObject(QString, PhysicsComponent *, GraphicsComponent *);
-  bool status = true;
-  virtual void Update(Maze &);
+  StaticGameObject(QString name, Point pos);
+  void AddPhysicsComponent(PhysicsComponent *physics);
+  void AddGraphicsComponent(GraphicsComponent *graphics);
+
+  virtual void Update(Maze &maze);
   virtual void Delete();
 };
 

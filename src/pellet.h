@@ -12,6 +12,7 @@ class Pellet : public StaticGameObject {
  public:
   QPixmap shape;
   Pellet(QString, PhysicsComponent*, GraphicsComponent*);
+  Pellet(QString name, Point pos);
   // virtual void Eaten();
 };
 

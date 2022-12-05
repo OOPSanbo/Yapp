@@ -11,10 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     src/chasebehavior.cpp \
-    src/demoinputcomponent.cpp \
     src/direction.cpp \
-    src/dot.cpp \
-    src/dotfactory.cpp \
     src/dotgraphicscomponent.cpp \
     src/dotphysicscomponent.cpp \
     src/dynamicgameobject.cpp \
@@ -22,18 +19,20 @@ SOURCES += \
     src/game.cpp \
     src/gameobject.cpp \
     src/ghost.cpp \
+    src/ghostfactory.cpp \
     src/ghostgraphicscomponent.cpp \
     src/ghostinputcomponent.cpp \
     src/ghostphysicscomponent.cpp \
+    src/itemfactory.cpp \
     src/keyinputcomponent.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
     src/maze.cpp \
     src/objectfactory.cpp \
     src/pacman.cpp \
+    src/pacmanfactory.cpp \
     src/pacmangraphicscomponent.cpp \
     src/pacmanphysicscomponent.cpp \
-    src/pellet.cpp \
     src/point.cpp \
     src/scatterbehavior.cpp \
     src/score.cpp \
@@ -43,10 +42,7 @@ SOURCES += \
 
 HEADERS += \
     src/chasebehavior.h \
-    src/demoinputcomponent.h \
     src/direction.h \
-    src/dot.h \
-    src/dotfactory.h \
     src/dotgraphicscomponent.h \
     src/dotphysicscomponent.h \
     src/dynamicgameobject.h \
@@ -54,17 +50,19 @@ HEADERS += \
     src/game.h \
     src/gameobject.h \
     src/ghost.h \
+    src/ghostfactory.h \
     src/ghostgraphicscomponent.h \
     src/ghostinputcomponent.h \
     src/ghostphysicscomponent.h \
+    src/itemfactory.h \
     src/keyinputcomponent.h \
     src/mainwindow.h \
     src/maze.h \
     src/objectfactory.h \
     src/pacman.h \
+    src/pacmanfactory.h \
     src/pacmangraphicscomponent.h \
     src/pacmanphysicscomponent.h \
-    src/pellet.h \
     src/point.h \
     src/scatterbehavior.h \
     src/score.h \

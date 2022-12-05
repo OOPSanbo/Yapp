@@ -24,85 +24,83 @@ GhostGraphicsComponent::GhostGraphicsComponent(QGraphicsScene& graphics,
   shape.setTransformOriginPoint(scale / 2, scale / 2);
   graphics.addItem(&shape);
 
-  index = 0;
+  base = 0;
   add = 1;
 }
 
 void GhostGraphicsComponent::Update(GameObject& object) {
   Ghost& ghostObject = static_cast<Ghost&>(object);
-  if (ghostObject.GetBehavior() != Stop) {
-    if (ghostObject.GetBehavior() == Frightened) {
-      if (ghostObject.frightenedtimer >= 85) {
-        if (index != 10)
-          index = 10;
-        else
-          index = 9;
-        shape.setPos(object.GetPos());
-        shape.setPixmap(sprite[index]);
 
-        return;
-      } else {
-        if (index != 8)
-          index = 8;
-        else
-          index = 9;
-        shape.setPos(object.GetPos());
-        shape.setPixmap(sprite[index]);
+  switch (ghostObject.GetBehavior()) {
+    case Frightened:
+      ChangeSpriteFrightened(ghostObject);
+      break;
+    case Dead:
+      ChangeSpriteDead(ghostObject);
+      break;
+    case Stop:
+      break;
+    default:
+      ChangeSpriteDefault(ghostObject);
+  }
 
-        return;
-      }
-    }
+  RenderSprite(ghostObject);
+}
 
-    if (ghostObject.GetBehavior() == Dead) {
-      switch (ghostObject.GetDirection()) {
-        case (Direction::UP):
-          index = 15;
-          break;
-        case (Direction::DOWN):
-          index = 12;
-          break;
-        case (Direction::LEFT):
-          index = 13;
-          break;
-        case (Direction::RIGHT):
-          index = 14;
-          break;
-        case (Direction::STOP):
-          break;
-      }
+void GhostGraphicsComponent::Delete() { graphics.removeItem(&shape); }
 
-      shape.setPos(object.GetPos());
-      shape.setPixmap(sprite[index]);
+void GhostGraphicsComponent::ChangeSpriteFrightened(Ghost& ghostObject) {
+  if (ghostObject.frightenedtimer >= 85) {
+    base = 9;
 
-      return;
-    }
-
-    shape.setPos(object.GetPos());
-    shape.setPixmap(sprite[index]);
-    if (index % 2 == 0) {
-      index += add;
-    } else {
-      index -= add;
-    }
-
-    if (ghostObject.GetNextDirection() != Direction::STOP) return;
-
-    switch (ghostObject.GetDirection()) {
-      case (Direction::UP):
-        index = 6;
-        break;
-      case (Direction::DOWN):
-        index = 0;
-        break;
-      case (Direction::LEFT):
-        index = 2;
-        break;
-      case (Direction::RIGHT):
-        index = 4;
-        break;
-      case (Direction::STOP):
-        break;
-    }
+  } else {
+    base = 8;
   }
 }
-void GhostGraphicsComponent::Delete() { graphics.removeItem(&shape); }
+
+void GhostGraphicsComponent::ChangeSpriteDead(Ghost& ghostObject) {
+  switch (ghostObject.GetDirection()) {
+    case (Direction::UP):
+      base = 15;
+      break;
+    case (Direction::DOWN):
+      base = 12;
+      break;
+    case (Direction::LEFT):
+      base = 13;
+      break;
+    case (Direction::RIGHT):
+      base = 14;
+      break;
+    case (Direction::STOP):
+      break;
+  }
+}
+
+void GhostGraphicsComponent::ChangeSpriteDefault(Ghost& ghostObject) {
+  switch (ghostObject.GetDirection()) {
+    case (Direction::UP):
+      base = 6;
+      break;
+    case (Direction::DOWN):
+      base = 0;
+      break;
+    case (Direction::LEFT):
+      base = 2;
+      break;
+    case (Direction::RIGHT):
+      base = 4;
+      break;
+    case (Direction::STOP):
+      break;
+  }
+}
+
+void GhostGraphicsComponent::RenderSprite(Ghost& ghostObject) {
+  shape.setPos(ghostObject.GetPos());
+  if (base >= 12)
+    shape.setPixmap(sprite[base]);
+  else
+    shape.setPixmap(sprite[base + add]);
+  add ^= 1;
+}
