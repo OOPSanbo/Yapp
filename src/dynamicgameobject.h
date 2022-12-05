@@ -15,10 +15,14 @@ class DynamicGameObject : public GameObject {
  public:
   DynamicGameObject();
   DynamicGameObject(QString);
+  DynamicGameObject(QString name, Point pos, Direction::eDirection direction);
   DynamicGameObject(InputComponent *, PhysicsComponent *, GraphicsComponent *);
   DynamicGameObject(QString, InputComponent *, PhysicsComponent *,
                     GraphicsComponent *);
 
+  void AddInputComponent(InputComponent *input);
+  void AddPhysicsComponent(PhysicsComponent *physics);
+  void AddGraphicsComponent(GraphicsComponent *graphics);
   Direction::eDirection GetDirection();
   Direction::eDirection GetNextDirection();
   void SetDirection(Direction::eDirection);

@@ -4,6 +4,13 @@ DynamicGameObject::DynamicGameObject() : GameObject() {}
 
 DynamicGameObject::DynamicGameObject(QString name) : GameObject(name) {}
 
+DynamicGameObject::DynamicGameObject(QString name, Point pos,
+                                     Direction::eDirection direction) {
+  this->name = name;
+  SetPos(pos);
+  SetDirection(direction);
+}
+
 DynamicGameObject::DynamicGameObject(InputComponent* input,
                                      PhysicsComponent* physics,
                                      GraphicsComponent* graphics)
@@ -14,9 +21,23 @@ DynamicGameObject::DynamicGameObject(QString name, InputComponent* input,
                                      GraphicsComponent* graphics)
     : GameObject(name), input(input), physics(physics), graphics(graphics) {}
 
+void DynamicGameObject::AddInputComponent(InputComponent* input) {
+  this->input = input;
+}
+
+void DynamicGameObject::AddPhysicsComponent(PhysicsComponent* physics) {
+  this->physics = physics;
+}
+
+void DynamicGameObject::AddGraphicsComponent(GraphicsComponent* graphics) {
+  this->graphics = graphics;
+}
+
 Direction::eDirection DynamicGameObject::GetDirection() { return direction; }
 
-Direction::eDirection DynamicGameObject::GetNextDirection() { return nextDirection; }
+Direction::eDirection DynamicGameObject::GetNextDirection() {
+  return nextDirection;
+}
 
 void DynamicGameObject::SetDirection(Direction::eDirection direction) {
   this->direction = direction;

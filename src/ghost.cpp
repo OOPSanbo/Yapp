@@ -38,6 +38,16 @@ Ghost::Ghost(QString name, InputComponent* input, PhysicsComponent* physics,
   nextDirection = Direction::RIGHT;
 }
 
+Ghost::Ghost(QString name, Point pos) {
+  this->name = name;
+  SetPos(pos);
+  SetBehavior(GoOutGate);
+  direction = Direction::RIGHT;
+  nextDirection = Direction::RIGHT;
+}
+
+void Ghost::SetStartTimer(int timeLimit) { starttimer = timeLimit; }
+
 void Ghost::PelletEaten() {
   if (behavior != Dead && behavior != GoOutGate) SetBehavior(Frightened);
 }

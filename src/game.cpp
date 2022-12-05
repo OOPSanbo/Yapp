@@ -1,8 +1,8 @@
 #include "game.h"
 
 #include "demoinputcomponent.h"
-#include "dot.h"
 #include "ghost.h"
+#include "ghostfactory.h"
 #include "ghostgraphicscomponent.h"
 #include "ghostinputcomponent.h"
 #include "ghostphysicscomponent.h"
@@ -12,7 +12,7 @@
 #include "pacmanphysicscomponent.h"
 
 Game::Game(QGraphicsScene* scene) : scene(scene) {
-  dotFactory = new DotFactory(scene);
+  dotFactory = new ItemFactory(scene);
 }
 
 void Game::Init() {
@@ -24,8 +24,8 @@ void Game::Init() {
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
-  foreach (Point dotPos, maze->WhereAreDots()) {
-    GameObject* dot = dotFactory->CreateObject("dot", dotPos);
+  foreach (Point dotCord, maze->WhereAreDots()) {
+    GameObject* dot = dotFactory->CreateObject("dot", dotCord);
     connect(dot, SIGNAL(Eaten()), score, SLOT(IncreaseDotScore()));
     connect(dot, SIGNAL(Eaten()), this, SLOT(DotCount()));
     connect(dot, SIGNAL(Eaten()), soundengine, SLOT(EatDotsSound()));
@@ -36,19 +36,12 @@ void Game::Init() {
   KeyInputComponent* key = new KeyInputComponent();
   pacman = new Pacman(QString("Pacman"), key, new PacmanPhysicsComponent(),
                       new PacmanGraphicsComponent(*scene));
-  blinky = new Ghost(QString("blinky"),
-                     new GhostInputComponent(new AggressiveChaseBehavior()),
-                     new GhostPhysicsComponent(),
-                     new GhostGraphicsComponent(*scene, "blinky"));
-  pinky = new Ghost(
-      QString("pinky"), new GhostInputComponent(new AmbushChaseBehavior()),
-      new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "pinky"));
-  inky = new Ghost(
-      QString("inky"), new GhostInputComponent(new PatrollChaseBehavior()),
-      new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "inky"));
-  clyde = new Ghost(
-      QString("clyde"), new GhostInputComponent(new RandomChaseBehavior()),
-      new GhostPhysicsComponent(), new GhostGraphicsComponent(*scene, "clyde"));
+
+  GhostFactory ghostFactory(scene);
+  blinky = ghostFactory.CreateObject("blinky", Point(13, 11));
+  pinky = ghostFactory.CreateObject("pinky", Point(13, 13));
+  inky = ghostFactory.CreateObject("inky", Point(11, 13));
+  clyde = ghostFactory.CreateObject("clyde", Point(15, 13));
 
   connect(blinky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
   connect(pinky, SIGNAL(Eaten()), soundengine, SLOT(EatGhostSound()));
@@ -59,8 +52,8 @@ void Game::Init() {
   Pacman& pacmanObject = static_cast<Pacman&>(*pacman);
   connect(&pacmanObject, SIGNAL(pacmanRevive()), this, SLOT(resume()));
 
-  foreach (QPoint dotPos, maze->WhereArePellets()) {
-    GameObject* pellet = dotFactory->CreateObject("pellet", dotPos);
+  foreach (QPoint pelletPos, maze->WhereArePellets()) {
+    GameObject* pellet = dotFactory->CreateObject("pellet", pelletPos);
     dotnum += 1;
     connect(pellet, SIGNAL(Eaten()), soundengine, SLOT(EatDotsSound()));
     connect(pellet, SIGNAL(Eaten()), this, SLOT(DotCount()));

@@ -19,15 +19,17 @@ class Ghost : public DynamicGameObject {
   Point target;
 
  public:
+  Ghost(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
+  Ghost(QString name, Point pos);
   eGhostBehavior GetBehavior();
   void SetBehavior(eGhostBehavior behavior);
   Point GetTarget();
   void SetTarget(Point target);
-  Ghost(QString, InputComponent*, PhysicsComponent*, GraphicsComponent*);
   int frightenedtimer = 0;
   int modetimer = 0;
   int speed = 1;
   int starttimer;
+  void SetStartTimer(int timeLimit);
 
  private slots:
   void PelletEaten();
