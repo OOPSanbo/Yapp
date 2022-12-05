@@ -1,6 +1,5 @@
 #include "dotphysicscomponent.h"
 
-#include "dot.h"
 #include "staticgameobject.h"
 
 DotPhysicsComponent::DotPhysicsComponent() {}

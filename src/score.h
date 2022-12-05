@@ -17,6 +17,7 @@ class Score : public QObject {
  public slots:
   void IncreaseDotScore();
   void IncreasePelletScore();
+  void IncreaseGhostScore();
 
  private:
   int score_value;

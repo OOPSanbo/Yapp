@@ -37,8 +37,11 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
     maze.pacmanpos = object.GetPos();
     maze.pacmandir = Direction::ToPoint(direction);
 
-    if (maze.CheckCollisionGhost() && pacmanObject.lifeStatus) {
+    if (maze.CheckCollisionGhost() && pacmanObject.energized == false) {
       emit pacmanObject.Eaten();
     }
   }
+
+  if (pacmanObject.energized) pacmanObject.timer -= 1;
+  if (pacmanObject.timer == 0) pacmanObject.energized = false;
 }

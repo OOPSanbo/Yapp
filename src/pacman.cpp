@@ -13,3 +13,8 @@ Pacman::Pacman(QString name, InputComponent* input, PhysicsComponent* physics,
   direction = Direction::RIGHT;
   nextDirection = Direction::DOWN;
 }
+
+void Pacman::Energize() {
+  energized = true;
+  timer = 100;
+}
