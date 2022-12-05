@@ -74,6 +74,21 @@ void Score::IncreasePelletScore() {
   }
 }
 
+void Score::IncreaseGhostScore() {
+  score_value += 200;
+
+  QString score_str = "SCORE : ";
+  score_str.append(QString::number(score_value));
+  score_text->setPlainText(score_str);
+
+  if (score_value > highscore_value) {
+    highscore_value = score_value;
+    QString highscore_str = "HIGHSCORE : ";
+    highscore_str.append(QString::number(highscore_value));
+    highscore_text->setPlainText(highscore_str);
+  }
+}
+
 void Score::Delete() {
   scene->removeItem(score_text);
   scene->removeItem(highscore_text);

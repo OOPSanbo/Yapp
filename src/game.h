@@ -30,7 +30,7 @@ class Game : public QObject {
   Score *score;
   QGraphicsPixmapItem *lifeLabel;
   QGraphicsTextItem *gameOver;
-  int life;
+  int life = 3;
   int dotnum;
   QMetaObject::Connection updateTimer;
   GameObject *pacman;
