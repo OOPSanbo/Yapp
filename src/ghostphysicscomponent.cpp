@@ -50,6 +50,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         ghostObject.SetBehavior(Chase);
       }
       if (ghostObject.GetBehavior() != Dead) ghostObject.speed = 1;
+      if (maze.IsEncounterIntersection(pos, ghostObject.GetDirection())) break;
     }
     if (pos == Point(26 * 20, 14 * 20 - 10)) {
       object.SetPos(Point(10, 14 * 20 - 10));
@@ -59,7 +60,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
 
     if (ghostObject.GetName() == "blinky") {
       if (ghostObject.GetBehavior() == Dead) {
-        maze.blinkypos = Point(-100, -100);
+        maze.blinkypos = Point(260, 210);
         return;
       }
       maze.blinkypos = pos;
@@ -71,7 +72,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       }
     } else if (ghostObject.GetName() == "clyde") {
       if (ghostObject.GetBehavior() == Dead) {
-        maze.clydepos = Point(-100, -100);
+        maze.clydepos = Point(260, 210);
         return;
       }
       maze.clydepos = pos;
@@ -83,7 +84,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       }
     } else if (ghostObject.GetName() == "inky") {
       if (ghostObject.GetBehavior() == Dead) {
-        maze.inkypos = Point(-100, -100);
+        maze.inkypos = Point(260, 210);
         return;
       }
       maze.inkypos = pos;
@@ -95,7 +96,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
       }
     } else if (ghostObject.GetName() == "pinky") {
       if (ghostObject.GetBehavior() == Dead) {
-        maze.pinkypos = Point(-100, -100);
+        maze.pinkypos = Point(260, 210);
         return;
       }
       maze.pinkypos = pos;
