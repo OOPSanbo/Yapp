@@ -12,7 +12,6 @@ class StaticGameObject : public GameObject {
  public:
   bool status = true;
   StaticGameObject();
-  StaticGameObject(QString, PhysicsComponent *, GraphicsComponent *);
   StaticGameObject(QString name, Point pos);
   void AddPhysicsComponent(PhysicsComponent *physics);
   void AddGraphicsComponent(GraphicsComponent *graphics);

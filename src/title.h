@@ -13,11 +13,11 @@ class Title : public QObject {
   bool eventFilter(QObject *object, QEvent *event);
   void printer(QString image, QString character, QString nickname,
                QPointF point);
-  QString const IMAGE_GHOST_SRC = ":/res/img/ghost/";
-  QString const IMAGE_ITEM_SRC = ":/res/img/item/";
-  int const GRID_SIZE = 20;
-  int const MARGIN = 3;
-  int const GHOST_SIZE = 40;
+  const QString IMAGE_GHOST_SRC = ":/res/img/ghost/";
+  const QString IMAGE_ITEM_SRC = ":/res/img/item/";
+  const int GRID_SIZE = 20;
+  const int MARGIN = 3;
+  const int GHOST_SIZE = 40;
 
   QGraphicsScene *scene;
   QTimer *timer;
