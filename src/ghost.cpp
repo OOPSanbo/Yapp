@@ -1,7 +1,9 @@
 #include "ghost.h"
 
 Ghost::Ghost(QString name, Point pos, Direction::eDirection direction)
-    : DynamicGameObject(name, pos, direction) {}
+    : DynamicGameObject(name, pos, direction) {
+  behavior = GoOutGate;
+}
 
 eGhostBehavior Ghost::GetBehavior() { return behavior; }
 
