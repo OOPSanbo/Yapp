@@ -3,6 +3,7 @@
 #include <QTimer>
 
 #include "soundengine.h"
+
 Title::Title(QGraphicsScene *scene) : scene(scene) {
   SoundEngine soundengine;
   soundengine.BeginSound();
@@ -12,7 +13,7 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
   titleshape.setPos(97, -60);
   scene->addItem(&titleshape);
 
-  makeText("CHARACTER / NICKNAME", QPointF(7, 2.5));
+  makeText("CHARACTER / NICKNAME", QPointF(7, 2));
   index = 0;
   characters << "SHADOM"
              << "SPEEDY"
@@ -35,7 +36,7 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
   timer = new QTimer();
   connectSignal =
       connect(timer, SIGNAL(timeout()), this, SLOT(printGenerator()));
-  timer->start(1000);
+  timer->start(500);
 }
 
 bool Title::eventFilter(QObject *object, QEvent *event) {
@@ -54,6 +55,7 @@ void Title::printGenerator() {
   } else if (index == 5) {
     printCredit();
   } else {
+    makeImage(IMAGE_ITEM_SRC + QString("pellet.png"), QPointF(4.5, 18.5), 20);
     makeImage(QString(":/res/img/pacman/0.png"), QPointF(14, 18), 40);
     int width = 16;
     foreach (QString name, nicknames) {
@@ -80,8 +82,8 @@ void Title::printer(QString image, QString character, QString nickname,
   } else if (character == QString("POKEY")) {
     color = QString("orange");
   }
-  makeText(QString('-') + character, point + QPointF(3, 0), color);
-  makeText(QString('"') + nickname + QString('"'), point + QPointF(13, 0),
+  makeText(QString('-') + character, point + QPointF(3, 0.4), color);
+  makeText(QString('"') + nickname + QString('"'), point + QPointF(11.5, 0.3),
            color);
 }
 void Title::dotPrinter() {
@@ -97,7 +99,7 @@ void Title::dotPrinter() {
   makeText("50 pts", QPointF(TEXT_WIDTH, LOWER_INSTANCE_HEIGHT));
 }
 void Title::printCredit() {
-  makeText("㉿Industrial Security OOP Pac-Man", QPointF(1, 28));
+  makeText("㉿Industrial Security OOP Pac-Man", QPointF(2.5, 28));
 }
 void Title::makeImage(QString imageSrc, QPointF coordinate, int size) {
   QGraphicsPixmapItem *newImage = new QGraphicsPixmapItem();
@@ -109,4 +111,5 @@ void Title::makeText(QString text, QPointF coordinate, QString color) {
   QGraphicsTextItem *newText = scene->addText(text);
   newText->setPos(coordinate * GRID_SIZE);
   newText->setDefaultTextColor(color);
+  newText->setScale(1.2);
 }
