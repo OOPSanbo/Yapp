@@ -22,7 +22,6 @@ void MainWindow::HandleStartGame() {
   ui->graphicsView->setScene(scene);
 
   scene->addPixmap(QPixmap(":/res/img/maze.png").scaledToWidth(sceneWidth));
-  DrawDebugGrid();
 
   game = new Game(scene);
   game->Init();
@@ -42,7 +41,6 @@ void MainWindow::DrawDebugGrid() {
 void MainWindow::Intro() {
   title = new Title(scene);
   scene->installEventFilter(title);
-  DrawDebugGrid();
   connectSignal =
       connect(title, SIGNAL(OnKeyPress()), this, SLOT(HandleStartGame()));
 }
