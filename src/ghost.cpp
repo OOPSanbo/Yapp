@@ -2,7 +2,7 @@
 
 Ghost::Ghost(QString name, Point pos, Direction::eDirection direction)
     : DynamicGameObject(name, pos, direction) {
-  behavior = GoOutGate;
+  this->behavior = Stop;
 }
 
 eGhostBehavior Ghost::GetBehavior() { return behavior; }
@@ -16,5 +16,6 @@ void Ghost::SetTarget(Point target) { this->target = target; }
 void Ghost::SetStartTimer(int timeLimit) { starttimer = timeLimit; }
 
 void Ghost::PelletEaten() {
-  if (behavior != Dead && behavior != GoOutGate) SetBehavior(Frightened);
+  if (behavior != Dead && behavior != GoOutGate && behavior != Stop)
+    SetBehavior(Frightened);
 }
