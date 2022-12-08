@@ -1,9 +1,9 @@
-#ifndef DOTGRAPHICSCOMPONENT_H
-#define DOTGRAPHICSCOMPONENT_H
+#ifndef ITEMGRAPHICSCOMPONENT_H
+#define ITEMGRAPHICSCOMPONENT_H
 
 #include "gameobject.h"
 
-class DotGraphicsComponent : public GraphicsComponent {
+class ItemGraphicsComponent : public GraphicsComponent {
  private:
   QString name;
   QGraphicsPixmapItem shape;
@@ -12,11 +12,11 @@ class DotGraphicsComponent : public GraphicsComponent {
   const int scale = 20;
 
  public:
-  DotGraphicsComponent();
+  ItemGraphicsComponent();
   // TODO remove name
-  DotGraphicsComponent(QString, QGraphicsScene&);
+  ItemGraphicsComponent(QString, QGraphicsScene&);
   virtual void Update(GameObject&);
   virtual void Delete();
 };
 
-#endif  // DOTGRAPHICSCOMPONENT_H
+#endif  // ITEMGRAPHICSCOMPONENT_H

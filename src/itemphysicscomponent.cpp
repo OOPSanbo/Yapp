@@ -1,10 +1,10 @@
-#include "dotphysicscomponent.h"
+#include "itemphysicscomponent.h"
 
 #include "staticgameobject.h"
 
-DotPhysicsComponent::DotPhysicsComponent() {}
+ItemPhysicsComponent::ItemPhysicsComponent() {}
 
-void DotPhysicsComponent::Update(GameObject& object, Maze& maze) {
+void ItemPhysicsComponent::Update(GameObject& object, Maze& maze) {
   StaticGameObject& staticObject = static_cast<StaticGameObject&>(object);
 
   if (staticObject.status == false) return;
