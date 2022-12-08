@@ -99,7 +99,7 @@ void Title::dotPrinter() {
   makeText("50 pts", QPointF(TEXT_WIDTH, LOWER_INSTANCE_HEIGHT));
 }
 void Title::printCredit() {
-  makeText("㉿Industrial Security OOP Pac-Man", QPointF(1, 28));
+  makeText("Industrial Security OOP Pac-Man", QPointF(1, 28));
 }
 void Title::makeImage(QString imageSrc, QPointF coordinate, int size) {
   QGraphicsPixmapItem *newImage = new QGraphicsPixmapItem();

@@ -17,7 +17,7 @@ GameObject* GhostFactory::CreateObject(QString name, QPointF cord) {
     chaseBehavior = new AggressiveChaseBehavior();
     timeLimit = 1;
   } else if (name == "pinky") {
-    ghost = new Ghost(name, Point(cord * guiGridSize), Direction::LEFT);
+    ghost = new Ghost(name, Point(cord * guiGridSize), Direction::RIGHT);
     chaseBehavior = new AmbushChaseBehavior();
     timeLimit = 10;
   } else if (name == "inky") {

@@ -118,7 +118,7 @@ void Game::resume() {
   blinkyGhost->SetBehavior(GoOutGate);
   blinkyGhost->SetDirection(Direction::RIGHT);
   pinkyGhost->SetBehavior(GoOutGate);
-  pinkyGhost->SetDirection(Direction::LEFT);
+  pinkyGhost->SetDirection(Direction::RIGHT);
   inkyGhost->SetBehavior(GoOutGate);
   inkyGhost->SetDirection(Direction::RIGHT);
   clydeGhost->SetBehavior(GoOutGate);

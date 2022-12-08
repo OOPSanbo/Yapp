@@ -28,6 +28,7 @@ class Ghost : public DynamicGameObject {
   int modetimer = 0;
   int speed = 1;
   int starttimer;
+  bool reversepreventer = false;
   void SetStartTimer(int timeLimit);
 
  private slots:
