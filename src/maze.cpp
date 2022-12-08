@@ -183,7 +183,7 @@ bool Maze::IsEncounterIntersection(Point pos, Direction::eDirection dir) {
 
   for (int i = 0; i < 4; i++) {
     Direction::eDirection enumDir = static_cast<Direction::eDirection>(i);
-    if (enumDir == dir) continue;
+    if (enumDir == dir || enumDir == Direction::Reverse(dir)) continue;
 
     Point nextMazeCord =
         currentMazeCord +
@@ -194,7 +194,7 @@ bool Maze::IsEncounterIntersection(Point pos, Direction::eDirection dir) {
     }
   }
 
-  return numIntersection >= 2;
+  return numIntersection >= 1;
 }
 
 bool Maze::CheckCollisionBlinky() {
@@ -233,11 +233,5 @@ bool Maze::CheckCollisionGhost() {
 bool Maze::CheckCollisionDot(Point dotpoint) {
   Point pacmanCord = TranslateToMazeCord(pacmanpos);
   Point dotCord = TranslateToMazeCord(dotpoint - Point(10, 10));
-
   return pacmanCord == dotCord;
-  if (pacmanpos.x() > dotpoint.x() + 10) return false;
-  if (pacmanpos.x() + 20 < dotpoint.x()) return false;
-  if (pacmanpos.y() > dotpoint.y() + 10) return false;
-  if (pacmanpos.y() + 20 < dotpoint.y()) return false;
-  return true;
 }

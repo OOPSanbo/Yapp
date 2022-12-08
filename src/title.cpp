@@ -13,7 +13,7 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
   titleshape.setPos(97, -60);
   scene->addItem(&titleshape);
 
-  makeText("CHARACTER / NICKNAME", QPointF(7, 2));
+  makeText("CHARACTER / NICKNAME", QPointF(7, 3));
   index = 0;
   characters << "SHADOW"
              << "SPEEDY"
@@ -24,7 +24,7 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
             << "INKY"
             << "CLYDE";
 
-  int Height = 4;
+  int Height = 6;
 
   for (int index = 0; index < 4; index++) {
     images.append(IMAGE_GHOST_SRC + nicknames[index].toLower() +
@@ -55,13 +55,13 @@ void Title::printGenerator() {
   } else if (index == 5) {
     printCredit();
   } else {
-    makeImage(IMAGE_ITEM_SRC + QString("pellet.png"), QPointF(4.5, 18.5), 20);
-    makeImage(QString(":/res/img/pacman/0.png"), QPointF(14, 18), 40);
+    makeImage(IMAGE_ITEM_SRC + QString("pellet.png"), QPointF(4.5, 19.5), 20);
+    makeImage(QString(":/res/img/pacman/0.png"), QPointF(14, 19), 40);
     int width = 16;
     foreach (QString name, nicknames) {
       makeImage(
           QString(":/res/img/ghost/") + name.toLower() + QString("/2.png"),
-          QPointF(width, 18), 40);
+          QPointF(width, 19), 40);
       width += 2;
     }
     disconnect(connectSignal);
@@ -99,7 +99,7 @@ void Title::dotPrinter() {
   makeText("50 pts", QPointF(TEXT_WIDTH, LOWER_INSTANCE_HEIGHT));
 }
 void Title::printCredit() {
-  makeText("㉿Industrial Security OOP Pac-Man", QPointF(1, 28));
+  makeText("Industrial Security OOP Pac-Man", QPointF(1, 28));
 }
 void Title::makeImage(QString imageSrc, QPointF coordinate, int size) {
   QGraphicsPixmapItem *newImage = new QGraphicsPixmapItem();

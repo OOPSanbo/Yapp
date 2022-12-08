@@ -32,12 +32,15 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
     Point nextDirectionPoint = Direction::ToPoint(nextDirection);
 
     if (nextDirection != Direction::STOP &&
-        maze.CanTurnAroundToNextDirection(
-            pos, direction,
-            nextDirection)) {  // check if pacman can change direction
-      directionPoint = nextDirectionPoint;
-      ghostObject.SetDirection(nextDirection);
-      ghostObject.SetNextDirection(Direction::STOP);
+        maze.CanTurnAroundToNextDirection(pos, direction, nextDirection)) {
+      if (ghostObject.reversepreventer) {
+        ghostObject.reversepreventer = false;
+      } else {
+        directionPoint = nextDirectionPoint;
+        ghostObject.SetDirection(nextDirection);
+        ghostObject.SetNextDirection(Direction::STOP);
+        ghostObject.reversepreventer = true;
+      }
     }
     int i;
     for (i = 0; i < ghostObject.speed; i++) {
@@ -46,7 +49,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
         object.SetPos(pos);
       }
       if (ghostObject.GetBehavior() == Dead &&
-          ghostObject.GetTarget() == ghostObject.GetPos()) {
+          Point(260, 210) == ghostObject.GetPos()) {
         ghostObject.SetBehavior(Chase);
       }
       if (ghostObject.GetBehavior() != Dead) ghostObject.speed = 1;
