@@ -5,7 +5,7 @@ Rewritten C++ and Qt for Object-Oriented programming team project.
 
 ## 1) Game Priview
 
-![](https://res.cloudinary.com/dek4evg4t/image/upload/v1562267184/ezgif.com-video-to-gif_1.gif)
+![](./demo.gif)
 
 ## 2) Installation
 
