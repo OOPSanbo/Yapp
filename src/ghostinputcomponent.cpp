@@ -27,10 +27,7 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
     if (ghostObject.GetPos().x() != 260) {
       ghostObject.SetTarget(Point(260, ghostObject.GetPos().y()));
       return;
-    } else if (ghostObject.GetPos().y() != 210) {
-      ghostObject.SetTarget(Point(260, 210));
-      return;
-    } else
+    } else if (ghostObject.GetPos() == Point(260, 210))
       ghostObject.SetBehavior(Chase);
   }
 
