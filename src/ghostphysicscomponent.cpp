@@ -37,7 +37,7 @@ void GhostPhysicsComponent::Update(GameObject& object, Maze& maze) {
             nextDirection)) {  // check if pacman can change direction
       directionPoint = nextDirectionPoint;
       ghostObject.SetDirection(nextDirection);
-      ghostObject.SetNextDirection(Direction::eDirection::STOP);
+      ghostObject.SetNextDirection(Direction::STOP);
     }
     int i;
     for (i = 0; i < ghostObject.speed; i++) {

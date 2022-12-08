@@ -15,7 +15,7 @@ Title::Title(QGraphicsScene *scene) : scene(scene) {
 
   makeText("CHARACTER / NICKNAME", QPointF(7, 2));
   index = 0;
-  characters << "SHADOM"
+  characters << "SHADOW"
              << "SPEEDY"
              << "BASHFUL"
              << "POKEY";
@@ -73,7 +73,7 @@ void Title::printer(QString image, QString character, QString nickname,
                     QPointF point) {
   QString color = "white";
   makeImage(image, point, GHOST_SIZE);
-  if (character == QString("SHADOM")) {
+  if (character == QString("SHADOW")) {
     color = QString("red");
   } else if (character == QString("SPEEDY")) {
     color = QString("pink");
@@ -83,7 +83,7 @@ void Title::printer(QString image, QString character, QString nickname,
     color = QString("orange");
   }
   makeText(QString('-') + character, point + QPointF(3, 0.4), color);
-  makeText(QString('"') + nickname + QString('"'), point + QPointF(11.5, 0.3),
+  makeText(QString('"') + nickname + QString('"'), point + QPointF(12.5, 0.3),
            color);
 }
 void Title::dotPrinter() {
@@ -99,7 +99,7 @@ void Title::dotPrinter() {
   makeText("50 pts", QPointF(TEXT_WIDTH, LOWER_INSTANCE_HEIGHT));
 }
 void Title::printCredit() {
-  makeText("㉿Industrial Security OOP Pac-Man", QPointF(2.5, 28));
+  makeText("㉿Industrial Security OOP Pac-Man", QPointF(1, 28));
 }
 void Title::makeImage(QString imageSrc, QPointF coordinate, int size) {
   QGraphicsPixmapItem *newImage = new QGraphicsPixmapItem();
@@ -111,5 +111,5 @@ void Title::makeText(QString text, QPointF coordinate, QString color) {
   QGraphicsTextItem *newText = scene->addText(text);
   newText->setPos(coordinate * GRID_SIZE);
   newText->setDefaultTextColor(color);
-  newText->setScale(1.2);
+  newText->setScale(1.0);
 }

@@ -54,6 +54,8 @@ void GhostInputComponent::Update(GameObject& object, Maze& maze) {
     case Dead:
       ghostObject.SetTarget(Point(260, 210));
       break;
+    default:
+      break;
   }
 
   ghostObject.SetNextDirection(FindNextDirection(ghostObject, maze));
