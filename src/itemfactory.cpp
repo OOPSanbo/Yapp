@@ -3,9 +3,9 @@
 #include <QObject>
 #include <iostream>
 
-#include "dotgraphicscomponent.h"
-#include "dotphysicscomponent.h"
 #include "gameobject.h"
+#include "itemgraphicscomponent.h"
+#include "itemphysicscomponent.h"
 #include "staticgameobject.h"
 
 ItemFactory::ItemFactory() {}
@@ -13,9 +13,9 @@ ItemFactory::ItemFactory() {}
 ItemFactory::ItemFactory(QGraphicsScene* scene) { this->scene = scene; }
 
 GameObject* ItemFactory::CreateObject(QString name, QPointF cord) {
-  DotPhysicsComponent* dotphysicscomponent = new DotPhysicsComponent();
-  DotGraphicsComponent* dotgraphicscomponent =
-      new DotGraphicsComponent(name, *scene);
+  ItemPhysicsComponent* dotphysicscomponent = new ItemPhysicsComponent();
+  ItemGraphicsComponent* dotgraphicscomponent =
+      new ItemGraphicsComponent(name, *scene);
 
   StaticGameObject* item =
       new StaticGameObject(name, Point(cord * guiGridSize));
