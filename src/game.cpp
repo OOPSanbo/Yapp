@@ -78,9 +78,7 @@ void Game::Update() {
   pinky->Update(*maze);
   inky->Update(*maze);
   clyde->Update(*maze);
-  foreach (GameObject* item, items) {
-    item->Update(*maze);
-  }
+  foreach (GameObject* item, items) { item->Update(*maze); }
 }
 
 void Game::lifeDisplay() {
@@ -140,9 +138,7 @@ void Game::gameEnd() {
   clyde->Delete();
   pacman->Delete();
   score->Delete();
-  foreach (GameObject* item, items) {
-    item->Delete();
-  }
+  foreach (GameObject* item, items) { item->Delete(); }
   disconnect(updateTimer);
   gameOver = scene->addText("Game Over");
   gameOver->setPos(QPoint(10, 17) * 20);
@@ -159,9 +155,7 @@ void Game::GameClear() {
   clyde->Delete();
   pacman->Delete();
   score->Delete();
-  foreach (GameObject* item, items) {
-    item->Delete();
-  }
+  foreach (GameObject* item, items) { item->Delete(); }
   disconnect(updateTimer);
   gameOver = scene->addText("Game Clear!");
   gameOver->setPos(QPoint(10, 17) * 20);
