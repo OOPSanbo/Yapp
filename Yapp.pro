@@ -12,8 +12,6 @@ CONFIG += c++17
 SOURCES += \
     src/chasebehavior.cpp \
     src/direction.cpp \
-    src/dotgraphicscomponent.cpp \
-    src/dotphysicscomponent.cpp \
     src/dynamicgameobject.cpp \
     src/frightenedbehavior.cpp \
     src/game.cpp \
@@ -24,7 +22,10 @@ SOURCES += \
     src/ghostinputcomponent.cpp \
     src/ghostphysicscomponent.cpp \
     src/itemfactory.cpp \
+    src/itemgraphicscomponent.cpp \
+    src/itemphysicscomponent.cpp \
     src/keyinputcomponent.cpp \
+    src/keyinputengine.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
     src/maze.cpp \
@@ -43,8 +44,6 @@ SOURCES += \
 HEADERS += \
     src/chasebehavior.h \
     src/direction.h \
-    src/dotgraphicscomponent.h \
-    src/dotphysicscomponent.h \
     src/dynamicgameobject.h \
     src/frightenedbehavior.h \
     src/game.h \
@@ -55,7 +54,10 @@ HEADERS += \
     src/ghostinputcomponent.h \
     src/ghostphysicscomponent.h \
     src/itemfactory.h \
+    src/itemgraphicscomponent.h \
+    src/itemphysicscomponent.h \
     src/keyinputcomponent.h \
+    src/keyinputengine.h \
     src/mainwindow.h \
     src/maze.h \
     src/objectfactory.h \
