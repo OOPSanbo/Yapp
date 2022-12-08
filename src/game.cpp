@@ -1,11 +1,12 @@
 #include "game.h"
 
+#include <QDebug>
+
 #include "ghost.h"
 #include "ghostfactory.h"
 #include "itemfactory.h"
 #include "pacman.h"
 #include "pacmanfactory.h"
-
 Game::Game(QGraphicsScene* scene) : scene(scene) {}
 
 void Game::Init() {
@@ -13,6 +14,7 @@ void Game::Init() {
   maze = new Maze();
   score = new Score(scene);
   dotnum = 0;
+  qDebug() << dotnum;
   lifeLabel = new QGraphicsPixmapItem();
   scene->addItem(lifeLabel);
   lifeDisplay();
@@ -172,7 +174,8 @@ bool Game::eventFilter(QObject* object, QEvent* event) {
     delete pinky;
     delete inky;
     delete clyde;
-
+    qDeleteAll(items);
+    items.clear();
     scene->removeEventFilter(this);
     life = 3;
     Init();

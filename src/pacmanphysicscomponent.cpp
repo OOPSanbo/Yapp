@@ -22,8 +22,7 @@ void PacmanPhysicsComponent::Update(GameObject& object, Maze& maze) {
     }
     // check if pacman can move
     if (maze.CanFowardToDirection(pos, direction)) {
-      Point nextPos = Point(pos.x() + directionPoint.x() * 5,
-                            pos.y() + directionPoint.y() * 5);
+      Point nextPos = Point(pos + directionPoint * 5);
       object.SetPos(nextPos);
     }
 
